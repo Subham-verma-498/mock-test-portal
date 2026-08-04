@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Plus, Play, Music, Sparkles, Disc, Trash2, ArrowRight } from 'lucide-react';
+import { Globe, Plus, Play, Music, Sparkles, Disc, Trash2, ArrowRight, Check, ListPlus } from 'lucide-react';
 import { World, Song } from '@/types';
 import { PLANET_GRADIENTS } from '@/lib/db';
 import { formatDuration } from '@/lib/metadata';
@@ -15,6 +15,7 @@ interface DashboardViewProps {
   onCreateWorld: (name: string, description: string, gradientTheme: string) => void;
   onSelectWorld: (world: World) => void;
   onDeleteWorld: (worldId: string) => void;
+  onAddSongToWorld: (worldId: string, songId: string) => void;
   onNavigateUpload: () => void;
 }
 
@@ -25,6 +26,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onCreateWorld,
   onSelectWorld,
   onDeleteWorld,
+  onAddSongToWorld,
   onNavigateUpload,
 }) => {
   const { currentSong, isPlaying, playSong } = useAudio();
@@ -32,6 +34,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const [worldName, setWorldName] = useState('');
   const [worldDesc, setWorldDesc] = useState('');
   const [selectedGradient, setSelectedGradient] = useState(PLANET_GRADIENTS[0].gradient);
+  const [activeSongDropdown, setActiveSongDropdown] = useState<string | null>(null);
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,33 +57,43 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="space-y-10 pb-28">
-      {/* Hero Header */}
-      <div className="relative p-8 rounded-3xl glass-panel border border-purple-500/20 overflow-hidden">
+      {/* Spotify-style Hero Cosmic Banner */}
+      <div className="relative p-8 rounded-3xl glass-panel border border-purple-500/20 overflow-hidden shadow-2xl">
         <div className="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-gradient-to-tr from-purple-600/30 via-pink-500/20 to-cyan-400/30 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-cyan-400" />
-              <span className="text-xs uppercase font-bold tracking-widest text-cyan-300">Cosmic Cosmos</span>
+              <Sparkles className="w-5 h-5 text-cyan-400 animate-pulse" />
+              <span className="text-xs uppercase font-bold tracking-widest text-cyan-300">Cosmic Universe</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
               My Music Universe
             </h2>
             <p className="text-slate-400 text-sm mt-1 max-w-lg">
-              Explore your personal playlists formatted as glowing planetary worlds. Create custom atmospheres and stream your private audio collection.
+              Organize, stream, and listen offline to your custom audio collection in planet-themed playlists.
             </p>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 text-white font-bold text-sm shadow-xl shadow-purple-600/30 hover:shadow-purple-500/50 transition-all shrink-0"
-          >
-            <Plus className="w-5 h-5" />
-            Create a World
-          </motion.button>
+          <div className="flex items-center gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={onNavigateUpload}
+              className="px-4 py-3 rounded-2xl glass-panel border border-white/15 text-white font-semibold text-xs hover:bg-white/10 transition-colors"
+            >
+              Upload Songs
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 text-white font-bold text-sm shadow-xl shadow-purple-600/30 hover:shadow-purple-500/50 transition-all shrink-0"
+            >
+              <Plus className="w-5 h-5" />
+              Create a World
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -203,28 +216,35 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         )}
       </div>
 
-      {/* Recent Uploaded Songs Grid */}
+      {/* Spotify-style Home Page Song List with Quick Add to World */}
       {songs.length > 0 && (
         <div className="space-y-4 pt-4">
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <Music className="w-5 h-5 text-cyan-400" />
-            Recent Songs ({songs.length})
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <Music className="w-5 h-5 text-cyan-400" />
+              All Audio Tracks ({songs.length})
+            </h3>
+            <span className="text-xs text-slate-400">Click track to play • Use + to add to playlist</span>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {songs.slice(0, 6).map((song) => {
+          <div className="space-y-2">
+            {songs.map((song, idx) => {
               const isCurrent = currentSong?.id === song.id;
               return (
                 <div
                   key={song.id}
-                  onClick={() => playSong(song, songs)}
-                  className={`flex items-center justify-between p-3 rounded-2xl glass-panel cursor-pointer transition-all duration-200 ${
+                  className={`flex items-center justify-between p-3 rounded-2xl glass-panel group transition-all duration-200 ${
                     isCurrent
                       ? 'border-2 border-cyan-400/80 bg-cyan-500/10 shadow-[0_0_20px_rgba(6,182,212,0.3)]'
                       : 'hover:bg-white/5 border border-white/10'
                   }`}
                 >
-                  <div className="flex items-center gap-3 min-w-0">
+                  <div
+                    onClick={() => playSong(song, songs)}
+                    className="flex items-center gap-3 min-w-0 flex-1 cursor-pointer"
+                  >
+                    <span className="w-6 text-center font-mono text-xs text-slate-500">{idx + 1}</span>
+
                     <div
                       className={`w-11 h-11 rounded-xl overflow-hidden shrink-0 flex items-center justify-center ${
                         isCurrent && isPlaying ? 'animate-spin-vinyl' : ''
@@ -242,7 +262,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       )}
                     </div>
 
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <h5 className={`text-sm font-semibold truncate ${isCurrent ? 'text-cyan-300' : 'text-white'}`}>
                         {song.title}
                       </h5>
@@ -250,16 +270,66 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     </div>
                   </div>
 
+                  {/* Actions: Add to World & Duration */}
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono text-slate-400">{formatDuration(song.duration)}</span>
+
+                    {/* Quick Add to Playlist Dropdown */}
+                    <div className="relative">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveSongDropdown(activeSongDropdown === song.id ? null : song.id);
+                        }}
+                        className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors border border-white/10"
+                        title="Add to World Playlist"
+                      >
+                        <ListPlus className="w-4 h-4" />
+                        <span className="hidden sm:inline">Add to World</span>
+                      </button>
+
+                      {/* Dropdown Menu */}
+                      {activeSongDropdown === song.id && (
+                        <div className="absolute right-0 top-10 z-40 w-52 p-2 rounded-2xl glass-panel bg-slate-900 border border-purple-500/40 shadow-2xl space-y-1">
+                          <p className="text-[10px] font-bold uppercase text-purple-300 px-2 py-1">Add to Playlist</p>
+                          {worlds.length === 0 ? (
+                            <p className="text-[11px] text-slate-400 px-2 py-1">No worlds created yet</p>
+                          ) : (
+                            worlds.map((w) => {
+                              const inWorld = w.songIds.includes(song.id);
+                              return (
+                                <button
+                                  key={w.id}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onAddSongToWorld(w.id, song.id);
+                                    setActiveSongDropdown(null);
+                                  }}
+                                  className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs hover:bg-white/10 flex items-center justify-between text-slate-200 transition-colors"
+                                >
+                                  <span className="truncate">{w.name}</span>
+                                  {inWorld ? (
+                                    <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                                  ) : (
+                                    <Plus className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                                  )}
+                                </button>
+                              );
+                            })
+                          )}
+                        </div>
+                      )}
+                    </div>
+
                     <button
-                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      onClick={() => playSong(song, songs)}
+                      className={`w-9 h-9 rounded-full flex items-center justify-center ${
                         isCurrent && isPlaying
                           ? 'bg-cyan-400 text-slate-950'
                           : 'bg-purple-600/30 text-purple-200 hover:bg-purple-600/60'
                       }`}
                     >
-                      <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                      <Play className="w-4 h-4 fill-current ml-0.5" />
                     </button>
                   </div>
                 </div>

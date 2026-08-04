@@ -150,6 +150,11 @@ export default function Home() {
     }
   };
 
+  const handleNavigateTab = (tab: NavTab) => {
+    setActiveTab(tab);
+    setSelectedWorld(null);
+  };
+
   // World Handlers
   const handleCreateWorld = async (name: string, description: string, gradientTheme: string) => {
     const newWorld: World = {
@@ -190,7 +195,7 @@ export default function Home() {
   // Song Handlers
   const handleUploadSuccess = (newSong: Song) => {
     setSongs((prev) => [newSong, ...prev]);
-    setActiveTab('library');
+    handleNavigateTab('library');
   };
 
   const handleDeleteSong = async (songId: string) => {
@@ -210,7 +215,11 @@ export default function Home() {
 
   const handleAddSongToWorld = async (worldId: string, songId: string) => {
     const world = worlds.find((w) => w.id === worldId);
-    if (world && !world.songIds.includes(songId)) {
+    if (world) {
+      if (world.songIds.includes(songId)) {
+        showToast('Already in World', `Song is already in ${world.name}`, 'info');
+        return;
+      }
       const updatedIds = [...world.songIds, songId];
       await handleUpdateWorldSongs(worldId, updatedIds);
       showToast('Added to World', `Song added to ${world.name}`, 'success');
@@ -247,10 +256,7 @@ export default function Home() {
       {/* Main Sidebar Navigation */}
       <SidebarNav
         activeTab={activeTab}
-        setActiveTab={(tab) => {
-          setActiveTab(tab);
-          setSelectedWorld(null);
-        }}
+        setActiveTab={handleNavigateTab}
         openAuthModal={() => setIsAuthModalOpen(true)}
         canInstallPWA={!!deferredPrompt}
         onInstallPWA={handleInstallPWA}
@@ -262,14 +268,17 @@ export default function Home() {
           Song World
         </h1>
         <div className="flex items-center gap-3 text-xs">
-          <button onClick={() => setActiveTab('dashboard')} className={activeTab === 'dashboard' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
+          <button onClick={() => handleNavigateTab('dashboard')} className={activeTab === 'dashboard' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
             Worlds
           </button>
-          <button onClick={() => setActiveTab('upload')} className={activeTab === 'upload' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
+          <button onClick={() => handleNavigateTab('upload')} className={activeTab === 'upload' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
             Upload
           </button>
-          <button onClick={() => setActiveTab('library')} className={activeTab === 'library' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
+          <button onClick={() => handleNavigateTab('library')} className={activeTab === 'library' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
             Songs
+          </button>
+          <button onClick={() => handleNavigateTab('security')} className={activeTab === 'security' ? 'text-cyan-400 font-bold' : 'text-slate-400'}>
+            Privacy
           </button>
         </div>
       </div>
@@ -294,7 +303,8 @@ export default function Home() {
                 onCreateWorld={handleCreateWorld}
                 onSelectWorld={(world) => setSelectedWorld(world)}
                 onDeleteWorld={handleDeleteWorld}
-                onNavigateUpload={() => setActiveTab('upload')}
+                onAddSongToWorld={handleAddSongToWorld}
+                onNavigateUpload={() => handleNavigateTab('upload')}
               />
             )}
 
@@ -317,7 +327,7 @@ export default function Home() {
                 worlds={worlds}
                 onDeleteSong={handleDeleteSong}
                 onAddSongToWorld={handleAddSongToWorld}
-                onNavigateUpload={() => setActiveTab('upload')}
+                onNavigateUpload={() => handleNavigateTab('upload')}
               />
             )}
 
