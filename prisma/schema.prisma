@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+model User {
+  id            String           @id @default(cuid())
+  name          String?
+  email         String           @unique
+  image         String?
+  role          Role             @default(STUDENT)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  attempts      Attempt[]
+  reports       QuestionReport[]
+}
+
+model Test {
+  id               String     @id @default(cuid())
+  title            String
+  category         String     // "Technical" or "Aptitude"
+  description      String?
+  totalQuestions   Int        @default(30)
+  timePerQuestion  Int        @default(60) // 60 seconds
+  marksPerQuestion Int        @default(2)  // +2 marks per question
+  questions        Question[]
+  attempts         Attempt[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+}
+
+model Question {
+  id            String           @id @default(cuid())
+  testId        String
+  test          Test             @relation(fields: [testId], references: [id], onDelete: Cascade)
+  questionText  String
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+  correctOption String           // "A", "B", "C", "D"
+  topicTag      String           // e.g. "OOPs", "C++", "Quant", "Logical"
+  reports       QuestionReport[]
+  answers       AttemptAnswer[]
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+}
+
+model Attempt {
+  id           String          @id @default(cuid())
+  userId       String
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testId       String
+  test         Test            @relation(fields: [testId], references: [id], onDelete: Cascade)
+  score        Int             @default(0)
+  correctCount Int             @default(0)
+  wrongCount   Int             @default(0)
+  skippedCount Int             @default(0)
+  startedAt    DateTime        @default(now())
+  submittedAt  DateTime?
+  answers      AttemptAnswer[]
+}
+
+model AttemptAnswer {
+  id             String   @id @default(cuid())
+  attemptId      String
+  attempt        Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  questionId     String
+  question       Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  selectedOption String?  // "A", "B", "C", "D" or null if skipped
+  isCorrect      Boolean  @default(false)
+  isSkipped      Boolean  @default(false)
+}
+
+model QuestionReport {
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reportType String   // "Question is wrong" or "Correct answer is wrong"
+  comment    String?
+  resolved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}

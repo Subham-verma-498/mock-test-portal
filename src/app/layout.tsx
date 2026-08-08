@@ -1,39 +1,24 @@
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Providers from '@/components/Providers';
 import './globals.css';
-import { AuthProvider } from '@/context/AuthContext';
-import { AudioProvider } from '@/context/AudioContext';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Song World — Modern Personal Music Universe',
-  description:
-    'A vibrant, immersive personal music universe web app where users upload, organize, and stream their audio files offline.',
-  manifest: '/manifest.json',
-  icons: {
-    icon: '/favicon.ico',
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: '#8b5cf6',
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
+  title: 'Mock Test Portal - Timed Placement Exams & Student Analytics',
+  description: 'Full-stack online mock test platform featuring timed 30-question placement tests, instant scorecards, detailed review, question reporting, and admin analytics.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className="antialiased bg-slate-950 text-slate-100">
-        <AuthProvider>
-          <AudioProvider>{children}</AudioProvider>
-        </AuthProvider>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} bg-slate-950 text-slate-100 min-h-screen antialiased`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
