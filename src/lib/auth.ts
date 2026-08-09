@@ -33,10 +33,12 @@ export const authOptions: NextAuthOptions = {
 
               if (!email) return null;
 
-              // Admin email override check
-              const isAdminEmail = email === (process.env.ADMIN_EMAIL || 'admin@mocktestportal.com').toLowerCase();
+              const adminEmails = (process.env.ADMIN_EMAIL || 'admin@mocktestportal.com,buliyadon2001@gmail.com')
+                .toLowerCase()
+                .split(',')
+                .map((e) => e.trim());
+              const isAdminEmail = adminEmails.includes(email);
               const finalRole = isAdminEmail ? Role.ADMIN : requestedRole;
-
               let user;
               try {
                 user = await prisma.user.upsert({
@@ -90,7 +92,12 @@ export const authOptions: NextAuthOptions = {
 
       // In production Google OAuth login, sync or create user record in DB
       if (account?.provider === 'google') {
-        const isAdminEmail = user.email.toLowerCase() === (process.env.ADMIN_EMAIL || 'admin@mocktestportal.com').toLowerCase();
+        const adminEmails = (process.env.ADMIN_EMAIL || 'admin@mocktestportal.com,buliyadon2001@gmail.com')
+          .toLowerCase()
+          .split(',')
+          .map((e) => e.trim());
+        const isAdminEmail = adminEmails.includes(user.email.toLowerCase());
+
         try {
           const dbUser = await prisma.user.upsert({
             where: { email: user.email },

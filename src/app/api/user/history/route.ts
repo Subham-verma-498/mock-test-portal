@@ -22,7 +22,10 @@ export async function GET() {
     }
 
     const attempts = await prisma.attempt.findMany({
-      where: { userId: dbUser.id },
+      where: {
+        userId: dbUser.id,
+        submittedAt: { not: null },
+      },
       include: {
         test: {
           select: { title: true, category: true, totalQuestions: true },

@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -52,6 +53,7 @@ model Question {
   optionD       String
   correctOption String           // "A", "B", "C", "D"
   topicTag      String           // e.g. "OOPs", "C++", "Quant", "Logical"
+  explanation   String?
   reports       QuestionReport[]
   answers       AttemptAnswer[]
   createdAt     DateTime         @default(now())

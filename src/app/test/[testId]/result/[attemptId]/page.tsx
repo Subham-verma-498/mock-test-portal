@@ -16,7 +16,9 @@ import {
   ArrowRight,
   Send,
   X,
-  AlertCircle
+  AlertCircle,
+  Lightbulb,
+  BookOpen
 } from 'lucide-react';
 
 interface QuestionReportData {
@@ -109,9 +111,9 @@ export default function TestResultPage() {
 
   if (loading || !attemptData) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center">
-        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 text-sm animate-pulse">Compiling Exam Scorecard...</p>
+      <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col justify-center items-center">
+        <div className="w-12 h-12 border-4 border-[#38C7C7] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-[#38C7C7] text-sm animate-pulse font-semibold">Compiling Exam Scorecard...</p>
       </div>
     );
   }
@@ -129,17 +131,17 @@ export default function TestResultPage() {
     badgeColor = 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
   } else if (percentage >= 60) {
     badgeTitle = '🎉 Great Job!';
-    badgeColor = 'text-indigo-400 bg-indigo-500/10 border-indigo-500/30';
+    badgeColor = 'text-[#38C7C7] bg-[#38C7C7]/15 border-[#38C7C7]/40';
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col selection:bg-[#38C7C7] selection:text-black">
       <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8 flex-1">
         {/* Result Score Banner */}
-        <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/60 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6 relative overflow-hidden text-center">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-black/90 border border-[#38C7C7]/30 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6 relative overflow-hidden text-center">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#38C7C7]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-3">
             <span className={`inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-full border text-xs font-bold ${badgeColor}`}>
@@ -157,17 +159,17 @@ export default function TestResultPage() {
 
           {/* Big Score Display */}
           <div className="relative z-10 py-4 flex flex-col items-center justify-center">
-            <div className="text-6xl sm:text-7xl font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-white bg-clip-text text-transparent">
+            <div className="text-6xl sm:text-7xl font-black tracking-tight text-[#38C7C7] drop-shadow-[0_0_20px_rgba(56,199,199,0.4)]">
               {score} <span className="text-2xl sm:text-3xl font-medium text-slate-400">/ 60</span>
             </div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mt-2">
+            <div className="text-xs font-bold uppercase tracking-widest text-[#38C7C7] mt-2">
               Overall Score ({percentage}% Accuracy)
             </div>
           </div>
 
           {/* Stat Cards Breakdown Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-800">
-            <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-zinc-800">
+            <div className="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl">
               <div className="flex items-center justify-center space-x-1 text-emerald-400 mb-1">
                 <CheckCircle2 className="w-4 h-4" />
                 <span className="text-xs font-bold uppercase">Correct</span>
@@ -176,7 +178,7 @@ export default function TestResultPage() {
               <div className="text-[10px] text-slate-400">+{correctCount * 2} Marks</div>
             </div>
 
-            <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl">
+            <div className="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl">
               <div className="flex items-center justify-center space-x-1 text-red-400 mb-1">
                 <XCircle className="w-4 h-4" />
                 <span className="text-xs font-bold uppercase">Wrong</span>
@@ -185,7 +187,7 @@ export default function TestResultPage() {
               <div className="text-[10px] text-slate-400">0 Marks</div>
             </div>
 
-            <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl">
+            <div className="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl">
               <div className="flex items-center justify-center space-x-1 text-amber-400 mb-1">
                 <SkipForward className="w-4 h-4" />
                 <span className="text-xs font-bold uppercase">Skipped</span>
@@ -194,8 +196,8 @@ export default function TestResultPage() {
               <div className="text-[10px] text-slate-400">Auto-Skipped</div>
             </div>
 
-            <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl">
-              <div className="flex items-center justify-center space-x-1 text-indigo-400 mb-1">
+            <div className="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl">
+              <div className="flex items-center justify-center space-x-1 text-[#38C7C7] mb-1">
                 <Clock className="w-4 h-4" />
                 <span className="text-xs font-bold uppercase">Time Spent</span>
               </div>
@@ -210,9 +212,9 @@ export default function TestResultPage() {
           <div className="flex items-center justify-center space-x-4 pt-2">
             <button
               onClick={() => router.push('/dashboard')}
-              className="flex items-center space-x-2 py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition-all shadow-lg shadow-indigo-600/20"
+              className="flex items-center space-x-2 py-3 px-6 rounded-xl bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold text-sm transition-all shadow-lg shadow-[#38C7C7]/20"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-4 h-4 text-black" />
               <span>Back to Dashboard</span>
             </button>
           </div>
@@ -222,7 +224,7 @@ export default function TestResultPage() {
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-white flex items-center space-x-2">
-              <CheckCircle2 className="w-5 h-5 text-indigo-400" />
+              <CheckCircle2 className="w-5 h-5 text-[#38C7C7]" />
               <span>Question Solutions & Review</span>
             </h2>
             <span className="text-xs text-slate-400">Review all 30 questions & answers below</span>
@@ -262,11 +264,11 @@ export default function TestResultPage() {
               return (
                 <div
                   key={ans.id}
-                  className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-lg space-y-4 relative"
+                  className="bg-black/80 border border-zinc-800 rounded-2xl p-6 shadow-lg space-y-4 relative"
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 pb-3">
                     <div className="flex items-center space-x-3">
-                      <span className="font-mono text-xs font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-1 rounded-lg">
+                      <span className="font-mono text-xs font-bold text-[#38C7C7] bg-[#38C7C7]/10 border border-[#38C7C7]/30 px-2.5 py-1 rounded-lg">
                         Q{index + 1}
                       </span>
                       <span className="text-xs text-slate-400 font-medium">
@@ -281,8 +283,8 @@ export default function TestResultPage() {
                         disabled={isReported}
                         className={`inline-flex items-center space-x-1 px-3 py-1 rounded-full border text-xs font-semibold transition-all ${
                           isReported
-                            ? 'bg-slate-800 border-slate-700 text-slate-500 cursor-default'
-                            : 'bg-slate-800/80 hover:bg-slate-700/80 border-slate-700 text-slate-300 hover:text-amber-400'
+                            ? 'bg-zinc-900 border-zinc-800 text-slate-500 cursor-default'
+                            : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-700 text-slate-300 hover:text-amber-400'
                         }`}
                       >
                         <Flag className="w-3 h-3" />
@@ -307,7 +309,7 @@ export default function TestResultPage() {
                       const isUserChoice = ans.selectedOption === opt.key;
                       const isRightOption = q.correctOption === opt.key;
 
-                      let optStyle = 'bg-slate-950/60 border-slate-800 text-slate-400';
+                      let optStyle = 'bg-zinc-950/80 border-zinc-800 text-slate-400';
                       if (isRightOption) {
                         optStyle = 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300 font-semibold ring-1 ring-emerald-500/30';
                       } else if (isUserChoice && !isCorrect) {
@@ -344,6 +346,19 @@ export default function TestResultPage() {
                       );
                     })}
                   </div>
+
+                  {/* Solution & Detailed Explanation Box */}
+                  <div className="mt-4 pt-3.5 border-t border-zinc-800">
+                    <div className="bg-black/90 border border-[#38C7C7]/20 rounded-xl p-4 space-y-2 shadow-inner">
+                      <div className="flex items-center space-x-2 text-[#38C7C7] font-bold text-xs">
+                        <Lightbulb className="w-4 h-4 text-amber-400" />
+                        <span className="uppercase tracking-wider">Solution & Concept Explanation</span>
+                      </div>
+                      <p className="text-slate-200 text-xs sm:text-sm leading-relaxed font-normal">
+                        {q.explanation || `Option ${q.correctOption} is correct. This choice directly aligns with standard ${q.topicTag} algorithms and principles.`}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -353,11 +368,11 @@ export default function TestResultPage() {
 
       {/* Question Report Modal */}
       {reportingQuestionId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-6 relative overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#03070d] border border-[#38C7C7]/30 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-6 relative overflow-hidden animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setReportingQuestionId(null)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
+              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -381,7 +396,7 @@ export default function TestResultPage() {
                 <select
                   value={reportType}
                   onChange={(e) => setReportType(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-black border border-zinc-800 rounded-xl py-2.5 px-3 text-xs text-slate-200 focus:outline-none focus:border-[#38C7C7]"
                 >
                   <option value="Question is wrong">Question statement is wrong or confusing</option>
                   <option value="Correct answer is wrong">Marked correct answer is incorrect</option>
@@ -398,7 +413,7 @@ export default function TestResultPage() {
                   value={reportComment}
                   onChange={(e) => setReportComment(e.target.value)}
                   placeholder="Provide additional details regarding the error..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 resize-none"
+                  className="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-[#38C7C7] resize-none"
                 />
               </div>
             </div>
@@ -406,7 +421,7 @@ export default function TestResultPage() {
             <div className="flex items-center space-x-3 pt-2">
               <button
                 onClick={() => setReportingQuestionId(null)}
-                className="w-1/3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition-colors"
+                className="w-1/3 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-slate-300 font-semibold text-xs transition-colors"
               >
                 Cancel
               </button>
@@ -425,3 +440,4 @@ export default function TestResultPage() {
     </div>
   );
 }
+

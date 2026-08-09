@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { id, testId, questionText, optionA, optionB, optionC, optionD, correctOption, topicTag } = body;
+    const { id, testId, questionText, optionA, optionB, optionC, optionD, correctOption, topicTag, explanation } = body;
 
     if (!testId || !questionText || !optionA || !optionB || !optionC || !optionD || !correctOption || !topicTag) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
@@ -32,6 +32,7 @@ export async function POST(req: Request) {
           optionD,
           correctOption,
           topicTag,
+          explanation: explanation || null,
         },
       });
     } else {
@@ -46,6 +47,7 @@ export async function POST(req: Request) {
           optionD,
           correctOption,
           topicTag,
+          explanation: explanation || null,
         },
       });
     }

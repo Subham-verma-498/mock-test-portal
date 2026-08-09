@@ -20,6 +20,7 @@ export async function GET() {
         orderBy: { createdAt: 'desc' },
       }),
       prisma.attempt.findMany({
+        where: { submittedAt: { not: null } },
         include: {
           user: { select: { name: true, email: true, image: true } },
           test: { select: { title: true, category: true } },

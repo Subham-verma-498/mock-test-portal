@@ -17,7 +17,16 @@ import {
   History,
   ArrowRight,
   BarChart3,
-  X
+  X,
+  Layers,
+  Cpu,
+  Server,
+  Zap,
+  Sparkles,
+  Database,
+  PieChart,
+  Calculator,
+  GraduationCap,
 } from 'lucide-react';
 import {
   LineChart,
@@ -37,6 +46,7 @@ interface TestItem {
   totalQuestions: number;
   timePerQuestion: number;
   marksPerQuestion: number;
+  _count?: { questions: number };
 }
 
 interface AttemptItem {
@@ -117,16 +127,120 @@ export default function DashboardPage() {
 
       if (res.ok) {
         const data = await res.json();
-        router.push(`/test/${selectedTest.id}?attemptId=${data.attemptId}`);
+        router.push(`/test/${data.test.id}?attemptId=${data.attemptId}`);
       } else {
-        alert('Failed to initialize test attempt. Please try again.');
+        const data = await res.json().catch(() => ({}));
+        alert(data.details ? `${data.error}: ${data.details}` : (data.error || 'Failed to initialize test attempt. Please try again.'));
       }
     } catch (err) {
       console.error('Error starting test:', err);
-      alert('Error connecting to test engine.');
+      alert('Error connecting to test engine. Please try again.');
     } finally {
       setStartingTest(false);
     }
+  };
+
+  // Helper to select icon & accent colors based on test title/category
+  const getTestVisuals = (test: TestItem) => {
+    const titleLower = test.title.toLowerCase();
+    if (titleLower.includes('full-stack') || titleLower.includes('system design')) {
+      return {
+        icon: Server,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'Microservices, APIs, Security, Caching',
+      };
+    }
+    if (titleLower.includes('data structures') || titleLower.includes('dsa') || titleLower.includes('algorithms')) {
+      return {
+        icon: Layers,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'DP, Graphs, Trees, Bit Manipulation',
+      };
+    }
+    if (titleLower.includes('core cs') || titleLower.includes('fundamentals')) {
+      return {
+        icon: Database,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'OS, DBMS, Networks, SOLID',
+      };
+    }
+    if (titleLower.includes('aptitude mock test 2') || titleLower.includes('advanced placement aptitude') || titleLower.includes('aptitude ii')) {
+      return {
+        icon: Sparkles,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'Permutations, Circular Puzzles, Syllogisms',
+      };
+    }
+    if (titleLower.includes('aptitude mock test 3') || titleLower.includes('data interpretation')) {
+      return {
+        icon: PieChart,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'DI, Speed Math, Pipes & Cisterns',
+      };
+    }
+    if (titleLower.includes('aptitude mock test 4') || titleLower.includes('business analytics')) {
+      return {
+        icon: Calculator,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'Analytics, Mixtures, Data Sufficiency',
+      };
+    }
+    if (titleLower.includes('aptitude mock test 5') || titleLower.includes('grand aptitude')) {
+      return {
+        icon: GraduationCap,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'Campus Placement Grand Exam',
+      };
+    }
+    if (test.category === 'Aptitude') {
+      return {
+        icon: Brain,
+        badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/60',
+        glowColor: 'bg-[#38C7C7]/10',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+        subTag: 'Quant, Logical, Verbal',
+      };
+    }
+    // Default Technical
+    return {
+      icon: Code2,
+      badgeBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+      iconBg: 'bg-[#38C7C7]/15 border-[#38C7C7]/40 text-[#38C7C7]',
+      hoverBorder: 'hover:border-[#38C7C7]/60',
+      glowColor: 'bg-[#38C7C7]/10',
+      btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/20',
+      subTag: 'OOPs, C++, C# Core',
+    };
   };
 
   // Prepare chart data
@@ -142,37 +256,37 @@ export default function DashboardPage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center">
-        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 text-sm animate-pulse">Loading Mock Test Portal...</p>
+      <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col justify-center items-center">
+        <div className="w-12 h-12 border-4 border-[#38C7C7] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-[#38C7C7] text-sm animate-pulse font-semibold">Loading Mock Test Portal...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col selection:bg-[#38C7C7] selection:text-black">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8 flex-1">
         {/* Welcome Header */}
-        <div className="bg-gradient-to-r from-indigo-900/40 via-purple-900/20 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-gradient-to-r from-[#38C7C7]/20 via-[#0a1e24] to-black border border-[#38C7C7]/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#38C7C7]/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-3">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#38C7C7]/15 border border-[#38C7C7]/30 text-[#38C7C7] text-xs font-semibold mb-3 shadow-[0_0_10px_rgba(56,199,199,0.2)]">
                 <Award className="w-3.5 h-3.5" />
                 <span>Student Exam Portal</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                 Welcome back, {session?.user?.name || 'Candidate'}! 👋
               </h1>
-              <p className="text-slate-400 text-sm mt-1 max-w-2xl">
-                Ready to take a mock test today? Hone your skills with timed 30-question tests designed to simulate campus placement technical and aptitude rounds.
+              <p className="text-slate-300 text-sm mt-1 max-w-2xl">
+                Ready to take a mock test today? Hone your skills with timed 30-question placement mock exams covering Technical, System Design, DSA, Core CS, and Aptitude.
               </p>
             </div>
 
-            <div className="flex items-center space-x-3 bg-slate-900/80 border border-slate-800 p-3 rounded-2xl">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="flex items-center space-x-3 bg-black/80 border border-[#38C7C7]/30 p-3 rounded-2xl shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-[#38C7C7]/15 border border-[#38C7C7]/30 flex items-center justify-center text-[#38C7C7]">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
@@ -185,173 +299,114 @@ export default function DashboardPage() {
 
         {/* Overview Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 rounded-2xl p-5 shadow-lg flex items-center justify-between">
             <div>
               <p className="text-xs font-medium text-slate-400">Tests Attempted</p>
               <p className="text-2xl font-bold text-white mt-1">{stats.totalAttempts}</p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <div className="w-12 h-12 rounded-xl bg-[#38C7C7]/10 border border-[#38C7C7]/30 flex items-center justify-center text-[#38C7C7]">
               <BookOpen className="w-6 h-6" />
             </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 rounded-2xl p-5 shadow-lg flex items-center justify-between">
             <div>
               <p className="text-xs font-medium text-slate-400">Average Score</p>
-              <p className="text-2xl font-bold text-white mt-1">
+              <p className="text-2xl font-bold text-[#38C7C7] mt-1">
                 {stats.avgScore} <span className="text-xs text-slate-400 font-normal">/ 60</span>
               </p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+            <div className="w-12 h-12 rounded-xl bg-[#38C7C7]/10 border border-[#38C7C7]/30 flex items-center justify-center text-[#38C7C7]">
               <TrendingUp className="w-6 h-6" />
             </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 rounded-2xl p-5 shadow-lg flex items-center justify-between">
             <div>
               <p className="text-xs font-medium text-slate-400">Highest Score</p>
               <p className="text-2xl font-bold text-emerald-400 mt-1">
                 {stats.highestScore} <span className="text-xs text-slate-400 font-normal">/ 60</span>
               </p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
               <Award className="w-6 h-6" />
             </div>
           </div>
         </div>
 
-        {/* Available Mock Tests */}
+        {/* Available Mock Tests Dynamic Grid */}
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-white flex items-center space-x-2">
-              <BookOpen className="w-5 h-5 text-indigo-400" />
-              <span>Available Mock Tests</span>
+              <BookOpen className="w-5 h-5 text-[#38C7C7]" />
+              <span>Available Mock Tests ({tests.length})</span>
             </h2>
-            <span className="text-xs text-slate-400">Select a test to start taking it</span>
+            <span className="text-xs text-slate-400">Select any mock test to view rules and begin</span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Technical Mock Test */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden flex flex-col justify-between group hover:border-indigo-500/40 transition-all">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/10 rounded-full blur-2xl pointer-events-none" />
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-                      <Code2 className="w-5 h-5" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tests.map((test) => {
+              const visuals = getTestVisuals(test);
+              const IconComp = visuals.icon;
+              const qCount = test._count?.questions || test.totalQuestions || 30;
+
+              return (
+                <div
+                  key={test.id}
+                  className={`bg-black/80 border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden flex flex-col justify-between group ${visuals.hoverBorder} transition-all`}
+                >
+                  <div className={`absolute top-0 right-0 w-32 h-32 ${visuals.glowColor} rounded-full blur-2xl pointer-events-none`} />
+
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${visuals.iconBg}`}>
+                          <IconComp className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-base text-white line-clamp-1">{test.title}</h3>
+                          <span className="text-[11px] font-semibold text-slate-400 block">{visuals.subTag}</span>
+                        </div>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-semibold shrink-0 ${visuals.badgeBg}`}>
+                        {test.category}
+                      </span>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-white">Technical Mock Test</h3>
-                      <span className="text-xs text-indigo-400 font-semibold">OOPs, C++, C#</span>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-                    Technical
-                  </span>
-                </div>
 
-                <p className="text-slate-400 text-sm mb-6">
-                  Comprehensive 30-question technical round evaluating Object-Oriented Programming, C++ memory & virtual mechanics, and C# features.
-                </p>
+                    <p className="text-slate-400 text-xs mb-6 line-clamp-3 leading-relaxed">
+                      {test.description}
+                    </p>
 
-                {/* Specs List */}
-                <div className="grid grid-cols-3 gap-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 mb-6 text-xs text-slate-300">
-                  <div className="text-center">
-                    <span className="block text-slate-400 text-[10px]">QUESTIONS</span>
-                    <span className="font-bold text-white">30 Qs</span>
-                  </div>
-                  <div className="text-center border-x border-slate-800">
-                    <span className="block text-slate-400 text-[10px]">TIME / QUESTION</span>
-                    <span className="font-bold text-white">60 Secs</span>
-                  </div>
-                  <div className="text-center">
-                    <span className="block text-slate-400 text-[10px]">MARKING</span>
-                    <span className="font-bold text-emerald-400">+2 Marks</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  const t = tests.find((x) => x.category === 'Technical') || tests[0] || {
-                    id: 'tech-mock-test-id',
-                    title: 'Technical Mock Test',
-                    category: 'Technical',
-                    description: 'Comprehensive evaluation of OOPs, C++, and C#.',
-                    totalQuestions: 30,
-                    timePerQuestion: 60,
-                    marksPerQuestion: 2,
-                  };
-                  setSelectedTest(t);
-                  setAgreedRules(false);
-                }}
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/20 group-hover:scale-[1.01]"
-              >
-                <span>Start Technical Test</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Aptitude Mock Test */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden flex flex-col justify-between group hover:border-purple-500/40 transition-all">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/10 rounded-full blur-2xl pointer-events-none" />
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                      <Brain className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-white">Aptitude Mock Test</h3>
-                      <span className="text-xs text-purple-400 font-semibold">Quant, Logical, Verbal</span>
+                    {/* Specs List */}
+                    <div className="grid grid-cols-3 gap-2 bg-zinc-950/80 p-3 rounded-xl border border-zinc-800/80 mb-6 text-xs text-slate-300">
+                      <div className="text-center">
+                        <span className="block text-slate-400 text-[10px]">QUESTIONS</span>
+                        <span className="font-bold text-white">{qCount} Qs</span>
+                      </div>
+                      <div className="text-center border-x border-zinc-800">
+                        <span className="block text-slate-400 text-[10px]">TIME / Q</span>
+                        <span className="font-bold text-white">{test.timePerQuestion || 60}s</span>
+                      </div>
+                      <div className="text-center">
+                        <span className="block text-slate-400 text-[10px]">MARKING</span>
+                        <span className="font-bold text-[#38C7C7]">+{test.marksPerQuestion || 2} M</span>
+                      </div>
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-semibold">
-                    Aptitude
-                  </span>
+
+                  <button
+                    onClick={() => {
+                      setSelectedTest(test);
+                      setAgreedRules(false);
+                    }}
+                    className={`w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-black font-extrabold text-sm transition-all shadow-lg ${visuals.btnBg} group-hover:scale-[1.01]`}
+                  >
+                    <span>Start {test.category} Test</span>
+                    <ArrowRight className="w-4 h-4 text-black" />
+                  </button>
                 </div>
-
-                <p className="text-slate-400 text-sm mb-6">
-                  Rigorous speed & accuracy test covering Quantitative Aptitude, Logical Reasoning series, and English Verbal Ability.
-                </p>
-
-                {/* Specs List */}
-                <div className="grid grid-cols-3 gap-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 mb-6 text-xs text-slate-300">
-                  <div className="text-center">
-                    <span className="block text-slate-400 text-[10px]">QUESTIONS</span>
-                    <span className="font-bold text-white">30 Qs</span>
-                  </div>
-                  <div className="text-center border-x border-slate-800">
-                    <span className="block text-slate-400 text-[10px]">TIME / QUESTION</span>
-                    <span className="font-bold text-white">60 Secs</span>
-                  </div>
-                  <div className="text-center">
-                    <span className="block text-slate-400 text-[10px]">MARKING</span>
-                    <span className="font-bold text-emerald-400">+2 Marks</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  const t = tests.find((x) => x.category === 'Aptitude') || tests[1] || {
-                    id: 'apt-mock-test-id',
-                    title: 'Aptitude Mock Test',
-                    category: 'Aptitude',
-                    description: 'Quantitative, Logical Reasoning, and Verbal Ability.',
-                    totalQuestions: 30,
-                    timePerQuestion: 60,
-                    marksPerQuestion: 2,
-                  };
-                  setSelectedTest(t);
-                  setAgreedRules(false);
-                }}
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm transition-all shadow-lg shadow-purple-600/20 group-hover:scale-[1.01]"
-              >
-                <span>Start Aptitude Test</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+              );
+            })}
           </div>
         </section>
 
@@ -359,27 +414,27 @@ export default function DashboardPage() {
         {attempts.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="history">
             {/* Chart */}
-            <div className="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-lg space-y-4">
+            <div className="lg:col-span-1 bg-black/80 border border-zinc-800 rounded-2xl p-6 shadow-lg space-y-4">
               <h3 className="font-bold text-lg text-white flex items-center space-x-2">
-                <BarChart3 className="w-5 h-5 text-indigo-400" />
+                <BarChart3 className="w-5 h-5 text-[#38C7C7]" />
                 <span>Score Progression</span>
               </h3>
               <p className="text-xs text-slate-400">Score history across recent tests (out of 60)</p>
               <div className="h-56 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
                     <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} />
                     <YAxis domain={[0, 60]} stroke="#94a3b8" fontSize={10} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.75rem', fontSize: '12px' }}
+                      contentStyle={{ backgroundColor: '#03070d', borderColor: '#38C7C7', borderRadius: '0.75rem', fontSize: '12px', color: '#fff' }}
                     />
                     <Line
                       type="monotone"
                       dataKey="score"
-                      stroke="#6366f1"
+                      stroke="#38C7C7"
                       strokeWidth={3}
-                      dot={{ fill: '#a855f7', r: 5 }}
+                      dot={{ fill: '#38C7C7', r: 5 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -387,15 +442,15 @@ export default function DashboardPage() {
             </div>
 
             {/* Test History List */}
-            <div className="lg:col-span-2 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-lg space-y-4">
+            <div className="lg:col-span-2 bg-black/80 border border-zinc-800 rounded-2xl p-6 shadow-lg space-y-4">
               <h3 className="font-bold text-lg text-white flex items-center space-x-2">
-                <History className="w-5 h-5 text-indigo-400" />
+                <History className="w-5 h-5 text-[#38C7C7]" />
                 <span>Past Attempt Logs</span>
               </h3>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="text-xs text-slate-400 uppercase bg-slate-950/60 border-b border-slate-800">
+                  <thead className="text-xs text-slate-400 uppercase bg-zinc-950/80 border-b border-zinc-800">
                     <tr>
                       <th className="py-3 px-4">Test Title</th>
                       <th className="py-3 px-4">Date</th>
@@ -404,16 +459,16 @@ export default function DashboardPage() {
                       <th className="py-3 px-4 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800 text-slate-300">
+                  <tbody className="divide-y divide-zinc-800 text-slate-300">
                     {attempts.map((att) => (
-                      <tr key={att.id} className="hover:bg-slate-800/40 transition-colors">
+                      <tr key={att.id} className="hover:bg-zinc-900/60 transition-colors">
                         <td className="py-3.5 px-4 font-semibold text-white">
                           {att.test?.title || 'Mock Test'}
                         </td>
                         <td className="py-3.5 px-4 text-xs text-slate-400">
                           {new Date(att.startedAt).toLocaleDateString()}
                         </td>
-                        <td className="py-3.5 px-4 font-bold text-indigo-400">
+                        <td className="py-3.5 px-4 font-bold text-[#38C7C7]">
                           {att.score} / 60
                         </td>
                         <td className="py-3.5 px-4 text-xs">
@@ -426,7 +481,7 @@ export default function DashboardPage() {
                         <td className="py-3.5 px-4 text-right">
                           <button
                             onClick={() => router.push(`/test/${att.testId}/result/${att.id}`)}
-                            className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center justify-end space-x-1 ml-auto"
+                            className="text-xs text-[#38C7C7] hover:underline font-semibold flex items-center justify-end space-x-1 ml-auto"
                           >
                             <span>Review</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -444,17 +499,17 @@ export default function DashboardPage() {
 
       {/* Instructions Modal */}
       {selectedTest && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#03070d] border border-[#38C7C7]/30 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setSelectedTest(null)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
+              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div>
-              <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
+              <span className="px-3 py-1 rounded-full bg-[#38C7C7]/15 border border-[#38C7C7]/40 text-[#38C7C7] text-xs font-semibold">
                 {selectedTest.category} Exam Instructions
               </span>
               <h2 className="text-2xl font-extrabold text-white mt-2">
@@ -466,18 +521,18 @@ export default function DashboardPage() {
             </div>
 
             {/* Rules Breakdown */}
-            <div className="space-y-3 bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-xs text-slate-300">
+            <div className="space-y-3 bg-black/80 border border-zinc-800 p-4 rounded-2xl text-xs text-slate-300">
               <div className="flex items-start space-x-3">
-                <Clock className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" />
+                <Clock className="w-4 h-4 text-[#38C7C7] mt-0.5 shrink-0" />
                 <div>
-                  <strong className="text-slate-100">Hard Per-Question Countdown:</strong> You have strictly <strong>60 seconds per question</strong>. If time expires, the question automatically skips and locks in as unattempted.
+                  <strong className="text-slate-100">Hard Per-Question Countdown:</strong> You have strictly <strong>{selectedTest.timePerQuestion || 60} seconds per question</strong>. If time expires, the question automatically skips and locks in as unattempted.
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
                 <div>
-                  <strong className="text-slate-100">Marking Scheme:</strong> <strong>+2 marks</strong> for every correct answer. No negative marking (0 for wrong/unattempted). Maximum score is 60.
+                  <strong className="text-slate-100">Marking Scheme:</strong> <strong>+{selectedTest.marksPerQuestion || 2} marks</strong> for every correct answer. No negative marking (0 for wrong/unattempted). Maximum score is 60.
                 </div>
               </div>
 
@@ -502,7 +557,7 @@ export default function DashboardPage() {
                 type="checkbox"
                 checked={agreedRules}
                 onChange={(e) => setAgreedRules(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-700 bg-slate-800 text-indigo-600 focus:ring-indigo-500"
+                className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-[#38C7C7] focus:ring-[#38C7C7]"
               />
               <span>I have read and understood all exam rules. I am ready to begin.</span>
             </label>
@@ -511,7 +566,7 @@ export default function DashboardPage() {
             <div className="flex items-center space-x-3 pt-2">
               <button
                 onClick={() => setSelectedTest(null)}
-                className="w-1/3 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition-colors"
+                className="w-1/3 py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-slate-300 font-semibold text-xs transition-colors"
               >
                 Cancel
               </button>
@@ -520,17 +575,18 @@ export default function DashboardPage() {
                 disabled={!agreedRules || startingTest}
                 className={`w-2/3 py-3 rounded-xl font-bold text-xs transition-all shadow-lg flex items-center justify-center space-x-2 ${
                   agreedRules && !startingTest
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-indigo-500/25 scale-[1.01]'
-                    : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    ? 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/25 scale-[1.01]'
+                    : 'bg-zinc-800 text-slate-500 cursor-not-allowed'
                 }`}
               >
                 <span>{startingTest ? 'Preparing Exam...' : 'Begin Exam Now'}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-black" />
               </button>
             </div>
           </div>
         </div>
       )}
     </div>
+
   );
 }

@@ -62,7 +62,7 @@ export default function ExamEnginePage() {
       const res = await fetch('/api/test/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ testId }),
+        body: JSON.stringify({ testId, attemptId }),
       });
 
       if (!res.ok) {
@@ -187,14 +187,14 @@ export default function ExamEnginePage() {
     ? 'border-red-500 text-red-400 shadow-red-500/30'
     : isTimerWarning
     ? 'border-amber-500 text-amber-400 shadow-amber-500/30'
-    : 'border-indigo-500 text-indigo-400 shadow-indigo-500/30';
+    : 'border-[#38C7C7] text-[#38C7C7] shadow-[0_0_15px_rgba(56,199,199,0.3)]';
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col justify-between selection:bg-[#38C7C7] selection:text-black">
       {/* Distraction-Free Header */}
-      <header className="bg-slate-900/90 border-b border-slate-800 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-40 backdrop-blur-md">
+      <header className="bg-black/90 border-b border-[#38C7C7]/20 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-40 backdrop-blur-md">
         <div className="flex items-center space-x-3">
-          <div className="px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-xs font-bold">
+          <div className="px-2.5 py-1 rounded-lg bg-[#38C7C7]/15 border border-[#38C7C7]/40 text-[#38C7C7] font-mono text-xs font-bold">
             {test.category}
           </div>
           <div>
@@ -204,14 +204,14 @@ export default function ExamEnginePage() {
             <div className="text-[11px] text-slate-400 flex items-center space-x-2">
               <span>Question {currentIndex + 1} of {test.totalQuestions}</span>
               <span>•</span>
-              <span className="text-emerald-400 font-medium">+2 Marks per question</span>
+              <span className="text-[#38C7C7] font-medium">+2 Marks per question</span>
             </div>
           </div>
         </div>
 
         {/* Circular Countdown Timer */}
         <div className="flex items-center space-x-4">
-          <div className={`w-12 h-12 rounded-full border-4 ${timerBorderColor} flex items-center justify-center font-mono font-extrabold text-base transition-all shadow-lg bg-slate-950`}>
+          <div className={`w-12 h-12 rounded-full border-4 ${timerBorderColor} flex items-center justify-center font-mono font-extrabold text-base transition-all shadow-lg bg-black`}>
             {timeLeft}s
           </div>
 
@@ -226,19 +226,19 @@ export default function ExamEnginePage() {
       </header>
 
       {/* Top Question Progress Bar */}
-      <div className="w-full bg-slate-900 h-1.5 relative overflow-hidden">
+      <div className="w-full bg-zinc-950 h-1.5 relative overflow-hidden">
         <div
-          className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-full transition-all duration-300"
+          className="bg-[#38C7C7] h-full transition-all duration-300 shadow-[0_0_10px_rgba(56,199,199,0.8)]"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
 
       {/* Main Exam Question Workspace */}
       <main className="max-w-4xl mx-auto px-4 py-8 w-full flex-1 flex flex-col justify-center">
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-8 relative overflow-hidden">
+        <div className="bg-black/90 border border-[#38C7C7]/25 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-8 relative overflow-hidden">
           {/* Topic Tag & Question Meta */}
           <div className="flex items-center justify-between">
-            <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium uppercase tracking-wider">
+            <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[#38C7C7] text-xs font-medium uppercase tracking-wider">
               Topic: {currentQuestion.topicTag}
             </span>
             <span className="text-xs text-slate-400">
@@ -248,7 +248,7 @@ export default function ExamEnginePage() {
 
           {/* Question Text */}
           <div className="space-y-2">
-            <span className="text-indigo-400 font-bold text-xs uppercase tracking-wider">
+            <span className="text-[#38C7C7] font-bold text-xs uppercase tracking-wider">
               Question #{currentIndex + 1}
             </span>
             <h2 className="text-lg sm:text-xl font-bold text-white leading-relaxed">
@@ -271,16 +271,16 @@ export default function ExamEnginePage() {
                   onClick={() => setSelectedOption(opt.key)}
                   className={`w-full p-4 rounded-2xl border text-left transition-all flex items-center justify-between group ${
                     isSelected
-                      ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-lg shadow-indigo-500/10 ring-1 ring-indigo-500'
-                      : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700 text-slate-300 hover:bg-slate-800/40'
+                      ? 'bg-[#38C7C7]/15 border-[#38C7C7] text-white shadow-lg shadow-[#38C7C7]/10 ring-1 ring-[#38C7C7]'
+                      : 'bg-zinc-950/80 border-zinc-800 hover:border-zinc-700 text-slate-300 hover:bg-zinc-900/60'
                   }`}
                 >
                   <div className="flex items-center space-x-4">
                     <div
                       className={`w-8 h-8 rounded-xl font-mono font-bold text-xs flex items-center justify-center transition-colors ${
                         isSelected
-                          ? 'bg-indigo-600 text-white'
-                          : 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-white'
+                          ? 'bg-[#38C7C7] text-black font-extrabold'
+                          : 'bg-zinc-800 text-slate-400 group-hover:bg-zinc-700 group-hover:text-white'
                       }`}
                     >
                       {opt.key}
@@ -289,9 +289,9 @@ export default function ExamEnginePage() {
                   </div>
 
                   <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                    isSelected ? 'border-indigo-500 bg-indigo-500 text-white' : 'border-slate-700'
+                    isSelected ? 'border-[#38C7C7] bg-[#38C7C7] text-black' : 'border-zinc-700'
                   }`}>
-                    {isSelected && <CheckCircle2 className="w-4 h-4" />}
+                    {isSelected && <CheckCircle2 className="w-4 h-4 text-black" />}
                   </div>
                 </button>
               );
@@ -301,12 +301,12 @@ export default function ExamEnginePage() {
       </main>
 
       {/* Bottom Control Bar */}
-      <footer className="bg-slate-900/90 border-t border-slate-800 px-4 sm:px-8 py-4 sticky bottom-0 z-40 backdrop-blur-md">
+      <footer className="bg-black/90 border-t border-[#38C7C7]/20 px-4 sm:px-8 py-4 sticky bottom-0 z-40 backdrop-blur-md">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="text-xs text-slate-400 hidden sm:block">
             {selectedOption ? (
-              <span className="text-emerald-400 font-medium flex items-center space-x-1">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+              <span className="text-[#38C7C7] font-medium flex items-center space-x-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#38C7C7]" />
                 <span>Option {selectedOption} selected. Click Next to lock.</span>
               </span>
             ) : (
@@ -320,22 +320,22 @@ export default function ExamEnginePage() {
           <button
             onClick={advanceToNextQuestion}
             disabled={submitting}
-            className={`w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center space-x-2 ${
+            className={`w-full sm:w-auto px-8 py-3.5 rounded-xl font-extrabold text-sm transition-all shadow-lg flex items-center justify-center space-x-2 ${
               isLastQuestion
-                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/25 scale-[1.02]'
-                : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25'
+                ? 'bg-emerald-500 hover:bg-emerald-400 text-black shadow-emerald-500/25 scale-[1.02]'
+                : 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black shadow-[#38C7C7]/25'
             }`}
           >
             <span>{isLastQuestion ? 'Submit Test Now' : 'Lock & Next Question'}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 text-black" />
           </button>
         </div>
       </footer>
 
       {/* Quitting Modal Confirmation */}
       {showExitModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#03070d] border border-[#38C7C7]/30 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 flex items-center justify-center mb-2">
               <ShieldAlert className="w-6 h-6" />
             </div>
@@ -349,7 +349,7 @@ export default function ExamEnginePage() {
             <div className="flex items-center space-x-3 pt-2">
               <button
                 onClick={() => setShowExitModal(false)}
-                className="w-1/2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition-colors"
+                className="w-1/2 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-slate-300 font-semibold text-xs transition-colors"
               >
                 Continue Exam
               </button>
@@ -366,12 +366,13 @@ export default function ExamEnginePage() {
 
       {/* Loading Overlay when Submitting */}
       {submitting && (
-        <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center space-y-4">
-          <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center space-y-4">
+          <div className="w-12 h-12 border-4 border-[#38C7C7] border-t-transparent rounded-full animate-spin" />
           <h2 className="text-xl font-bold text-white">Evaluating Exam Answers...</h2>
-          <p className="text-xs text-slate-400">Calculating final score and compiling performance breakdown.</p>
+          <p className="text-xs text-[#38C7C7]">Calculating final score and compiling performance breakdown.</p>
         </div>
       )}
     </div>
   );
 }
+

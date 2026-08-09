@@ -6,30 +6,74 @@ import { authOptions } from '@/lib/auth';
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    let userEmail = session?.user?.email;
+
+    if (!userEmail) {
+      if (process.env.ENABLE_DEMO_AUTH === 'true') {
+        userEmail = 'student@demo.com';
+      } else {
+        return NextResponse.json({ error: 'Unauthorized. Please sign in to start the exam.' }, { status: 401 });
+      }
     }
 
-    const { testId } = await req.json();
-    if (!testId) {
-      return NextResponse.json({ error: 'Test ID is required' }, { status: 400 });
+    const { testId, attemptId } = await req.json();
+    if (!testId && !attemptId) {
+      return NextResponse.json({ error: 'Test ID or Attempt ID is required' }, { status: 400 });
+    }
+
+    // 1. Check if attemptId was passed and already exists in database to avoid duplicate attempt creation
+    if (attemptId) {
+      const existingAttempt = await prisma.attempt.findUnique({
+        where: { id: attemptId },
+        include: {
+          test: {
+            include: {
+              questions: {
+                select: {
+                  id: true,
+                  questionText: true,
+                  optionA: true,
+                  optionB: true,
+                  optionC: true,
+                  optionD: true,
+                  topicTag: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (existingAttempt && existingAttempt.test.questions.length > 0) {
+        return NextResponse.json({
+          attemptId: existingAttempt.id,
+          test: {
+            id: existingAttempt.test.id,
+            title: existingAttempt.test.title,
+            category: existingAttempt.test.category,
+            totalQuestions: existingAttempt.test.questions.length,
+            timePerQuestion: existingAttempt.test.timePerQuestion,
+            questions: existingAttempt.test.questions,
+          },
+        });
+      }
     }
 
     let user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: { email: userEmail },
     });
 
     if (!user) {
       user = await prisma.user.create({
         data: {
-          email: session.user.email,
-          name: session.user.name || 'Student Candidate',
-          image: session.user.image,
+          email: userEmail,
+          name: session?.user?.name || userEmail.split('@')[0].toUpperCase(),
+          image: session?.user?.image || null,
         },
       });
     }
 
-    // Find test by ID or fallback to category query if demo ID passed
+    // Find test by ID or fallback to category query
     let test = await prisma.test.findUnique({
       where: { id: testId },
       include: {
@@ -47,9 +91,9 @@ export async function POST(req: Request) {
       },
     });
 
-    if (!test) {
+    if (!test || test.questions.length === 0) {
       // Check category match fallback
-      const category = testId.includes('tech') ? 'Technical' : 'Aptitude';
+      const category = (testId.includes('tech') || testId.toLowerCase().includes('technical')) ? 'Technical' : 'Aptitude';
       test = await prisma.test.findFirst({
         where: { category },
         include: {
@@ -69,7 +113,26 @@ export async function POST(req: Request) {
     }
 
     if (!test || test.questions.length === 0) {
-      return NextResponse.json({ error: 'Test or questions not found in database. Please seed the DB.' }, { status: 404 });
+      // Final fallback to any available test in DB
+      test = await prisma.test.findFirst({
+        include: {
+          questions: {
+            select: {
+              id: true,
+              questionText: true,
+              optionA: true,
+              optionB: true,
+              optionC: true,
+              optionD: true,
+              topicTag: true,
+            },
+          },
+        },
+      });
+    }
+
+    if (!test || test.questions.length === 0) {
+      return NextResponse.json({ error: 'No test questions found in database. Please contact admin.' }, { status: 404 });
     }
 
     // Create a new Attempt record
@@ -92,8 +155,11 @@ export async function POST(req: Request) {
         questions: test.questions,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error starting test attempt:', error);
-    return NextResponse.json({ error: 'Failed to start test attempt' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to start test attempt', details: error?.message || String(error) },
+      { status: 500 }
+    );
   }
 }

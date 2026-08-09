@@ -61,6 +61,7 @@ export default function AdminDashboardPage() {
     optionD: '',
     correctOption: 'A',
     topicTag: '',
+    explanation: '',
   });
 
   useEffect(() => {
@@ -111,6 +112,7 @@ export default function AdminDashboardPage() {
       optionD: '',
       correctOption: 'A',
       topicTag: 'OOPs',
+      explanation: '',
     });
     setQuestionModalOpen(true);
   };
@@ -127,6 +129,7 @@ export default function AdminDashboardPage() {
       optionD: q.optionD,
       correctOption: q.correctOption,
       topicTag: q.topicTag,
+      explanation: q.explanation || '',
     });
     setQuestionModalOpen(true);
   };
@@ -209,9 +212,9 @@ export default function AdminDashboardPage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center">
-        <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 text-sm animate-pulse">Loading Admin Console...</p>
+      <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col justify-center items-center">
+        <div className="w-12 h-12 border-4 border-[#38C7C7] border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-[#38C7C7] text-sm animate-pulse font-semibold">Loading Admin Console...</p>
       </div>
     );
   }
@@ -240,14 +243,14 @@ export default function AdminDashboardPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col selection:bg-[#38C7C7] selection:text-black">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8 flex-1">
         {/* Admin Header */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+        <div className="bg-black/80 border border-[#38C7C7]/30 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
           <div>
-            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mb-2">
+            <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#38C7C7]/15 border border-[#38C7C7]/40 text-[#38C7C7] text-xs font-semibold mb-2">
               <Shield className="w-3.5 h-3.5" />
               <span>Portal Administrator</span>
             </div>
@@ -261,7 +264,7 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={exportToCSV}
-            className="flex items-center space-x-2 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-semibold transition-all shadow-sm"
+            className="flex items-center space-x-2 py-2.5 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-slate-200 text-xs font-semibold transition-all shadow-sm"
           >
             <Download className="w-4 h-4 text-emerald-400" />
             <span>Export Results (CSV)</span>
@@ -270,27 +273,27 @@ export default function AdminDashboardPage() {
 
         {/* Stats Metrics Bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 p-5 rounded-2xl flex items-center justify-between shadow-lg">
             <div>
               <span className="text-xs text-slate-400 font-medium">Students</span>
               <div className="text-2xl font-bold text-white mt-1">{data.stats.totalStudents}</div>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#38C7C7]/10 border border-[#38C7C7]/30 text-[#38C7C7] flex items-center justify-center">
               <Users className="w-5 h-5" />
             </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 p-5 rounded-2xl flex items-center justify-between shadow-lg">
             <div>
               <span className="text-xs text-slate-400 font-medium">Total Attempts</span>
               <div className="text-2xl font-bold text-white mt-1">{data.stats.totalAttempts}</div>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#38C7C7]/10 border border-[#38C7C7]/30 text-[#38C7C7] flex items-center justify-center">
               <FileCheck2 className="w-5 h-5" />
             </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 p-5 rounded-2xl flex items-center justify-between shadow-lg">
             <div>
               <span className="text-xs text-slate-400 font-medium">Average Score</span>
               <div className="text-2xl font-bold text-white mt-1">{data.stats.avgScore} / 60</div>
@@ -300,7 +303,7 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+          <div className="bg-black/80 border border-[#38C7C7]/20 p-5 rounded-2xl flex items-center justify-between shadow-lg">
             <div>
               <span className="text-xs text-slate-400 font-medium">Pending Reports</span>
               <div className="text-2xl font-bold text-amber-400 mt-1">{data.stats.pendingReports}</div>
@@ -312,7 +315,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-slate-800 overflow-x-auto space-x-6 text-sm font-semibold">
+        <div className="flex border-b border-zinc-800 overflow-x-auto space-x-6 text-sm font-semibold">
           {[
             { id: 'overview', label: 'Analytics Overview', icon: TrendingUp },
             { id: 'students', label: `Students (${data.students.length})`, icon: Users },
@@ -328,7 +331,7 @@ export default function AdminDashboardPage() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-3 flex items-center space-x-2 border-b-2 transition-all shrink-0 ${
                   active
-                    ? 'border-indigo-500 text-indigo-400 font-bold'
+                    ? 'border-[#38C7C7] text-[#38C7C7] font-bold'
                     : 'border-transparent text-slate-400 hover:text-slate-200'
                 }`}
               >
@@ -758,6 +761,17 @@ export default function AdminDashboardPage() {
                   <option value="C">Option C</option>
                   <option value="D">Option D</option>
                 </select>
+              </div>
+
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1">Solution & Concept Explanation</label>
+                <textarea
+                  rows={3}
+                  value={questionForm.explanation}
+                  onChange={(e) => setQuestionForm({ ...questionForm, explanation: e.target.value })}
+                  placeholder="Explain why the correct option is right and provide concept rationale..."
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-200 focus:outline-none resize-none"
+                />
               </div>
 
               <div className="flex items-center space-x-3 pt-3">

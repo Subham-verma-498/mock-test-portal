@@ -33,20 +33,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center px-4 relative overflow-hidden">
-      {/* Dynamic Background Effects */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#03070d] text-slate-100 flex flex-col justify-center items-center px-4 relative overflow-hidden selection:bg-[#38C7C7] selection:text-black">
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#38C7C7]/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-[#38C7C7]/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-md w-full relative z-10">
         {/* Branding Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-0.5 shadow-xl shadow-indigo-500/25 mb-4">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <BookOpen className="w-8 h-8 text-indigo-400" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#38C7C7] p-0.5 shadow-xl shadow-[#38C7C7]/25 mb-4">
+            <div className="w-full h-full bg-black rounded-[14px] flex items-center justify-center">
+              <BookOpen className="w-8 h-8 text-[#38C7C7]" />
             </div>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-100 to-[#38C7C7] bg-clip-text text-transparent">
             Mock Test Portal
           </h1>
           <p className="text-sm text-slate-400 mt-2">
@@ -55,7 +55,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Card */}
-        <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div className="bg-black/80 border border-[#38C7C7]/25 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
           <h2 className="text-lg font-semibold text-slate-100 mb-6 text-center">
             Sign in to continue
           </h2>
@@ -63,7 +63,7 @@ export default function LoginPage() {
           {/* Primary Google Login Button */}
           <button
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
-            className="w-full flex items-center justify-center space-x-3 bg-white hover:bg-slate-100 text-slate-800 font-semibold py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] mb-6 group"
+            className="w-full flex items-center justify-center space-x-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] mb-6 group"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -88,13 +88,13 @@ export default function LoginPage() {
 
           {/* Development / Demo Mode Toggle Section */}
           {isDemoAuthEnabled ? (
-            <div className="mt-6 pt-6 border-t border-slate-800">
+            <div className="mt-6 pt-6 border-t border-zinc-800">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-indigo-400" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#38C7C7] flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-[#38C7C7]" />
                   Dev Local Preview Login
                 </span>
-                <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono px-2 py-0.5 rounded-full">
+                <span className="text-[10px] bg-[#38C7C7]/15 text-[#38C7C7] border border-[#38C7C7]/30 font-mono px-2 py-0.5 rounded-full">
                   Dev Mode
                 </span>
               </div>
@@ -106,16 +106,16 @@ export default function LoginPage() {
                 <button
                   onClick={() => handleDemoLogin('student@demo.com', 'STUDENT')}
                   disabled={!!loadingRole}
-                  className="flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-semibold transition-all hover:border-indigo-500/50"
+                  className="flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-slate-200 text-xs font-semibold transition-all hover:border-[#38C7C7]/50"
                 >
-                  <UserCheck className="w-4 h-4 text-indigo-400" />
+                  <UserCheck className="w-4 h-4 text-[#38C7C7]" />
                   <span>{loadingRole === 'STUDENT' ? 'Logging in...' : 'Demo Student'}</span>
                 </button>
 
                 <button
                   onClick={() => handleDemoLogin('admin@mocktestportal.com', 'ADMIN')}
                   disabled={!!loadingRole}
-                  className="flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-slate-200 text-xs font-semibold transition-all hover:border-amber-500/50"
+                  className="flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-slate-200 text-xs font-semibold transition-all hover:border-amber-500/50"
                 >
                   <ShieldCheck className="w-4 h-4 text-amber-400" />
                   <span>{loadingRole === 'ADMIN' ? 'Logging in...' : 'Portal Admin'}</span>
@@ -123,7 +123,7 @@ export default function LoginPage() {
               </div>
             </div>
           ) : (
-            <div className="mt-6 pt-4 text-center border-t border-slate-800">
+            <div className="mt-6 pt-4 text-center border-t border-zinc-800">
               <div className="flex items-center justify-center space-x-1.5 text-xs text-slate-400">
                 <Lock className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Production OAuth Security Enforced</span>
@@ -134,16 +134,16 @@ export default function LoginPage() {
 
         {/* Feature Highlights */}
         <div className="mt-8 grid grid-cols-3 gap-2 text-center text-xs text-slate-400">
-          <div className="p-2 rounded-lg bg-slate-900/50 border border-slate-800/50">
+          <div className="p-2 rounded-lg bg-black/60 border border-zinc-800">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 mx-auto mb-1" />
             <span>30 Qs / Test</span>
           </div>
-          <div className="p-2 rounded-lg bg-slate-900/50 border border-slate-800/50">
-            <CheckCircle2 className="w-4 h-4 text-indigo-400 mx-auto mb-1" />
+          <div className="p-2 rounded-lg bg-black/60 border border-zinc-800">
+            <CheckCircle2 className="w-4 h-4 text-[#38C7C7] mx-auto mb-1" />
             <span>60s / Question</span>
           </div>
-          <div className="p-2 rounded-lg bg-slate-900/50 border border-slate-800/50">
-            <CheckCircle2 className="w-4 h-4 text-purple-400 mx-auto mb-1" />
+          <div className="p-2 rounded-lg bg-black/60 border border-zinc-800">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 mx-auto mb-1" />
             <span>Instant Results</span>
           </div>
         </div>
@@ -151,3 +151,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
