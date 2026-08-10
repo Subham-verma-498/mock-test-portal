@@ -2755,16 +2755,30 @@ async function main() {
       });
     }
 
-    // Upsert 30 questions safely (preserve existing attempts)
+    // Upsert 30 questions safely with randomized option positions
     for (const q of tDef.questions) {
       const optKey = `option${q.correctOption}` as keyof typeof q;
-      const correctVal = q[optKey];
+      const correctVal = q[optKey] as string;
+
+      // Fisher-Yates shuffle options
+      const rawOptions = [q.optionA, q.optionB, q.optionC, q.optionD];
+      const shuffledOptions = [...rawOptions];
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+      }
+
+      const optionKeys = ['A', 'B', 'C', 'D'];
+      const newCorrectIdx = shuffledOptions.indexOf(correctVal);
+      const newCorrectOption = optionKeys[newCorrectIdx];
 
       let explanation = (q as any).explanation;
       if (!explanation) {
-        explanation = `Option ${q.correctOption} ("${correctVal}") is the correct answer. ` +
+        explanation = `Option ${newCorrectOption} ("${correctVal}") is the correct answer. ` +
           `Why this answer: Under ${q.topicTag} principles, "${correctVal}" is correct because it directly solves the requirement of "${q.questionText}". ` +
           `The alternative choices represent common misconceptions or invalid operations in ${q.topicTag}.`;
+      } else {
+        explanation = explanation.replace(/^Option [ABCD] \("(.*?)"\)/, `Option ${newCorrectOption} ("$1")`);
       }
 
       const existingQuestion = await prisma.question.findFirst({
@@ -2775,11 +2789,11 @@ async function main() {
         await prisma.question.update({
           where: { id: existingQuestion.id },
           data: {
-            optionA: q.optionA,
-            optionB: q.optionB,
-            optionC: q.optionC,
-            optionD: q.optionD,
-            correctOption: q.correctOption,
+            optionA: shuffledOptions[0],
+            optionB: shuffledOptions[1],
+            optionC: shuffledOptions[2],
+            optionD: shuffledOptions[3],
+            correctOption: newCorrectOption,
             topicTag: q.topicTag,
             explanation: explanation,
           }
@@ -2789,11 +2803,11 @@ async function main() {
           data: {
             testId: test.id,
             questionText: q.questionText,
-            optionA: q.optionA,
-            optionB: q.optionB,
-            optionC: q.optionC,
-            optionD: q.optionD,
-            correctOption: q.correctOption,
+            optionA: shuffledOptions[0],
+            optionB: shuffledOptions[1],
+            optionC: shuffledOptions[2],
+            optionD: shuffledOptions[3],
+            correctOption: newCorrectOption,
             topicTag: q.topicTag,
             explanation: explanation,
           }

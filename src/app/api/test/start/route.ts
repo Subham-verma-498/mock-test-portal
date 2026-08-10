@@ -144,6 +144,9 @@ export async function POST(req: Request) {
       },
     });
 
+    // Shuffle question order for every new attempt
+    const shuffledQuestions = [...test.questions].sort(() => Math.random() - 0.5);
+
     return NextResponse.json({
       attemptId: attempt.id,
       test: {
@@ -152,7 +155,7 @@ export async function POST(req: Request) {
         category: test.category,
         totalQuestions: test.questions.length,
         timePerQuestion: test.timePerQuestion,
-        questions: test.questions,
+        questions: shuffledQuestions,
       },
     });
   } catch (error: any) {
