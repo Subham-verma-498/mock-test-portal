@@ -64,8 +64,13 @@ export default function TestResultPage() {
         setAttemptData(data.attempt);
         setDurationSeconds(data.durationSeconds || 0);
 
-        // Trigger confetti for high score (>= 40/60)
-        if (data.attempt?.score >= 40) {
+        // Calculate max marks dynamically
+        const totalQs = data.attempt?.answers?.length || data.attempt?.test?.totalQuestions || 10;
+        const marksPerQ = data.attempt?.test?.marksPerQuestion || 2;
+        const maxMarks = totalQs * marksPerQ;
+
+        // Trigger confetti for high score (>= 70%)
+        if (data.attempt?.score >= maxMarks * 0.7) {
           confetti({
             particleCount: 100,
             spread: 70,
@@ -121,7 +126,11 @@ export default function TestResultPage() {
   const { test, score, correctCount, wrongCount, skippedCount, answers } = attemptData;
   const minutesTaken = Math.floor(durationSeconds / 60);
   const secondsTaken = durationSeconds % 60;
-  const percentage = Math.round((score / 60) * 100);
+
+  const totalQuestions = answers?.length || test?.totalQuestions || test?.questions?.length || 10;
+  const marksPerQ = test?.marksPerQuestion || 2;
+  const maxScore = totalQuestions * marksPerQ;
+  const percentage = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
 
   // Performance Badge
   let badgeTitle = 'Practice Needed';
@@ -160,7 +169,7 @@ export default function TestResultPage() {
           {/* Big Score Display */}
           <div className="relative z-10 py-4 flex flex-col items-center justify-center">
             <div className="text-6xl sm:text-7xl font-black tracking-tight text-[#38C7C7] drop-shadow-[0_0_20px_rgba(56,199,199,0.4)]">
-              {score} <span className="text-2xl sm:text-3xl font-medium text-slate-400">/ 60</span>
+              {score} <span className="text-2xl sm:text-3xl font-medium text-slate-400">/ {maxScore}</span>
             </div>
             <div className="text-xs font-bold uppercase tracking-widest text-[#38C7C7] mt-2">
               Overall Score ({percentage}% Accuracy)
@@ -175,7 +184,7 @@ export default function TestResultPage() {
                 <span className="text-xs font-bold uppercase">Correct</span>
               </div>
               <div className="text-2xl font-bold text-white">{correctCount}</div>
-              <div className="text-[10px] text-slate-400">+{correctCount * 2} Marks</div>
+              <div className="text-[10px] text-slate-400">+{correctCount * marksPerQ} Marks</div>
             </div>
 
             <div className="bg-zinc-950/80 border border-zinc-800 p-4 rounded-2xl">
@@ -227,7 +236,7 @@ export default function TestResultPage() {
               <CheckCircle2 className="w-5 h-5 text-[#38C7C7]" />
               <span>Question Solutions & Review</span>
             </h2>
-            <span className="text-xs text-slate-400">Review all 30 questions & answers below</span>
+            <span className="text-xs text-slate-400">Review all {totalQuestions} questions & answers below</span>
           </div>
 
           <div className="space-y-4">
@@ -241,7 +250,7 @@ export default function TestResultPage() {
               let statusBadge = (
                 <span className="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Correct (+2)</span>
+                  <span>Correct (+{marksPerQ})</span>
                 </span>
               );
 

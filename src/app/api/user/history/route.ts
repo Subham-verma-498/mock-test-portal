@@ -28,7 +28,7 @@ export async function GET() {
       },
       include: {
         test: {
-          select: { title: true, category: true, totalQuestions: true },
+          select: { title: true, category: true, totalQuestions: true, marksPerQuestion: true },
         },
       },
       orderBy: { startedAt: 'desc' },

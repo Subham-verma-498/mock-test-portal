@@ -62,6 +62,7 @@ interface AttemptItem {
     title: string;
     category: string;
     totalQuestions: number;
+    marksPerQuestion?: number;
   };
 }
 
@@ -291,8 +292,8 @@ export default function DashboardPage() {
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-xs text-slate-400">Max Score / Test</div>
-                <div className="text-lg font-bold text-white">60 Marks</div>
+                <div className="text-xs text-slate-400">Marking Scheme</div>
+                <div className="text-lg font-bold text-white">+2 Marks / Q</div>
               </div>
             </div>
           </div>
@@ -340,7 +341,7 @@ export default function DashboardPage() {
             <div>
               <p className="text-xs font-medium text-slate-400">Average Score</p>
               <p className="text-2xl font-bold text-[#38C7C7] mt-1">
-                {stats.avgScore} <span className="text-xs text-slate-400 font-normal">/ 60</span>
+                {stats.avgScore} <span className="text-xs text-slate-400 font-normal">pts</span>
               </p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-[#38C7C7]/10 border border-[#38C7C7]/30 flex items-center justify-center text-[#38C7C7]">
@@ -352,7 +353,7 @@ export default function DashboardPage() {
             <div>
               <p className="text-xs font-medium text-slate-400">Highest Score</p>
               <p className="text-2xl font-bold text-emerald-400 mt-1">
-                {stats.highestScore} <span className="text-xs text-slate-400 font-normal">/ 60</span>
+                {stats.highestScore} <span className="text-xs text-slate-400 font-normal">pts</span>
               </p>
             </div>
             <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
@@ -446,7 +447,7 @@ export default function DashboardPage() {
                 <BarChart3 className="w-5 h-5 text-[#38C7C7]" />
                 <span>Score Progression</span>
               </h3>
-              <p className="text-xs text-slate-400">Score history across recent tests (out of 60)</p>
+              <p className="text-xs text-slate-400">Score history across recent tests</p>
               <div className="h-56 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
@@ -496,7 +497,7 @@ export default function DashboardPage() {
                           {new Date(att.startedAt).toLocaleDateString()}
                         </td>
                         <td className="py-3.5 px-4 font-bold text-[#38C7C7]">
-                          {att.score} / 60
+                          {att.score} / {(att.test?.totalQuestions || 10) * (att.test?.marksPerQuestion || 2)}
                         </td>
                         <td className="py-3.5 px-4 text-xs">
                           <span className="text-emerald-400 font-semibold">{att.correctCount} C</span>
@@ -559,7 +560,7 @@ export default function DashboardPage() {
               <div className="flex items-start space-x-3">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
                 <div>
-                  <strong className="text-slate-100">Marking Scheme:</strong> <strong>+{selectedTest.marksPerQuestion || 2} marks</strong> for every correct answer. No negative marking (0 for wrong/unattempted). Maximum score is 60.
+                  <strong className="text-slate-100">Marking Scheme:</strong> <strong>+{(selectedTest.marksPerQuestion || 2)} marks</strong> for every correct answer. No negative marking (0 for wrong/unattempted). Maximum score is {(selectedTest._count?.questions || selectedTest.totalQuestions || 10) * (selectedTest.marksPerQuestion || 2)}.
                 </div>
               </div>
 
