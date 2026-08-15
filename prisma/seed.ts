@@ -1,4 +1,19 @@
 import { PrismaClient, Role } from '@prisma/client';
+import {
+  aptSeries1Questions,
+  aptSeries2Questions,
+  aptSeries3Questions,
+  aptSeries4Questions,
+  aptSeries5Questions,
+  aptSeries6Questions,
+  aptSeries7Questions,
+  aptSeries8Questions,
+  aptSeries9Questions,
+  aptSeries10Questions,
+  reasoningSeries1Questions,
+  reasoningSeries2Questions,
+  reasoningSeries3Questions,
+} from './aptitude_test_series_data';
 
 const prisma = new PrismaClient();
 
@@ -2610,6 +2625,19 @@ const aptitudeGrandQuestions = [
   }
 ];
 
+async function withRetry<T>(fn: () => Promise<T>, retries = 5): Promise<T> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await prisma.$connect().catch(() => {});
+      await new Promise((r) => setTimeout(r, 1000 * (i + 1)));
+    }
+  }
+  throw new Error('Failed after retries');
+}
+
 async function main() {
   console.log('🌱 Starting Comprehensive Mock Test Portal Database Seeding...');
 
@@ -2639,11 +2667,72 @@ async function main() {
 
   console.log(`👤 Created Users: Admin (${adminUser.email}), Student (${studentUser.email})`);
 
+  // 1. Seed Courses
+  const courseDefs = [
+    {
+      title: 'Aptitude Masterclass Test Series 2026',
+      slug: 'aptitude-masterclass-series',
+      category: 'Aptitude',
+      badge: '15 Tests',
+      icon: 'Brain',
+      description: 'Comprehensive 15-test aptitude suite covering Quantitative Aptitude, Logical Reasoning, Data Interpretation, Verbal Ability, and Data Sufficiency with mixed topic assessments.',
+    },
+    {
+      title: 'Logical & Analytical Reasoning Series',
+      slug: 'logical-reasoning-series',
+      category: 'Reasoning',
+      badge: '3 Tests',
+      icon: 'Sparkles',
+      description: 'Targeted reasoning tests focusing on seating arrangements, blood relations, syllogisms, coding-decoding, direction sense, and critical puzzles.',
+    },
+    {
+      title: 'Technical Placement & System Design Series',
+      slug: 'technical-system-design-track',
+      category: 'Technical',
+      badge: '3 Tests',
+      icon: 'Server',
+      description: 'Comprehensive technical evaluation covering OOPs, C++, C#, Microservices, System Design, REST APIs, and Core CS Fundamentals.',
+    },
+    {
+      title: 'Advanced DSA & Problem Solving Series',
+      slug: 'advanced-dsa-series',
+      category: 'Technical',
+      badge: '1 Test',
+      icon: 'Code2',
+      description: 'Master complex data structures, Dynamic Programming, Graph algorithms, Trie, Segment Trees, and Bit Manipulation.',
+    },
+  ];
+
+  const courseMap: Record<string, string> = {};
+  for (const cDef of courseDefs) {
+    const course = await prisma.course.upsert({
+      where: { slug: cDef.slug },
+      update: {
+        title: cDef.title,
+        category: cDef.category,
+        badge: cDef.badge,
+        icon: cDef.icon,
+        description: cDef.description,
+      },
+      create: {
+        title: cDef.title,
+        slug: cDef.slug,
+        category: cDef.category,
+        badge: cDef.badge,
+        icon: cDef.icon,
+        description: cDef.description,
+      },
+    });
+    courseMap[cDef.slug] = course.id;
+  }
+  console.log(`📚 Seeded ${courseDefs.length} Course Series Tracks!`);
+
   // Test definitions list
   const testDefs = [
     {
       title: 'Technical Mock Test 1',
       category: 'Technical',
+      courseSlug: 'technical-system-design-track',
       description: 'OOPs concepts, C++ memory management, inheritance, dynamic polymorphism, and core language fundamentals.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2653,6 +2742,7 @@ async function main() {
     {
       title: 'Technical Mock Test 2',
       category: 'Technical',
+      courseSlug: 'technical-system-design-track',
       description: 'Full-Stack architecture, microservices, REST/GraphQL APIs, database sharding, Redis caching, and Web Security.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2662,6 +2752,7 @@ async function main() {
     {
       title: 'Technical Mock Test 3',
       category: 'Technical',
+      courseSlug: 'advanced-dsa-series',
       description: 'Data Structures & Algorithms: Dynamic Programming, Graph Traversal (DFS/BFS, Dijkstra), Trie, Segment Trees, and Bit Manipulation.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2671,6 +2762,7 @@ async function main() {
     {
       title: 'Technical Mock Test 4',
       category: 'Technical',
+      courseSlug: 'technical-system-design-track',
       description: 'Core Computer Science: Operating Systems concurrency, DBMS isolation levels, TCP/IP networking, and SOLID design principles.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2680,6 +2772,7 @@ async function main() {
     {
       title: 'Aptitude Mock Test 1',
       category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
       description: 'Quantitative Aptitude, Logical Reasoning series, Data Interpretation, and English Verbal Ability.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2689,6 +2782,7 @@ async function main() {
     {
       title: 'Aptitude Mock Test 2',
       category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
       description: 'Advanced Placement Reasoning: Permutations & Combinations, Circular Seating Puzzles, Syllogisms, and Critical Logic.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2698,6 +2792,7 @@ async function main() {
     {
       title: 'Aptitude Mock Test 3',
       category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
       description: 'Data Interpretation, Speed Mathematics, Pipes & Cisterns, Relative Velocity, and Spatial Pattern Reasoning.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2707,6 +2802,7 @@ async function main() {
     {
       title: 'Aptitude Mock Test 4',
       category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
       description: 'Business Analytics Aptitude: Permutations & Combinations, Mixtures & Allegation, Data Sufficiency, and Critical Reasoning.',
       totalQuestions: 30,
       timePerQuestion: 60,
@@ -2716,16 +2812,150 @@ async function main() {
     {
       title: 'Aptitude Mock Test 5',
       category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
       description: 'Campus Placement Grand Aptitude Test: Comprehensive Quant, Clocks & Calendars, Syllogisms, Blood Relations, and English Proficiency.',
       totalQuestions: 30,
       timePerQuestion: 60,
       marksPerQuestion: 2,
       questions: aptitudeGrandQuestions,
     },
+    // New 10 Mixed Aptitude Tests
+    {
+      title: 'Aptitude Series Test 1',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Mixed Aptitude Essentials: Speed-Time-Distance, Letter Coding, Pie Chart DI, Work-Time, Blood Relations, and Grammar.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries1Questions,
+    },
+    {
+      title: 'Aptitude Series Test 2',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Speed Math & Puzzles: Simple Interest, Square Root Expressions, Profit/Loss, Directions, Syllogisms, and Probability.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries2Questions,
+    },
+    {
+      title: 'Aptitude Series Test 3',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'DI & Permutations: Word Arrangements, Men-Women Work, Direction Rectangles, Mixtures, Odd One Out, and Compound Interest.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries3Questions,
+    },
+    {
+      title: 'Aptitude Series Test 4',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Time-Speed & Grammar: Average Speed, Venn Diagram Sets, Pipe Efficiency, Number Series, Clock Angles, and Alphanumeric Coding.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries4Questions,
+    },
+    {
+      title: 'Aptitude Series Test 5',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Number Theory & Arrangements: Modular Remainders, Circular Seating, Compound Growth, Age Ratios, and Error Spotting.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries5Questions,
+    },
+    {
+      title: 'Aptitude Series Test 6',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Profit-Loss & Data Sufficiency: Target Selling Prices, Number-Letter Codes, Probability Draws, Area Pathways, and Subject-Verb Agreement.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries6Questions,
+    },
+    {
+      title: 'Aptitude Series Test 7',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Geometry & Blood Relations: Sphere Surface Area, Family Relations, Quadratic Equations, Successive Discounts, and Logarithmic Expansion.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries7Questions,
+    },
+    {
+      title: 'Aptitude Series Test 8',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Algebra & Letter Series: Exponential Equations, Word Inversion, Excluded Means, Ball Probability, Prepositions, and Gaining Clocks.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries8Questions,
+    },
+    {
+      title: 'Aptitude Series Test 9',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Clocks & Bar Charts: Calendar Odd Days, Bar Chart Ratios, Triangle Geometry, Arithmetic Progressions, and Equivalent Discounts.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries9Questions,
+    },
+    {
+      title: 'Aptitude Series Test 10',
+      category: 'Aptitude',
+      courseSlug: 'aptitude-masterclass-series',
+      description: 'Grand Speed Aptitude: 3-Tap Cisterns, Reverse Shift Coding, Cuboid Diagonals, Family Tree Puzzles, and Log Equations.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: aptSeries10Questions,
+    },
+    // New Reasoning Tests
+    {
+      title: 'Reasoning Series Test 1',
+      category: 'Reasoning',
+      courseSlug: 'logical-reasoning-series',
+      description: 'Seating Arrangements & Puzzles: Circular Seating, Order Ranking, Coded Blood Relations, Cube Painting, and Matrix Puzzles.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: reasoningSeries1Questions,
+    },
+    {
+      title: 'Reasoning Series Test 2',
+      category: 'Reasoning',
+      courseSlug: 'logical-reasoning-series',
+      description: 'Syllogisms & Input-Output: 3-Statement Syllogisms, Machine Step Rearrangements, Arguments & Assumptions, and Figure Counting.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: reasoningSeries2Questions,
+    },
+    {
+      title: 'Reasoning Series Test 3',
+      category: 'Reasoning',
+      courseSlug: 'logical-reasoning-series',
+      description: 'Blood Relations & Directions: Occupation Puzzles, Leap Year Calendars, Clock Coincidence, Critical Arguments, and Angle Rotations.',
+      totalQuestions: 10,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: reasoningSeries3Questions,
+    },
   ];
 
   // Ensure tests exist and questions are safely upserted without purging attempts
   for (const tDef of testDefs) {
+    const courseId = courseMap[tDef.courseSlug];
     let test = await prisma.test.findFirst({
       where: { title: tDef.title }
     });
@@ -2736,9 +2966,10 @@ async function main() {
           title: tDef.title,
           category: tDef.category,
           description: tDef.description,
-          totalQuestions: tDef.totalQuestions,
+          totalQuestions: tDef.questions.length,
           timePerQuestion: tDef.timePerQuestion,
-          marksPerQuestion: tDef.marksPerQuestion
+          marksPerQuestion: tDef.marksPerQuestion,
+          courseId: courseId,
         }
       });
     } else {
@@ -2748,9 +2979,10 @@ async function main() {
         data: {
           category: tDef.category,
           description: tDef.description,
-          totalQuestions: tDef.totalQuestions,
+          totalQuestions: tDef.questions.length,
           timePerQuestion: tDef.timePerQuestion,
-          marksPerQuestion: tDef.marksPerQuestion
+          marksPerQuestion: tDef.marksPerQuestion,
+          courseId: courseId,
         }
       });
     }
@@ -2781,38 +3013,40 @@ async function main() {
         explanation = explanation.replace(/^Option [ABCD] \("(.*?)"\)/, `Option ${newCorrectOption} ("$1")`);
       }
 
-      const existingQuestion = await prisma.question.findFirst({
-        where: { testId: test.id, questionText: q.questionText }
-      });
+      await withRetry(async () => {
+        const existingQuestion = await prisma.question.findFirst({
+          where: { testId: test.id, questionText: q.questionText }
+        });
 
-      if (existingQuestion) {
-        await prisma.question.update({
-          where: { id: existingQuestion.id },
-          data: {
-            optionA: shuffledOptions[0],
-            optionB: shuffledOptions[1],
-            optionC: shuffledOptions[2],
-            optionD: shuffledOptions[3],
-            correctOption: newCorrectOption,
-            topicTag: q.topicTag,
-            explanation: explanation,
-          }
-        });
-      } else {
-        await prisma.question.create({
-          data: {
-            testId: test.id,
-            questionText: q.questionText,
-            optionA: shuffledOptions[0],
-            optionB: shuffledOptions[1],
-            optionC: shuffledOptions[2],
-            optionD: shuffledOptions[3],
-            correctOption: newCorrectOption,
-            topicTag: q.topicTag,
-            explanation: explanation,
-          }
-        });
-      }
+        if (existingQuestion) {
+          await prisma.question.update({
+            where: { id: existingQuestion.id },
+            data: {
+              optionA: shuffledOptions[0],
+              optionB: shuffledOptions[1],
+              optionC: shuffledOptions[2],
+              optionD: shuffledOptions[3],
+              correctOption: newCorrectOption,
+              topicTag: q.topicTag,
+              explanation: explanation,
+            }
+          });
+        } else {
+          await prisma.question.create({
+            data: {
+              testId: test.id,
+              questionText: q.questionText,
+              optionA: shuffledOptions[0],
+              optionB: shuffledOptions[1],
+              optionC: shuffledOptions[2],
+              optionD: shuffledOptions[3],
+              correctOption: newCorrectOption,
+              topicTag: q.topicTag,
+              explanation: explanation,
+            }
+          });
+        }
+      });
     }
     console.log(`✅ Seeded ${tDef.questions.length} questions for "${test.title}" [${test.category}]`);
   }

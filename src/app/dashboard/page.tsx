@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import {
@@ -281,7 +282,7 @@ export default function DashboardPage() {
                 Welcome back, {session?.user?.name || 'Candidate'}! 👋
               </h1>
               <p className="text-slate-300 text-sm mt-1 max-w-2xl">
-                Ready to take a mock test today? Hone your skills with timed 30-question placement mock exams covering Technical, System Design, DSA, Core CS, and Aptitude.
+                Ready to take a mock test today? Hone your skills with timed 30-question placement mock exams covering Technical, System Design, DSA, Core CS, Aptitude, and Reasoning series tracks.
               </p>
             </div>
 
@@ -295,6 +296,32 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Course Series Hub Banner Promo */}
+        <div className="bg-gradient-to-r from-cyan-950/70 via-slate-900 to-black border border-[#38C7C7]/40 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-[#38C7C7]/5">
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 rounded-xl bg-[#38C7C7]/20 border border-[#38C7C7]/40 flex items-center justify-center shrink-0 shadow-md">
+              <Layers className="w-6 h-6 text-[#38C7C7]" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-2 mb-0.5">
+                <span className="text-[10px] font-bold text-[#38C7C7] uppercase tracking-wider">New Course Hub</span>
+                <span className="px-2 py-0.5 rounded-full bg-[#38C7C7]/20 text-[#38C7C7] text-[10px] font-extrabold border border-[#38C7C7]/30">4 Series Tracks</span>
+              </div>
+              <h3 className="text-lg font-bold text-white">Explore Courses & Dedicated Test Series</h3>
+              <p className="text-xs text-slate-300">
+                Master 10-test Aptitude Masterclass, Reasoning Series, and System Design tracks with non-repeating questions.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/courses"
+            className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-[#38C7C7] text-black font-bold text-xs hover:bg-[#2fb0b0] transition-all shadow-md shadow-[#38C7C7]/20 shrink-0 hover:scale-105"
+          >
+            <span>Explore Courses</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {/* Overview Stats Cards */}

@@ -12,6 +12,14 @@ export async function GET() {
 
     let tests = await prisma.test.findMany({
       include: {
+        course: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            category: true,
+          },
+        },
         _count: {
           select: { questions: true },
         },

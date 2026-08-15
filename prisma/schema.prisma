@@ -28,14 +28,29 @@ model User {
   reports       QuestionReport[]
 }
 
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  category    String   // "Aptitude", "Reasoning", "Technical"
+  description String
+  badge       String?  // e.g. "10 Tests", "New Series"
+  icon        String?  // e.g. "Brain", "Sparkles", "Code2"
+  tests       Test[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Test {
   id               String     @id @default(cuid())
   title            String
-  category         String     // "Technical" or "Aptitude"
+  category         String     // "Technical", "Aptitude", "Reasoning"
   description      String?
   totalQuestions   Int        @default(30)
   timePerQuestion  Int        @default(60) // 60 seconds
   marksPerQuestion Int        @default(2)  // +2 marks per question
+  courseId         String?
+  course           Course?    @relation(fields: [courseId], references: [id], onDelete: SetNull)
   questions        Question[]
   attempts         Attempt[]
   createdAt        DateTime   @default(now())

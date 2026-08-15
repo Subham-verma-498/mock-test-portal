@@ -39,6 +39,14 @@ export default function Navbar() {
               <span>Dashboard</span>
             </Link>
 
+            <Link
+              href="/courses"
+              className="flex items-center space-x-2 text-sm font-medium text-slate-300 hover:text-[#38C7C7] transition-colors"
+            >
+              <BookOpen className="w-4 h-4 text-[#38C7C7]" />
+              <span>Courses & Series</span>
+            </Link>
+
             {session.user.role === Role.ADMIN && (
               <Link
                 href="/admin"
