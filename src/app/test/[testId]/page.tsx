@@ -34,6 +34,7 @@ export default function ExamEnginePage() {
   const attemptId = searchParams?.get('attemptId');
 
   const [test, setTest] = useState<TestData | null>(null);
+  const [currentAttemptId, setCurrentAttemptId] = useState<string | null>(attemptId);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Array<{ questionId: string; selectedOption: string | null }>>([]);
@@ -51,10 +52,10 @@ export default function ExamEnginePage() {
       router.push('/login');
       return;
     }
-    if (testId && attemptId) {
+    if (testId) {
       loadExamData();
     }
-  }, [testId, attemptId, status]);
+  }, [testId, status]);
 
   const loadExamData = async () => {
     try {
@@ -62,7 +63,7 @@ export default function ExamEnginePage() {
       const res = await fetch('/api/test/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ testId, attemptId }),
+        body: JSON.stringify({ testId, attemptId: attemptId || currentAttemptId }),
       });
 
       if (!res.ok) {
@@ -73,6 +74,9 @@ export default function ExamEnginePage() {
 
       const data = await res.json();
       setTest(data.test);
+      if (data.attemptId) {
+        setCurrentAttemptId(data.attemptId);
+      }
     } catch (err) {
       console.error('Error loading exam engine data:', err);
     } finally {
@@ -82,14 +86,15 @@ export default function ExamEnginePage() {
 
   // Submission handler
   const submitExam = useCallback(async (finalAnswers: Array<{ questionId: string; selectedOption: string | null }>) => {
-    if (submitting || !attemptId) return;
+    const activeAttemptId = attemptId || currentAttemptId;
+    if (submitting || !activeAttemptId) return;
     setSubmitting(true);
     try {
       const res = await fetch('/api/test/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          attemptId,
+          attemptId: activeAttemptId,
           answers: finalAnswers,
         }),
       });
@@ -105,7 +110,7 @@ export default function ExamEnginePage() {
       console.error('Error submitting exam:', err);
       setSubmitting(false);
     }
-  }, [attemptId, submitting, router]);
+  }, [attemptId, currentAttemptId, submitting, router]);
 
   // Handle advancing to next question or auto-advancing on 0s countdown
   const advanceToNextQuestion = useCallback(() => {
