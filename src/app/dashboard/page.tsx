@@ -222,6 +222,17 @@ export default function DashboardPage() {
         subTag: 'Campus Placement Grand Exam',
       };
     }
+    if (test.category === 'IndiaBIX' || titleLower.includes('indiabix')) {
+      return {
+        icon: Award,
+        badgeBg: 'bg-[#38C7C7]/20 border-[#38C7C7]/50 text-[#38C7C7]',
+        iconBg: 'bg-[#38C7C7]/20 border-[#38C7C7]/50 text-[#38C7C7]',
+        hoverBorder: 'hover:border-[#38C7C7]/80',
+        glowColor: 'bg-[#38C7C7]/15',
+        btnBg: 'bg-[#38C7C7] hover:bg-[#2db3b3] text-black font-extrabold shadow-[#38C7C7]/25',
+        subTag: 'IndiaBIX 15-Q Series (30 Marks)',
+      };
+    }
     if (test.category === 'Aptitude') {
       return {
         icon: Brain,

@@ -86,12 +86,14 @@ export default function CoursesPage() {
         return <Server className="w-6 h-6 text-[#38C7C7]" />;
       case 'Code2':
         return <Code2 className="w-6 h-6 text-[#38C7C7]" />;
+      case 'Award':
+        return <Award className="w-6 h-6 text-[#38C7C7]" />;
       default:
         return <BookOpen className="w-6 h-6 text-[#38C7C7]" />;
     }
   };
 
-  const categories = ['ALL', 'Aptitude', 'Reasoning', 'Technical'];
+  const categories = ['ALL', 'Aptitude', 'Reasoning', 'Technical', 'IndiaBIX'];
 
   const filteredCourses = selectedCategory === 'ALL'
     ? courses

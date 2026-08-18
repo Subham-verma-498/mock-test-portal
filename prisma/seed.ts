@@ -13,7 +13,15 @@ import {
   reasoningSeries1Questions,
   reasoningSeries2Questions,
   reasoningSeries3Questions,
-} from './aptitude_test_series_data';
+} from './aptitude_test_series_data.js';
+import {
+  indiaBixAptitude1Questions,
+  indiaBixAptitude2Questions,
+  indiaBixReasoning1Questions,
+  indiaBixVerbal1Questions,
+  indiaBixTechnical1Questions,
+  indiaBixJavaDb1Questions,
+} from './indiabix_test_series_data.js';
 
 const prisma = new PrismaClient();
 
@@ -2701,6 +2709,14 @@ async function main() {
       icon: 'Code2',
       description: 'Master complex data structures, Dynamic Programming, Graph algorithms, Trie, Segment Trees, and Bit Manipulation.',
     },
+    {
+      title: 'IndiaBIX Placement Exam Test Series 2026',
+      slug: 'indiabix-test-series',
+      category: 'IndiaBIX',
+      badge: '6 New Tests',
+      icon: 'Award',
+      description: 'Authentic IndiaBIX exam preparation series with 6 dedicated tests containing 15 questions each (score out of 30, 2 marks per question) covering Quant, Logical Reasoning, Verbal Ability, C/C++, Java, and SQL.',
+    },
   ];
 
   const courseMap: Record<string, string> = {};
@@ -2951,6 +2967,67 @@ async function main() {
       marksPerQuestion: 2,
       questions: reasoningSeries3Questions,
     },
+    // IndiaBIX Specialized 15-Question Test Series (30 Marks total, 2 marks per question)
+    {
+      title: 'IndiaBIX Aptitude Series Test 1',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Quantitative Aptitude Test 1: 15 questions covering Problems on Trains, Work-Time, Simple Interest, Profit/Loss, Alligation Mixtures, Probability, and Logarithms. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixAptitude1Questions,
+    },
+    {
+      title: 'IndiaBIX Aptitude Series Test 2',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Quantitative Aptitude Test 2: 15 questions covering Compound Interest, Ratio & Proportion, Averages, Pipes & Cisterns, HCF/LCM, and Percentages. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixAptitude2Questions,
+    },
+    {
+      title: 'IndiaBIX Logical Reasoning Test 1',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Logical Reasoning Test 1: 15 questions covering Number & Letter Series, Syllogisms, Blood Relations, Seating Arrangements, Coding-Decoding, and Direction Sense. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixReasoning1Questions,
+    },
+    {
+      title: 'IndiaBIX Verbal Ability Test 1',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX English Verbal Ability Test 1: 15 questions covering Synonyms, Antonyms, Error Spotting, One-Word Substitutes, Active/Passive Voice, and Sentence Completion. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixVerbal1Questions,
+    },
+    {
+      title: 'IndiaBIX Technical & C/C++ Test 1',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Technical C & C++ Test 1: 15 questions covering Pointers, Storage Classes, Memory Allocation, Virtual Functions, OOPs, QuickSort, and Data Structures. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixTechnical1Questions,
+    },
+    {
+      title: 'IndiaBIX Java & Database Systems Test 1',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Java & SQL Test 1: 15 questions covering JVM Heap vs Stack, Java Collections, SQL Joins, 3NF Normalization, ACID Transactions, and Indexing. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixJavaDb1Questions,
+    },
   ];
 
   // Ensure tests exist and questions are safely upserted without purging attempts
@@ -2987,71 +3064,74 @@ async function main() {
       });
     }
 
-    // Upsert 30 questions safely with randomized option positions
-    for (const q of tDef.questions) {
-      const optKey = `option${q.correctOption}` as keyof typeof q;
-      const correctVal = q[optKey] as string;
+    // Upsert questions safely with randomized option positions in parallel
+    await Promise.all(
+      tDef.questions.map(async (q) => {
+        const optKey = `option${q.correctOption}` as keyof typeof q;
+        const correctVal = q[optKey] as string;
 
-      // Fisher-Yates shuffle options
-      const rawOptions = [q.optionA, q.optionB, q.optionC, q.optionD];
-      const shuffledOptions = [...rawOptions];
-      for (let i = shuffledOptions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
-      }
-
-      const optionKeys = ['A', 'B', 'C', 'D'];
-      const newCorrectIdx = shuffledOptions.indexOf(correctVal);
-      const newCorrectOption = optionKeys[newCorrectIdx];
-
-      let explanation = (q as any).explanation;
-      if (!explanation) {
-        explanation = `Option ${newCorrectOption} ("${correctVal}") is the correct answer. ` +
-          `Why this answer: Under ${q.topicTag} principles, "${correctVal}" is correct because it directly solves the requirement of "${q.questionText}". ` +
-          `The alternative choices represent common misconceptions or invalid operations in ${q.topicTag}.`;
-      } else {
-        explanation = explanation.replace(/^Option [ABCD] \("(.*?)"\)/, `Option ${newCorrectOption} ("$1")`);
-      }
-
-      await withRetry(async () => {
-        const existingQuestion = await prisma.question.findFirst({
-          where: { testId: test.id, questionText: q.questionText }
-        });
-
-        if (existingQuestion) {
-          await prisma.question.update({
-            where: { id: existingQuestion.id },
-            data: {
-              optionA: shuffledOptions[0],
-              optionB: shuffledOptions[1],
-              optionC: shuffledOptions[2],
-              optionD: shuffledOptions[3],
-              correctOption: newCorrectOption,
-              topicTag: q.topicTag,
-              explanation: explanation,
-            }
-          });
-        } else {
-          await prisma.question.create({
-            data: {
-              testId: test.id,
-              questionText: q.questionText,
-              optionA: shuffledOptions[0],
-              optionB: shuffledOptions[1],
-              optionC: shuffledOptions[2],
-              optionD: shuffledOptions[3],
-              correctOption: newCorrectOption,
-              topicTag: q.topicTag,
-              explanation: explanation,
-            }
-          });
+        // Fisher-Yates shuffle options
+        const rawOptions = [q.optionA, q.optionB, q.optionC, q.optionD];
+        const shuffledOptions = [...rawOptions];
+        for (let i = shuffledOptions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
         }
-      });
-    }
+
+        const optionKeys = ['A', 'B', 'C', 'D'];
+        const newCorrectIdx = shuffledOptions.indexOf(correctVal);
+        const newCorrectOption = optionKeys[newCorrectIdx];
+
+        let explanation = (q as any).explanation;
+        if (!explanation) {
+          explanation =
+            `Option ${newCorrectOption} ("${correctVal}") is the correct answer. ` +
+            `Why this answer: Under ${q.topicTag} principles, "${correctVal}" is correct because it directly solves the requirement of "${q.questionText}". ` +
+            `The alternative choices represent common misconceptions or invalid operations in ${q.topicTag}.`;
+        } else {
+          explanation = explanation.replace(/^Option [ABCD] \("(.*?)"\)/, `Option ${newCorrectOption} ("$1")`);
+        }
+
+        await withRetry(async () => {
+          const existingQuestion = await prisma.question.findFirst({
+            where: { testId: test.id, questionText: q.questionText },
+          });
+
+          if (existingQuestion) {
+            await prisma.question.update({
+              where: { id: existingQuestion.id },
+              data: {
+                optionA: shuffledOptions[0],
+                optionB: shuffledOptions[1],
+                optionC: shuffledOptions[2],
+                optionD: shuffledOptions[3],
+                correctOption: newCorrectOption,
+                topicTag: q.topicTag,
+                explanation: explanation,
+              },
+            });
+          } else {
+            await prisma.question.create({
+              data: {
+                testId: test.id,
+                questionText: q.questionText,
+                optionA: shuffledOptions[0],
+                optionB: shuffledOptions[1],
+                optionC: shuffledOptions[2],
+                optionD: shuffledOptions[3],
+                correctOption: newCorrectOption,
+                topicTag: q.topicTag,
+                explanation: explanation,
+              },
+            });
+          }
+        });
+      })
+    );
     console.log(`✅ Seeded ${tDef.questions.length} questions for "${test.title}" [${test.category}]`);
   }
 
-  console.log('🎉 Seeding successfully completed for all 9 mock tests (270 questions total)!');
+  console.log('🎉 Seeding successfully completed for all tests!');
 }
 
 main()
