@@ -23,6 +23,8 @@ import {
   indiaBixJavaDb1Questions,
   indiaBixTechnical2Questions,
   indiaBixTechnical3Questions,
+  indiaBixTechnical4Questions,
+  indiaBixTechnical5Questions,
 } from './indiabix_test_series_data.js';
 
 const prisma = new PrismaClient();
@@ -2696,12 +2698,12 @@ async function main() {
       description: 'Targeted reasoning tests focusing on seating arrangements, blood relations, syllogisms, coding-decoding, direction sense, and critical puzzles.',
     },
     {
-      title: 'Technical Placement & System Design Series',
+      title: 'Technical & System Design Test Series',
       slug: 'technical-system-design-track',
       category: 'Technical',
-      badge: '3 Tests',
+      badge: '5 Dedicated Tests',
       icon: 'Server',
-      description: 'Comprehensive technical evaluation covering OOPs, C++, C#, Microservices, System Design, REST APIs, and Core CS Fundamentals.',
+      description: 'Comprehensive technical evaluation covering OOPs, C++, C#, Java, JS, DBMS, Computer Networks, Operating Systems, SDLC, Agile, and System Design.',
     },
     {
       title: 'Advanced DSA & Problem Solving Series',
@@ -2715,9 +2717,9 @@ async function main() {
       title: 'IndiaBIX Placement Exam Test Series 2026',
       slug: 'indiabix-test-series',
       category: 'IndiaBIX',
-      badge: '8 New Tests',
+      badge: '10 New Tests',
       icon: 'Award',
-      description: 'Authentic IndiaBIX exam preparation series with 8 dedicated tests covering Quant, Logical Reasoning, Verbal Ability, Java, C++, C#, DBMS, JavaScript, Computer Networks (CN), and Operating Systems (OS).',
+      description: 'Authentic IndiaBIX exam preparation series with 10 dedicated tests covering Quant, Logical Reasoning, Verbal Ability, Java, C++, C#, DBMS, JavaScript, Computer Networks (CN), Operating Systems (OS), and SDLC / Software Engineering.',
     },
   ];
 
@@ -3049,6 +3051,26 @@ async function main() {
       timePerQuestion: 60,
       marksPerQuestion: 2,
       questions: indiaBixTechnical3Questions,
+    },
+    {
+      title: 'IndiaBIX Technical & SDLC Engineering Test 4',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Technical SDLC Test 4: 24 questions covering C# Sealed/IQueryable/WhenAll, C++ Copy-Swap/Vectors, Java Atomic/Default Methods/Try-with-resources, JS Object.freeze/Promise.race, DBMS Triggers/Candidate Keys, CN PAT/IPv6/RIP, OS Thrashing/Priority Inversion, and SDLC Scrum/Black-White Box/CI-CD. (Score out of 48, 2 marks per question)',
+      totalQuestions: 24,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixTechnical4Questions,
+    },
+    {
+      title: 'Technical SDLC & Software Architecture Test 5',
+      category: 'Technical',
+      courseSlug: 'technical-system-design-track',
+      description: 'Technical SDLC Architecture Test 5: 24 questions covering C# Extension Methods/Records/??=, C++ Constexpr/Padding/Variant, Java Modules/ZGC/CompletableFuture, JS Generators/Web Workers/structuredClone, DBMS Sharding/Schemas/Materialized Views, CN DNSSEC/BGP/TLS1.3, OS Hypervisors/Inodes/RTOS, and SDLC V-Model/SOLID LSP/Cyclomatic Complexity. (Score out of 48, 2 marks per question)',
+      totalQuestions: 24,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixTechnical5Questions,
     },
   ];
 

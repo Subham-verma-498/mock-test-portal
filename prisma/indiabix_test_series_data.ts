@@ -1371,3 +1371,526 @@ export const indiaBixTechnical3Questions = [
   }
 ];
 
+// -------------------------------------------------------------
+// Test 9: IndiaBIX Technical & SDLC Engineering Test 4 (24 Questions)
+// -------------------------------------------------------------
+export const indiaBixTechnical4Questions = [
+  // C# (3 questions)
+  {
+    questionText: "In C#, what is the effect of marking a class with the `sealed` keyword?",
+    optionA: "It prevents other classes from inheriting from it",
+    optionB: "It prevents creating instances of the class",
+    optionC: "It makes all methods inside the class static",
+    optionD: "It places the class memory directly on the stack",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "The `sealed` modifier prevents a class from being inherited. It can also be applied to a virtual method or property to prevent overriding in further derived classes."
+  },
+  {
+    questionText: "In C# LINQ, what is the key difference between `IQueryable<T>` and `IEnumerable<T>` when querying a remote database?",
+    optionA: "`IQueryable<T>` evaluates queries on the remote database server via Expression Trees; `IEnumerable<T>` pulls data into local memory first before filtering",
+    optionB: "`IEnumerable<T>` is asynchronous; `IQueryable<T>` is synchronous",
+    optionC: "`IQueryable<T>` can only be used with XML documents",
+    optionD: "There is no functional difference between them",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "`IQueryable<T>` uses `Expression` trees to translate LINQ calls into native SQL queries executed on the database server. `IEnumerable<T>` retrieves dataset rows into memory and filters in-process."
+  },
+  {
+    questionText: "In C# asynchronous programming, what does `Task.WhenAll` return when executed on a collection of running tasks?",
+    optionA: "A single Task that completes when ALL provided tasks have completed",
+    optionB: "A Task that completes as soon as ANY single task finishes",
+    optionC: "A thread pool handle that blocks the calling thread synchronously",
+    optionD: "An array of cancellation tokens",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "`Task.WhenAll` creates a task that will complete when all of the `Task` objects in an enumerable collection have completed. If any task faults, the returned task will contain the aggregated exceptions."
+  },
+
+  // C++ (3 questions)
+  {
+    questionText: "In C++, what is the purpose of the Copy-and-Swap idiom in copy assignment operators (`operator=`)?",
+    optionA: "Provides strong exception safety and eliminates code duplication between copy constructors and assignment operators",
+    optionB: "Speeds up compile times by bypassing template instantiation",
+    optionC: "Prevents virtual functions from being overridden",
+    optionD: "Automatically allocates memory on the stack instead of heap",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "The copy-and-swap idiom passes the parameter by value (creating a copy), then swaps its internal pointers with `*this`. If an exception occurs during copying, `*this` remains untouched, guaranteeing strong exception safety."
+  },
+  {
+    questionText: "In C++ STL, what happens to `std::vector` capacity when elements are deleted using `.pop_back()` or `.clear()`?",
+    optionA: "Size decreases, but capacity remains UNCHANGED unless `.shrink_to_fit()` is explicitly called",
+    optionB: "Capacity automatically shrinks to match size immediately",
+    optionC: "The vector deallocates its heap memory instantly",
+    optionD: "A re-allocation occurs moving remaining elements to stack",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "Calling `pop_back()` or `clear()` destroys elements and reduces `.size()`, but reserved buffer `.capacity()` stays unchanged to avoid frequent memory reallocations. `shrink_to_fit()` requests releasing excess capacity."
+  },
+  {
+    questionText: "In C++, what is the difference between a raw C-style function pointer and `std::function`?",
+    optionA: "`std::function` is a polymorphic wrapper that can store function pointers, lambdas with captures, and functor objects; C-style pointers store only function memory addresses",
+    optionB: "C-style pointers are safer than `std::function`",
+    optionC: "`std::function` cannot accept arguments",
+    optionD: "Raw function pointers cause compile errors in C++11",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "`std::function<R(Args...)>` is a general-purpose polymorphic function wrapper. Unlike raw C-style function pointers, it can hold lambdas (even those capturing variables), bind expressions, and functors."
+  },
+
+  // Java (3 questions)
+  {
+    questionText: "How do atomic classes in `java.util.concurrent.atomic` (like `AtomicInteger`) guarantee lock-free thread safety?",
+    optionA: "They use hardware-supported Compare-And-Swap (CAS) CPU instructions instead of synchronized monitor locks",
+    optionB: "They suspend all thread execution in the JVM during updates",
+    optionC: "They write data to external file storage",
+    optionD: "They allocate a separate JVM memory heap for each thread",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "Atomic classes use low-level CPU atomic primitives like CAS (Compare-And-Swap) provided by `sun.misc.Unsafe`. This allows concurrent non-blocking state updates without thread synchronization overhead."
+  },
+  {
+    questionText: "In Java 8, what are Default Methods in interfaces used for?",
+    optionA: "To add new methods to existing interfaces without breaking backward compatibility for implementing classes",
+    optionB: "To make interface variables mutable",
+    optionC: "To replace class constructors",
+    optionD: "To enforce private method access across packages",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "Default methods (marked with `default`) enable interface extension without breaking existing class implementations. They provide default method bodies that classes can optionally override."
+  },
+  {
+    questionText: "In Java, what requirement must an object satisfy to be used inside a `try-with-resources` statement?",
+    optionA: "It must implement `java.lang.AutoCloseable` or `java.io.Closeable` interface",
+    optionB: "It must be marked with `final`",
+    optionC: "It must extend `java.lang.Thread`",
+    optionD: "It must be serialized as a JSON string",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "Any resource implementing `AutoCloseable` (or `Closeable`) can be managed by `try-with-resources`. The JVM automatically invokes its `close()` method upon exiting the block, even if exceptions occur."
+  },
+
+  // JavaScript (3 questions)
+  {
+    questionText: "In JavaScript, what is the difference between `Object.freeze()` and `Object.seal()`?",
+    optionA: "`Object.freeze()` makes existing properties immutable and prevents adding/deleting properties; `Object.seal()` prevents adding/deleting properties but allows modifying existing property values",
+    optionB: "`Object.seal()` turns an object into an array; `Object.freeze()` deletes the object",
+    optionC: "`Object.freeze()` works on functions; `Object.seal()` works only on strings",
+    optionD: "There is no difference",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "`Object.seal()` marks existing properties as non-configurable (preventing deletion or addition), but existing writable property values CAN still be changed. `Object.freeze()` additionally makes all existing property values read-only."
+  },
+  {
+    questionText: "In JavaScript, how does `Promise.race()` differ from `Promise.any()`?",
+    optionA: "`Promise.race()` settles (resolves or rejects) as soon as the FIRST promise settles; `Promise.any()` resolves as soon as the FIRST promise FULFILLS (ignoring rejections until all fail)",
+    optionB: "`Promise.any()` fails if one promise rejects; `Promise.race()` ignores rejections",
+    optionC: "`Promise.race()` runs synchronously on CPU L1 cache",
+    optionD: "Both return arrays of promise values",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "`Promise.race()` takes the outcome of whichever promise settles first (whether fulfilled or rejected). `Promise.any()` waits for the first promise that *fulfills*; it only rejects if *all* input promises reject (returning `AggregateError`)."
+  },
+  {
+    questionText: "In browser JavaScript DOM manipulation, why is it important to invoke `removeEventListener` when destroying dynamic components?",
+    optionA: "To prevent memory leaks caused by event handlers retaining references to DOM nodes in closures",
+    optionB: "To prevent CSS animations from stopping",
+    optionC: "To stop the browser from closing the HTTP socket",
+    optionD: "To force the web page to reload",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "If event listeners attached to global elements (e.g. `window`, `document`) reference unmounted component instances via closures, garbage collection cannot clean them up, causing memory leaks over time."
+  },
+
+  // DBMS (3 questions)
+  {
+    questionText: "In Database Management Systems, what is the execution timing difference between `BEFORE` and `AFTER` DML Triggers?",
+    optionA: "`BEFORE` triggers execute prior to data modification and can modify input values or cancel operations; `AFTER` triggers execute after modification is recorded in the table",
+    optionB: "`AFTER` triggers prevent SQL syntax errors",
+    optionC: "`BEFORE` triggers execute asynchronously in background threads",
+    optionD: "`AFTER` triggers run only during database startup",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "`BEFORE` triggers fire before table constraints or row changes are applied, making them ideal for validation and parameter transformation. `AFTER` triggers run after changes complete, ideal for audit logging and cascading updates."
+  },
+  {
+    questionText: "In SQL relational database design, what is a Candidate Key?",
+    optionA: "A minimal set of attributes that uniquely identifies a row in a table, from which the Primary Key is selected",
+    optionB: "A key that references a primary key in another table",
+    optionC: "An index key created solely for sorting query results",
+    optionD: "A column that permits duplicate NULL values",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "A Candidate Key is a superkey with no redundant attributes. Any candidate key can uniquely identify table tuples. Database designers select one candidate key as the Primary Key and remaining ones as Alternate Keys."
+  },
+  {
+    questionText: "What database anomaly occurs when a transaction reads data modified by a concurrent uncommitted transaction that subsequently rolls back?",
+    optionA: "Dirty Read",
+    optionB: "Non-Repeatable Read",
+    optionC: "Phantom Read",
+    optionD: "Lost Update",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "A Dirty Read happens when Transaction A modifies a row, Transaction B reads the modified row, and then Transaction A aborts/rolls back, leaving Transaction B with invalid data."
+  },
+
+  // Computer Networks (3 questions)
+  {
+    questionText: "What is the primary function of Port Address Translation (PAT) / NAPT in network routers?",
+    optionA: "Map multiple private IP addresses to a single public IP address using distinct source TCP/UDP port numbers",
+    optionB: "Convert MAC addresses into domain name URLs",
+    optionC: "Encrypt Wi-Fi passwords using WPA3",
+    optionD: "Assign IP subnets dynamically via DHCP",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "PAT (Overloaded NAT) translates internal private IPv4 addresses to a single public IPv4 address by assigning unique source port numbers to outbound transport segments."
+  },
+  {
+    questionText: "What is the address space size difference between IPv4 and IPv6?",
+    optionA: "IPv4 uses 32-bit addresses (approx 4.3 billion addresses); IPv6 uses 128-bit addresses (approx 3.4 x 10^38 addresses)",
+    optionB: "IPv4 uses 64-bit addresses; IPv6 uses 256-bit addresses",
+    optionC: "IPv4 uses decimal numbers; IPv6 uses binary floating point",
+    optionD: "IPv6 supports fewer hosts than IPv4",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "IPv4 address size is 32 bits ($2^{32} \\approx 4.29 \\times 10^9$). IPv6 expands address size to 128 bits ($2^{128} \\approx 3.4 \\times 10^{38}$), eliminating IP exhaustion."
+  },
+  {
+    questionText: "In Distance Vector routing protocols (e.g. RIP), what is the 'Count-to-Infinity' problem?",
+    optionA: "A routing loop condition where bad news travels slowly and distance metrics increment indefinitely when a link fails",
+    optionB: "When a router CPU reaches 100% usage",
+    optionC: "When IP packet TTL reaches zero",
+    optionD: "When DNS servers crash due to DDOS",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "When a network link fails, distance vector routers relying on neighboring updates can exchange outdated route hop counts back and forth, slowly incrementing distance counts up to infinity (RIP limits max metric to 15 hops)."
+  },
+
+  // Operating Systems (3 questions)
+  {
+    questionText: "What causes 'Thrashing' in an Operating System memory management subsystem?",
+    optionA: "The system spends more time swapping pages in and out of virtual memory disk storage than executing actual process instructions",
+    optionB: "CPU clock frequency exceeds maximum thermal capacity",
+    optionC: "Hard disk partition table gets corrupted",
+    optionD: "Network bandwidth drops below 1 Mbps",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Thrashing occurs when total process working set size exceeds physical RAM capacity. The OS repeatedly generates page faults, causing high disk I/O paging thrash and driving CPU utilization close to zero."
+  },
+  {
+    questionText: "In real-time Operating Systems, what is Priority Inversion and how is it mitigated?",
+    optionA: "A high-priority process is blocked waiting for a low-priority process holding a shared lock; mitigated using Priority Inheritance Protocol",
+    optionB: "CPU scheduler reverses execution order alphabetically",
+    optionC: "Low-priority processes kill high-priority processes",
+    optionD: "Kernel threads run slower than user threads",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Priority Inversion happens when a low-priority task holds a mutex needed by a high-priority task, and a medium-priority task preempts the low-priority task. Priority Inheritance temporarily boosts the low-priority task's priority to high until it releases the mutex."
+  },
+  {
+    questionText: "In process synchronization, how does a Readers-Writers Lock optimize throughput over a standard Mutex?",
+    optionA: "Allows MULTIPLE concurrent reader threads to hold the lock simultaneously, but enforces EXCLUSIVE access for writer threads",
+    optionB: "Blocks readers while letting writers run concurrently",
+    optionC: "Eliminates memory barriers entirely",
+    optionD: "Locks the database filesystem on disk",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "In read-heavy workloads, a Readers-Writers lock (`shared_mutex`) permits multiple threads to read shared data concurrently without blocking each other, acquiring an exclusive lock only when a write operation occurs."
+  },
+
+  // SDLC & Software Engineering (3 questions)
+  {
+    questionText: "In Agile Scrum methodology, what is the primary purpose of a Sprint Backlog?",
+    optionA: "The set of Product Backlog items selected for the Sprint, along with the plan for delivering the product Increment",
+    optionB: "A list of bug tickets reported by customers after release",
+    optionC: "A permanent document that never changes during project lifespan",
+    optionD: "A list of employee performance reviews",
+    correctOption: "A",
+    topicTag: "SDLC & Software Engineering",
+    explanation: "The Sprint Backlog is owned by the Scrum Development Team. It contains the subset of features chosen from the Product Backlog for implementation during the current Sprint, updated daily."
+  },
+  {
+    questionText: "What is the difference between Black-Box Testing and White-Box Testing in software engineering?",
+    optionA: "Black-Box testing evaluates functionality without internal code knowledge; White-Box testing examines internal source code structure and logic paths",
+    optionB: "Black-Box testing is done by developers; White-Box testing is done by end users",
+    optionC: "White-Box testing tests hardware chips; Black-Box tests monitor screen displays",
+    optionD: "There is no difference in testing methodology",
+    correctOption: "A",
+    topicTag: "SDLC & Software Engineering",
+    explanation: "Black-Box testing focuses on input/output requirements (e.g. Equivalence Partitioning, Boundary Value Analysis). White-Box testing inspects code control flow, statement coverage, and branch paths."
+  },
+  {
+    questionText: "In software development DevOps practices, what is Continuous Integration (CI)?",
+    optionA: "The practice of automatically building and running automated unit/integration tests whenever code changes are committed to a shared repository",
+    optionB: "Deploying code manually to production once every year",
+    optionC: "Writing software specifications in UML diagrams",
+    optionD: "Replacing all QA testers with AI tools",
+    correctOption: "A",
+    topicTag: "SDLC & Software Engineering",
+    explanation: "Continuous Integration (CI) enforces frequent developer code merges into a shared trunk, triggering automated build and test pipelines to detect integration bugs early."
+  }
+];
+
+// -------------------------------------------------------------
+// Test 10: Technical SDLC & Software Architecture Test 5 (24 Questions)
+// -------------------------------------------------------------
+export const indiaBixTechnical5Questions = [
+  // C# (3 questions)
+  {
+    questionText: "In C#, how are Extension Methods declared?",
+    optionA: "As static methods inside a static class, using the `this` modifier on the first parameter type",
+    optionB: "By inheriting from `System.Extension` class",
+    optionC: "By using the `virtual` keyword inside interfaces",
+    optionD: "By marking method parameters with `ref readonly`",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "Extension methods allow adding methods to existing types without creating derived types. They must be defined as static methods inside non-generic static classes, specifying `this` before the first parameter type."
+  },
+  {
+    questionText: "In C# 9+, what is the key feature of `record` types compared to standard `class` types?",
+    optionA: "`record` types provide value-based equality semantics out-of-the-box and built-in immutable `with` expressions",
+    optionB: "`record` types cannot contain properties or methods",
+    optionC: "`record` types are allocated on CPU registers",
+    optionD: "`record` types automatically save data to disk files",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "Unlike classes (which use reference equality), records synthesize value-based equality (`Equals()`, `==`), string representation (`ToString()`), and support non-destructive mutation via `with` expressions."
+  },
+  {
+    questionText: "In C#, what does the null-coalescing assignment operator `??=` do?",
+    optionA: "Assigns the right-hand operand to the left-hand operand ONLY if the left-hand operand evaluates to `null`",
+    optionB: "Throws a NullReferenceException if right-hand side is null",
+    optionC: "Compares two nullable booleans for bitwise equality",
+    optionD: "Converts strings to uppercase automatically",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "The `??=` operator assigns the value of its right-hand operand to its left-hand operand only if the left-hand operand evaluates to `null` (e.g. `list ??= new List<int>();`)."
+  },
+
+  // C++ (3 questions)
+  {
+    questionText: "In C++11/14/17, what is the difference between `constexpr` and `const`?",
+    optionA: "`constexpr` guarantees evaluation at COMPILE TIME; `const` guarantees read-only access at RUNTIME",
+    optionB: "`const` values can be modified in loops; `constexpr` cannot",
+    optionC: "`constexpr` can only be used on string objects",
+    optionD: "They are identical keywords in C++",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "`const` means variable value cannot be modified after initialization (runtime read-only). `constexpr` indicates that the expression or function can be evaluated at compile-time, allowing constant folding and array dimension sizing."
+  },
+  {
+    questionText: "In C++ memory layout, why does structure padding occur inside a `struct`?",
+    optionA: "To align data member memory addresses to CPU word boundaries (e.g. 4-byte or 8-byte alignment) for faster memory bus access",
+    optionB: "To prevent buffer overflow security exploits",
+    optionC: "To hide private member variables from outside code",
+    optionD: "To compress struct size for disk storage",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "CPUs access memory efficiently when data types start at addresses divisible by their size. Compilers insert unused padding bytes between struct members to align them to natural memory boundaries."
+  },
+  {
+    questionText: "In C++17, what container class provides a type-safe tagged union capable of holding one of several alternative types?",
+    optionA: "std::variant",
+    optionB: "std::optional",
+    optionC: "std::any",
+    optionD: "std::tuple",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "`std::variant<T1, T2, ...>` represents a type-safe union. It knows which type alternative it currently holds, preventing undefined behavior common with C-style raw unions, and works with `std::visit`."
+  },
+
+  // Java (3 questions)
+  {
+    questionText: "In Java 9+ Module System (JPMS), what file defines module dependencies (`requires`) and exported packages (`exports`)?",
+    optionA: "module-info.java",
+    optionB: "pom.xml",
+    optionC: "build.gradle",
+    optionD: "manifest.mf",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "`module-info.java` located at the root of the Java package hierarchy contains module declarations, explicitly specifying required module dependencies and public package exports."
+  },
+  {
+    questionText: "In modern Java JVM garbage collection, which collector is designed for ultra-low latency with pause times under 1 millisecond on multi-terabyte heaps?",
+    optionA: "ZGC (Z Garbage Collector)",
+    optionB: "Serial GC",
+    optionC: "Parallel Mark Sweep GC",
+    optionD: "CMS (Concurrent Mark Sweep)",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "ZGC (Z Garbage Collector) is a scalable, low-latency garbage collector introduced in recent Java versions that performs all expensive work concurrently with Java application threads, keeping pause times under 1ms."
+  },
+  {
+    questionText: "In Java `CompletableFuture`, which method transforms the result of a completed future by applying a function returning another `CompletableFuture` (flattening nested futures)?",
+    optionA: "thenCompose()",
+    optionB: "thenApply()",
+    optionC: "thenAccept()",
+    optionD: "thenRun()",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "`thenApply()` is equivalent to `map()` (returns `CompletableFuture<U>`). `thenCompose()` is equivalent to `flatMap()` (unwraps and flattens nested `CompletableFuture<CompletableFuture<U>>`)."
+  },
+
+  // JavaScript (3 questions)
+  {
+    questionText: "In JavaScript, what keyword is used inside Generator functions (`function*`) to pause execution and yield a value?",
+    optionA: "yield",
+    optionB: "await",
+    optionC: "return",
+    optionD: "break",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "Generator functions defined with `function*` return a Generator object. Execution pauses when the `yield` keyword is encountered, returning `{ value, done }` upon calling `.next()`."
+  },
+  {
+    questionText: "Why are Web Workers used in browser JavaScript applications?",
+    optionA: "To run heavy background CPU computations on a separate OS thread without freezing the main UI browser thread",
+    optionB: "To bypass CORS security policies",
+    optionC: "To access local filesystem hard drives directly",
+    optionD: "To style HTML elements with CSS grid",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "Web Workers allow running scripts in background threads independent of the main execution thread, preventing long-running JavaScript calculations from blocking rendering and user UI input."
+  },
+  {
+    questionText: "In modern JavaScript (ES2022+), what native web API creates a deep clone of a complex object containing circular references and typed arrays?",
+    optionA: "structuredClone()",
+    optionB: "JSON.parse(JSON.stringify())",
+    optionC: "Object.assign()",
+    optionD: "Spread operator (...)",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "`structuredClone()` is the native built-in JS function for deep copying objects. Unlike `JSON.parse(JSON.stringify())`, it supports circular references, Dates, Sets, Maps, TypedArrays, and ArrayBuffers."
+  },
+
+  // DBMS (3 questions)
+  {
+    questionText: "In Relational Database design, what is Horizontal Partitioning (Sharding)?",
+    optionA: "Dividing table ROWS across multiple database nodes or tables based on a partition key",
+    optionB: "Dividing table COLUMNS into separate tables",
+    optionC: "Compressing index files using ZIP algorithm",
+    optionD: "Backing up database tables to tape drives",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "Horizontal Partitioning (Sharding) splits table data by rows, storing subsets of rows on distinct database instances (shards) while maintaining identical table schema."
+  },
+  {
+    questionText: "In Data Warehousing architecture, what is the main structural difference between Star Schema and Snowflake Schema?",
+    optionA: "In Star Schema, dimension tables are normalized; in Snowflake Schema, dimension tables are denormalized into single tables",
+    optionB: "In Star Schema, dimension tables are completely denormalized; in Snowflake Schema, dimension tables are normalized into multiple related tables",
+    optionC: "Star Schema uses NoSQL; Snowflake Schema uses MySQL",
+    optionD: "Snowflake Schema cannot contain fact tables",
+    correctOption: "B",
+    topicTag: "DBMS",
+    explanation: "Star Schema uses centralized Fact tables connected directly to simple denormalized Dimension tables. Snowflake Schema normalizes dimension tables into hierarchies, reducing data redundancy but increasing SQL join complexity."
+  },
+  {
+    questionText: "What is a Materialized View in a Database Management System?",
+    optionA: "A database object containing the pre-computed physical query result stored on disk, periodically refreshed from underlying base tables",
+    optionB: "A temporary virtual table stored only in RAM memory during query execution",
+    optionC: "A CSS layout view in database web portals",
+    optionD: "A transaction log file",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "Unlike a standard virtual view (which executes query logic every time it is referenced), a Materialized View physically saves pre-computed query output on disk for rapid read performance."
+  },
+
+  // Computer Networks (3 questions)
+  {
+    questionText: "What security vulnerability in traditional DNS is solved by Domain Name System Security Extensions (DNSSEC)?",
+    optionA: "DNS Cache Poisoning / Spoofing by using cryptographic digital signatures to verify DNS record authenticity",
+    optionB: "High network ping latency",
+    optionC: "Wi-Fi password sniffing",
+    optionD: "HTML XSS injection",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "DNSSEC attaches cryptographic signatures (RRSIG) to DNS lookup records, allowing DNS resolvers to verify that received IP translation data has not been forged or tampered with by attacker cache poisoning."
+  },
+  {
+    questionText: "At which level does the Border Gateway Protocol (BGP) operate in global Internet routing?",
+    optionA: "Inter-Autonomous System (Inter-AS) exterior routing between different Internet Service Providers (ISPs)",
+    optionB: "Local Area Network (LAN) Ethernet switching",
+    optionC: "Bluetooth device pairing",
+    optionD: "Internal home router Wi-Fi channel selection",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "BGP is the core Path Vector routing protocol of the global Internet. It exchanges reachability and routing policy information across distinct Autonomous Systems (AS) managed by global ISPs."
+  },
+  {
+    questionText: "What major efficiency optimization was made to the cryptographic handshake protocol in TLS 1.3 compared to TLS 1.2?",
+    optionA: "TLS 1.3 reduced handshake latency from 2 Round Trips (2-RTT) down to 1 Round Trip (1-RTT) or 0-RTT for resumed connections",
+    optionB: "TLS 1.3 removed RSA encryption entirely",
+    optionC: "TLS 1.3 runs over UDP instead of IP",
+    optionD: "TLS 1.3 disables server certificates",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "TLS 1.3 streamlined key exchange and cipher suite selection, requiring only 1 Round Trip Time (1-RTT) to establish secure encrypted sessions (and 0-RTT for returning clients), significantly reducing connection setup latency."
+  },
+
+  // Operating Systems (3 questions)
+  {
+    questionText: "What is the primary difference between Type-1 (Bare-Metal) and Type-2 (Hosted) Hypervisors in OS Virtualization?",
+    optionA: "Type-1 hypervisors run directly on physical host hardware; Type-2 hypervisors run as software applications on top of a host operating system",
+    optionB: "Type-2 hypervisors run faster than Type-1 bare-metal hypervisors",
+    optionC: "Type-1 hypervisors can only host Linux guest OS",
+    optionD: "Type-2 hypervisors require quantum hardware",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Type-1 hypervisors (e.g. VMware ESXi, KVM) run directly on bare hardware, providing high performance. Type-2 hypervisors (e.g. VirtualBox, VMware Workstation) run inside a conventional host OS environment."
+  },
+  {
+    questionText: "In Linux/Unix file systems (ext4), what information does an Inode (Index Node) store?",
+    optionA: "File metadata (file size, permissions, owner, timestamps, data block pointers), but NOT the file name or actual data contents",
+    optionB: "The actual file string data",
+    optionC: "The user password hash",
+    optionD: "The browser history cache",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "An Inode stores metadata about a file or directory (file size, access rights, user/group IDs, timestamps, pointers to disk data blocks). Directory entries map file names to Inode numbers."
+  },
+  {
+    questionText: "What distinguishes a Hard Real-Time Operating System from a Soft Real-Time Operating System?",
+    optionA: "Hard Real-Time systems guarantee that missing a task deadline results in catastrophic system failure; Soft Real-Time systems tolerate occasional deadline misses with degraded quality",
+    optionB: "Soft Real-Time systems run on hard disk drives",
+    optionC: "Hard Real-Time systems do not use CPU interrupts",
+    optionD: "Soft Real-Time systems cannot run multithreaded tasks",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Hard Real-Time OS (e.g. pacemakers, flight control, anti-lock brakes) enforce deterministic deadline bounds where a single missed deadline causes system failure. Soft Real-Time OS (e.g. video streaming, gaming) prioritize deadlines but tolerate minor delays."
+  },
+
+  // SDLC & Software Engineering (3 questions)
+  {
+    questionText: "In Software Development Life Cycle (SDLC) models, what key characteristic defines the V-Model (Verification and Validation Model)?",
+    optionA: "Every development phase has a directly corresponding, parallel testing phase (e.g. Requirements mapped to Acceptance Testing)",
+    optionB: "Coding is done before requirements gathering",
+    optionC: "Testing is performed only after deployment",
+    optionD: "Projects are completed in 1-day sprints",
+    correctOption: "A",
+    topicTag: "SDLC & Software Engineering",
+    explanation: "The V-Model maps each stage of the development lifecycle (Requirements, Design, Architecture, Coding) to a corresponding verification and validation testing level (Acceptance, System, Integration, Unit Testing)."
+  },
+  {
+    questionText: "In Object-Oriented Software Design (SOLID principles), what does the Liskov Substitution Principle (LSP) dictate?",
+    optionA: "Objects of a derived class must be substitutable for objects of their base class without altering the correctness of the program",
+    optionB: "Classes should be open for modification and closed for extension",
+    optionC: "Interfaces must contain at least 10 methods",
+    optionD: "Subclasses must override all inherited methods with private visibility",
+    correctOption: "A",
+    topicTag: "SDLC & Software Engineering",
+    explanation: "LSP (the 'L' in SOLID) states that child classes must fulfill all behavioral contracts of their parent class so that references to base classes can be replaced with derived class objects seamlessly."
+  },
+  {
+    questionText: "What does a high Cyclomatic Complexity metric ($V(G)$) indicate in software code quality analysis?",
+    optionA: "A high number of linearly independent decision paths in source code, indicating complex logic and higher risk of bugs requiring more unit test cases",
+    optionB: "High CPU clock execution speed",
+    optionC: "Low RAM memory consumption",
+    optionD: "High code readability",
+    correctOption: "A",
+    topicTag: "SDLC & Software Engineering",
+    explanation: "Cyclomatic Complexity measures the number of decision branches (e.g. `if`, `for`, `while`, `case`) in source code. Higher complexity indicates harder-to-maintain code requiring a larger number of test cases to achieve full branch coverage."
+  }
+];
+
+
