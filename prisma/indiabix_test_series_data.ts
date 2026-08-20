@@ -938,3 +938,436 @@ export const indiaBixJavaDb1Questions = [
     explanation: "`TRUNCATE` is a DDL operation that resets high-water mark and deallocates data pages quickly compared to DML `DELETE`."
   }
 ];
+
+// -------------------------------------------------------------
+// Test 7: IndiaBIX Technical & CS Engineering Test 2 (21 Questions)
+// -------------------------------------------------------------
+export const indiaBixTechnical2Questions = [
+  {
+    questionText: "How does `ConcurrentHashMap` in Java achieve thread safety while outperforming `Hashtable` under high concurrency?",
+    optionA: "It uses Lock Striping (bucket-level locking) and CAS operations rather than synchronizing the entire map instance",
+    optionB: "It makes all key-value pairs immutable in main memory",
+    optionC: "It creates a complete copy of the map on every write operation",
+    optionD: "It runs a single background thread to process all incoming read/write requests sequentially",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "`ConcurrentHashMap` uses fine-grained lock striping (synchronized per bucket bin in Java 8+) and Compare-And-Swap (CAS) non-blocking operations, allowing concurrent reads and writes across different buckets without blocking the entire table like `Hashtable`."
+  },
+  {
+    questionText: "In Java JVM architecture, which Garbage Collector region replaces the PermGen space starting from Java 8?",
+    optionA: "Metaspace",
+    optionB: "Young Generation",
+    optionC: "Eden Space",
+    optionD: "Survivor Space S1",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "Starting in Java 8, Permanent Generation (PermGen) was removed and replaced by Metaspace, which allocates class metadata memory out of native host memory rather than fixed Java heap memory."
+  },
+  {
+    questionText: "In Java 8 Stream API, what is the key difference between `map()` and `flatMap()` operations?",
+    optionA: "`map()` produces one output value per input element; `flatMap()` transforms each element into a stream and flattens multiple streams into one",
+    optionB: "`flatMap()` can only be used on Primitive streams like IntStream",
+    optionC: "`map()` operates asynchronously; `flatMap()` executes synchronously",
+    optionD: "There is no difference; both perform element replacement",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "`map()` applies a 1-to-1 mapping function. `flatMap()` applies a 1-to-many function returning a stream for each element and flattens the resulting stream of streams (`Stream<Stream<T>>`) into a single stream (`Stream<T>`)."
+  },
+  {
+    questionText: "In C++, which smart pointer enforces EXCLUSIVE ownership of a dynamically allocated object and cannot be copied?",
+    optionA: "std::unique_ptr",
+    optionB: "std::shared_ptr",
+    optionC: "std::weak_ptr",
+    optionD: "std::auto_ptr",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "`std::unique_ptr` maintains sole ownership of a resource. Its copy constructor and copy assignment operator are deleted; ownership can only be transferred using move semantics (`std::move`)."
+  },
+  {
+    questionText: "In C++, what occurs if a base class destructor is NOT declared as `virtual` when deleting a derived class object through a base pointer?",
+    optionA: "Undefined behavior / Memory leak occurs because the derived class destructor will not be called",
+    optionB: "The compiler automatically generates a virtual destructor at link time",
+    optionC: "Both base and derived destructors execute in reverse alphabetical order",
+    optionD: "A compile-time error stops build execution",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "If a base class destructor is not `virtual`, deleting a derived object via `Base* ptr = new Derived(); delete ptr;` invokes only the `Base` destructor, leaving derived resources uncleaned (undefined behavior / memory leak)."
+  },
+  {
+    questionText: "In C++ Standard Template Library (STL), what are the time complexities for searching an element in `std::map` versus `std::unordered_map`?",
+    optionA: "`std::map` is O(log N); `std::unordered_map` is O(1) average case",
+    optionB: "Both are O(N) linear search time",
+    optionC: "`std::map` is O(1); `std::unordered_map` is O(log N)",
+    optionD: "Both are O(1) constant time",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "`std::map` is implemented as a balanced Red-Black tree providing guaranteed O(log N) lookup time. `std::unordered_map` uses a Hash Table providing O(1) average lookup time (worst case O(N) under hash collisions)."
+  },
+  {
+    questionText: "In C# GUI and ASP.NET applications, why is `.ConfigureAwait(false)` often recommended when awaiting a Task in library code?",
+    optionA: "To prevent deadlocks by not forcing the continuation task back onto the captured original SynchronizationContext",
+    optionB: "To force the Task to run synchronously on the main thread",
+    optionC: "To disable garbage collection during async execution",
+    optionD: "To automatically retry the async operation if an exception occurs",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "In single-threaded SynchronizationContext environments (like WinForms, WPF, or classic ASP.NET), awaiting without `.ConfigureAwait(false)` attempts to resume on the original UI context, which can cause deadlocks if the UI thread is synchronously waiting on the task."
+  },
+  {
+    questionText: "In C#, what is the difference between `Action<T>` and `Func<T, TResult>` delegates?",
+    optionA: "`Action<T>` points to a method that returns `void`; `Func<T, TResult>` points to a method that returns a value of type `TResult`",
+    optionB: "`Func` takes no arguments; `Action` takes up to 16 arguments",
+    optionC: "`Action` is used for asynchronous methods; `Func` for synchronous methods",
+    optionD: "`Func` can only reference static methods",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "`Action` represents a delegate that accepts parameters and returns `void`. `Func` represents a delegate that accepts parameters and returns a value (the last generic parameter is the return type)."
+  },
+  {
+    questionText: "In C#, what is Boxing and what overhead does it introduce?",
+    optionA: "Converting a value type (`struct`/`int`) to an `object` reference type, allocating memory on the managed heap and adding CPU performance overhead",
+    optionB: "Packing multiple assemblies into a single DLL file",
+    optionC: "Converting a class into a byte array for storage",
+    optionD: "Wrapping private variables in public getter and setter properties",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "Boxing implicitly converts a value type to type `object` or an interface type. It creates a new object on the managed heap and copies the value into it, causing heap allocation and garbage collection overhead."
+  },
+  {
+    questionText: "In database systems, which anomaly can occur under `REPEATABLE READ` isolation level that is prevented under `SERIALIZABLE` level?",
+    optionA: "Phantom Read (new rows inserted by concurrent committed transactions appearing in repeated query scans)",
+    optionB: "Dirty Read (reading uncommitted data)",
+    optionC: "Lost Update",
+    optionD: "None; REPEATABLE READ prevents all anomalies",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "`REPEATABLE READ` locks existing read rows so they cannot be modified (preventing Dirty Reads and Non-Repeatable Reads), but external transactions can still INSERT new matching rows, producing Phantom Reads upon re-query. `SERIALIZABLE` prevents Phantom Reads."
+  },
+  {
+    questionText: "Why are B+ Trees preferred over B-Trees for relational database disk indexing?",
+    optionA: "B+ Trees store data records/pointers exclusively in leaf nodes and link leaf nodes sequentially, enabling fast range scans",
+    optionB: "B+ Trees consume zero memory in RAM",
+    optionC: "B-Trees cannot handle integer primary keys",
+    optionD: "B+ Trees eliminate the need for secondary indexes",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "In B+ Trees, all data records or record pointers are located at the leaf level, and leaves are connected in a linked list. This enables efficient sequential disk block reads during range queries (`WHERE age BETWEEN 20 AND 30`)."
+  },
+  {
+    questionText: "What condition must be satisfied for a relation table to be in Boyce-Codd Normal Form (BCNF)?",
+    optionA: "For every non-trivial functional dependency X -> Y, X must be a Super Key",
+    optionB: "The table must contain no multi-valued attributes",
+    optionC: "All non-key attributes must be dependent on part of a composite key",
+    optionD: "Foreign keys must match primary keys in all referenced tables",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "BCNF is a stricter version of 3NF. A relation is in BCNF if for every functional dependency X -> Y, X is a superkey of the relation. It eliminates all redundancy from functional dependencies."
+  },
+  {
+    questionText: "In JavaScript engine runtime (V8), what is the order of execution between Microtask Queue (Promises) and Macrotask Queue (setTimeout)?",
+    optionA: "All jobs in the Microtask Queue are processed completely before the Event Loop moves to the next Macrotask",
+    optionB: "Macrotasks are always executed before Microtasks",
+    optionC: "Microtasks and Macrotasks execute in round-robin order 1:1",
+    optionD: "Macrotasks pause Microtask execution indefinitely",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "After each current task finishes, the JavaScript engine drains the entire Microtask Queue (resolved `Promise` callbacks, `queueMicrotask`) before picking up the next Macrotask (`setTimeout`, `setInterval`, `I/O`)."
+  },
+  {
+    questionText: "What is a Closure in JavaScript?",
+    optionA: "A function bundled together with references to its surrounding lexical state (outer scope environment)",
+    optionB: "A method that closes a database connection",
+    optionC: "An IIFE (Immediately Invoked Function Expression) that returns undefined",
+    optionD: "A strict mode feature that prevents global variable creation",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "A closure gives an inner function access to an outer function's scope even after the outer function has finished executing and returned."
+  },
+  {
+    questionText: "In JavaScript prototype inheritance, what is the difference between `__proto__` and `prototype`?",
+    optionA: "`prototype` is an object property on constructor functions used to build `__proto__` on instantiated objects",
+    optionB: "`__proto__` is a modern ES6 replacement for `prototype`",
+    optionC: "`prototype` exists on primitive types; `__proto__` exists on objects",
+    optionD: "There is no difference; they are aliases",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "`prototype` is a property of constructor functions (e.g. `Person.prototype`). When an object is created with `new Person()`, its internal `[[Prototype]]` link (`__proto__`) points to `Person.prototype`."
+  },
+  {
+    questionText: "During the TCP 3-Way Handshake, what flags and sequence numbers are exchanged to establish a connection between Client and Server?",
+    optionA: "Client sends SYN(seq=x) -> Server replies SYN-ACK(seq=y, ack=x+1) -> Client sends ACK(ack=y+1)",
+    optionB: "Client sends ACK -> Server sends SYN -> Client sends FIN",
+    optionC: "Client sends DATA -> Server sends ACK -> Client sends RST",
+    optionD: "Client sends SYN -> Server sends FIN -> Client sends ACK",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "The TCP 3-Way Handshake initializes reliable sequence numbers: 1. Client -> Server: SYN (seq=x); 2. Server -> Client: SYN-ACK (seq=y, ack=x+1); 3. Client -> Server: ACK (ack=y+1)."
+  },
+  {
+    questionText: "How many usable host IP addresses are available in a subnetwork with IPv4 CIDR notation `/26`?",
+    optionA: "62",
+    optionB: "64",
+    optionC: "128",
+    optionD: "254",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "A `/26` subnet leaves 32 - 26 = 6 bits for host addresses. Total IP addresses = 2^6 = 64. Subtracting 2 reserved addresses (Network ID and Broadcast IP) leaves 64 - 2 = 62 usable host IPs."
+  },
+  {
+    questionText: "What mechanism does TCP use at the Transport Layer to prevent a fast sender from overwhelming a slow receiver?",
+    optionA: "Flow Control using Sliding Window Protocol (Advertised Window)",
+    optionB: "IP Fragmentation",
+    optionC: "DNS Caching",
+    optionD: "ARP Request Broadcasting",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "Flow control prevents receiver buffer overflow. The receiver advertises its available buffer size (Receive Window `rwnd`) in TCP header acknowledgments, telling the sender how much data it can accept."
+  },
+  {
+    questionText: "In Operating Systems, what are the four necessary conditions required for a Deadlock to occur?",
+    optionA: "Mutual Exclusion, Hold & Wait, No Preemption, and Circular Wait",
+    optionB: "Paging, Thrashing, Segmentation, and Virtual Memory",
+    optionC: "Cache Miss, Page Fault, TLB Miss, and Hard Fault",
+    optionD: "Read, Write, Execute, and Delete permissions",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Coffman conditions for deadlock: 1. Mutual Exclusion (non-shareable resources); 2. Hold & Wait (holding resource while waiting for another); 3. No Preemption (resources cannot be forcibly taken); 4. Circular Wait (chain of processes waiting for held resources)."
+  },
+  {
+    questionText: "What is the key difference between a Mutex (Mutual Exclusion Lock) and a Counting Semaphore in process synchronization?",
+    optionA: "A Mutex is owned by the locking thread and locked/unlocked by the same thread; a Semaphore has a integer counter and can be signaled from any thread",
+    optionB: "A Semaphore can only be used by 1 process; a Mutex by N processes",
+    optionC: "A Mutex runs in user space; a Semaphore runs inside BIOS chip",
+    optionD: "Semaphores prevent deadlocks automatically; Mutex locks cause deadlocks",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "A Mutex enforces strict thread ownership (only the thread that locked it can unlock it). A Counting Semaphore maintains a count allowing up to N concurrent threads access, and any thread can signal/release it."
+  },
+  {
+    questionText: "In Virtual Memory management, what is Belady's Anomaly?",
+    optionA: "In FIFO page replacement, increasing the number of allocated memory page frames can result in MORE page faults for certain access patterns",
+    optionB: "When CPU utilization drops to zero during disk writes",
+    optionC: "When LRU cache deletes the most recently used element",
+    optionD: "When virtual memory addresses exceed 64 bits",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Belady's Anomaly is a counter-intuitive phenomenon in FIFO page replacement where adding more page frames to a process causes an increase in total page faults. Stack-based algorithms like LRU do not suffer from Belady's Anomaly."
+  }
+];
+
+// -------------------------------------------------------------
+// Test 8: IndiaBIX Core Technical & Software Test 3 (21 Questions)
+// -------------------------------------------------------------
+export const indiaBixTechnical3Questions = [
+  {
+    questionText: "In Java, what is the superclass of all Exception and Error classes in the exception hierarchy?",
+    optionA: "java.lang.Throwable",
+    optionB: "java.lang.Object",
+    optionC: "java.lang.RuntimeException",
+    optionD: "java.io.IOException",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "`java.lang.Throwable` is the root class of the Java exception hierarchy. Only instances of `Throwable` (or its subclasses `Exception` and `Error`) can be thrown by the JVM or `throw` statements."
+  },
+  {
+    questionText: "In Java, what is created in memory when executing `String s = new String(\"Hello\");` assuming \"Hello\" is not already in the String Constant Pool?",
+    optionA: "Two objects: one in the String Constant Pool (Heap) and one object in Heap memory referenced by `s`",
+    optionB: "One object on the Stack",
+    optionC: "Zero objects because strings are primitives",
+    optionD: "Three objects in Metaspace",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "The literal `\"Hello\"` creates or references an entry in the String Constant Pool. Calling `new String(...)` explicitly creates a second distinct `String` object instance on the heap."
+  },
+  {
+    questionText: "What guarantee does the `volatile` keyword provide in Java multi-threaded programs?",
+    optionA: "Guarantees Visibility (reads/writes directly to main memory), but does NOT guarantee Atomicity for compound operations like `i++`",
+    optionB: "Guarantees full atomic execution of code blocks",
+    optionC: "Prevents a variable from being garbage collected",
+    optionD: "Locks the entire class during method execution",
+    correctOption: "A",
+    topicTag: "Java",
+    explanation: "`volatile` ensures variable visibility across threads by bypassing thread CPU caches. However, it does not provide mutual exclusion or atomicity for non-atomic compound operations like incrementing (`i++`)."
+  },
+  {
+    questionText: "In C++11, what function converts an lvalue expression into an rvalue reference `T&&` to enable move semantics?",
+    optionA: "std::move()",
+    optionB: "std::forward()",
+    optionC: "std::copy()",
+    optionD: "std::cast()",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "`std::move()` does not move anything by itself; it performs an unconditional static cast of an expression into an rvalue reference `T&&`, allowing move constructors or move assignment operators to be called."
+  },
+  {
+    questionText: "In C++, how is the 'Diamond Problem' in Multiple Inheritance resolved?",
+    optionA: "By using Virtual Base Class inheritance (`class B : virtual public A`)",
+    optionB: "By marking all member functions as static",
+    optionC: "By using friend functions",
+    optionD: "By removing derived class constructors",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "When two derived classes inherit from a common base class using `virtual` inheritance (`class B : virtual public Base`), the grandchild class receives only a single shared instance of the root `Base` class subobject."
+  },
+  {
+    questionText: "Which binary operator cannot be overloaded as a member function in C++ if the left-hand operand is a standard stream object (e.g. `std::cout << obj`)?",
+    optionA: "Stream insertion operator `<<`",
+    optionB: "Addition operator `+`",
+    optionC: "Assignment operator `=`",
+    optionD: "Subscript operator `[]`",
+    correctOption: "A",
+    topicTag: "C++",
+    explanation: "When overloading `std::cout << obj`, the left operand is `std::ostream` (not your class). Since you cannot modify `std::ostream` to add a member function, `operator<<` must be overloaded as a global/friend function."
+  },
+  {
+    questionText: "In C# LINQ, what is Deferred Execution?",
+    optionA: "Query execution is delayed until the query variable is actually iterated over (e.g. via `foreach` or `.ToList()`)",
+    optionB: "Queries are executed asynchronously in a background thread upon definition",
+    optionC: "Queries are compiled directly into SQL at deployment time",
+    optionD: "Queries are cached permanently in RAM memory",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "LINQ queries using `IEnumerable` use deferred execution: construction of the query does not execute data fetching. Execution occurs when query results are consumed (`foreach`, `.ToList()`, `.ToArray()`, `.Count()`)."
+  },
+  {
+    questionText: "In .NET Garbage Collection, which generation holds long-lived objects like static data and singletons?",
+    optionA: "Generation 2",
+    optionB: "Generation 0",
+    optionC: "Generation 1",
+    optionD: "Generation -1",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: ".NET GC uses 3 generations: Gen 0 (short-lived temporary objects), Gen 1 (buffer generation between short and long-lived), and Gen 2 (long-lived objects surviving multiple collections, static variables, application singletons)."
+  },
+  {
+    questionText: "In C#, what is mandatory when passing a variable with the `out` parameter modifier to a method?",
+    optionA: "The called method MUST assign a value to the `out` parameter before it returns",
+    optionB: "The calling method must initialize the variable before passing it",
+    optionC: "The parameter must be a primitive integer",
+    optionD: "The method must return an array",
+    correctOption: "A",
+    topicTag: "C#",
+    explanation: "The `out` keyword passes arguments by reference. The calling code does not need to initialize the variable prior to passing, but the called method MUST assign a value to the `out` parameter before returning."
+  },
+  {
+    questionText: "In SQL, what is the result of a `CROSS JOIN` between Table A with 5 rows and Table B with 10 rows?",
+    optionA: "50 rows (Cartesian product)",
+    optionB: "15 rows",
+    optionC: "10 rows",
+    optionD: "5 rows",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "A `CROSS JOIN` produces the Cartesian product of two tables. Every row from Table A is paired with every row from Table B. Total rows = 5 * 10 = 50 rows."
+  },
+  {
+    questionText: "In Database Management Systems, what is Write-Ahead Logging (WAL) used for?",
+    optionA: "Ensuring Durability and Atomicity by writing transaction changes to log storage on disk BEFORE modifying database data pages",
+    optionB: "Indexing foreign key columns automatically",
+    optionC: "Compressing tables to reduce disk space",
+    optionD: "Encrypting database passwords in memory",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "WAL protocol dictates that dirty data pages in RAM cannot be written to disk until the corresponding log records describing the modification have been flushed to non-volatile disk storage, guaranteeing crash recovery."
+  },
+  {
+    questionText: "What is a primary distinction between a Clustered Index and a Non-Clustered Index in SQL databases?",
+    optionA: "A table can have only ONE Clustered Index (data rows sorted on disk); but can have MULTIPLE Non-Clustered Indexes (separate index pages with pointers)",
+    optionB: "Clustered indexes are stored in RAM; Non-Clustered on disk",
+    optionC: "Non-Clustered indexes sort data rows physically on disk",
+    optionD: "Clustered indexes can only be created on text columns",
+    correctOption: "A",
+    topicTag: "DBMS",
+    explanation: "A Clustered Index dictates the physical ordering of data rows on disk (hence max 1 per table, usually Primary Key). A Non-Clustered Index creates a separate structure containing key values and pointers (RID / Primary Key) back to data rows."
+  },
+  {
+    questionText: "In JavaScript, how does an Arrow Function behave regarding the `this` keyword?",
+    optionA: "Arrow functions do not have their own `this`; they inherit `this` lexically from the enclosing parent scope",
+    optionB: "Arrow functions bind `this` to the global `window` object always",
+    optionC: "Arrow functions allow explicit binding via `.bind()`",
+    optionD: "Arrow functions construct new objects when invoked with `new`",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "Arrow functions do not define their own `this` context or `arguments` object. Instead, they capture `this` from the surrounding scope at the time they are created (lexical scope)."
+  },
+  {
+    questionText: "Which method of `Promise` in JavaScript executes after all input promises settle (either fulfilled or rejected) and returns an array of result objects?",
+    optionA: "Promise.allSettled()",
+    optionB: "Promise.all()",
+    optionC: "Promise.race()",
+    optionD: "Promise.any()",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "`Promise.allSettled()` waits for all input promises to complete regardless of whether individual promises resolve or reject. In contrast, `Promise.all()` short-circuits and rejects immediately if any single promise fails."
+  },
+  {
+    questionText: "Why are `WeakMap` keys in ES6 JavaScript restricted to objects and garbage collected automatically?",
+    optionA: "References to object keys are held weakly, allowing key objects to be garbage-collected if no other references to them exist",
+    optionB: "WeakMap converts keys to JSON strings automatically",
+    optionC: "WeakMap is stored in CPU L1 cache memory",
+    optionD: "To allow iterating over keys using `for...in` loops",
+    correctOption: "A",
+    topicTag: "JavaScript",
+    explanation: "`WeakMap` holds weak references to object keys. If an object key has no other strong references in the application, it can be garbage collected along with its associated value, preventing memory leaks."
+  },
+  {
+    questionText: "In the Domain Name System (DNS), what is the difference between Recursive and Iterative DNS Queries?",
+    optionA: "In a Recursive query, the DNS server takes full responsibility to return the final IP answer; in an Iterative query, the DNS server returns the address of another DNS server to query",
+    optionB: "Recursive queries use TCP; Iterative queries use HTTP",
+    optionC: "Iterative queries run locally on the browser cache",
+    optionD: "Recursive queries are only used for IPv6 addresses",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "In Recursive queries, the resolver delegates the lookup entirely to the DNS server until an IP address or error is found. In Iterative queries, the DNS server responds with referral pointers to TLD or authoritative DNS servers."
+  },
+  {
+    questionText: "What major performance limitation in HTTP/1.1 did HTTP/2 solve by introducing Binary Framing and Multiplexing?",
+    optionA: "Head-of-Line (HOL) Blocking at the application layer over a single TCP connection",
+    optionB: "Lack of SSL/TLS encryption",
+    optionC: "Max URL length limitations",
+    optionD: "Inability to send POST requests",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "HTTP/1.1 suffered from application-level Head-of-Line (HOL) blocking where requests over a connection had to be processed sequentially. HTTP/2 split messages into binary frames, allowing multiple concurrent requests/responses multiplexed over 1 TCP connection."
+  },
+  {
+    questionText: "At which layer of the OSI model does a Network Router operate to forward packets based on destination IP addresses?",
+    optionA: "Network Layer (Layer 3)",
+    optionB: "Data Link Layer (Layer 2)",
+    optionC: "Transport Layer (Layer 4)",
+    optionD: "Physical Layer (Layer 1)",
+    correctOption: "A",
+    topicTag: "Computer Networks",
+    explanation: "Routers operate at Layer 3 (Network Layer) of the OSI model. They examine logical IP addresses in packet headers and consult routing tables to determine packet forwarding paths across subnets."
+  },
+  {
+    questionText: "In Operating System CPU Scheduling, what is a major drawback of Shortest Remaining Time First (SRTF) scheduling?",
+    optionA: "Starvation of long-running CPU-bound processes if short processes continuously arrive",
+    optionB: "High CPU idle percentage",
+    optionC: "Inability to run multi-threaded processes",
+    optionD: "Requires hardware graphics acceleration",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "SRTF is the preemptive version of Shortest Job First (SJF). While it minimizes average wait time, long processes may suffer indefinite delay (starvation) if shorter tasks continuously enter the ready queue."
+  },
+  {
+    questionText: "In Virtual Memory management, what hardware component speeds up Virtual IP Address to Physical Page Frame translation?",
+    optionA: "Translation Lookaside Buffer (TLB)",
+    optionB: "Direct Memory Access (DMA) controller",
+    optionC: "Arithmetic Logic Unit (ALU)",
+    optionD: "Hard Disk Drive (HDD)",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "The TLB is a high-speed associative hardware cache memory inside the CPU Memory Management Unit (MMU) that stores recent virtual-to-physical address translations, bypassing slow multi-level page table lookups in RAM."
+  },
+  {
+    questionText: "In Operating Systems Inter-Process Communication (IPC), which method provides the HIGHEST speed for exchanging data between processes?",
+    optionA: "Shared Memory",
+    optionB: "Message Queues",
+    optionC: "Network Sockets",
+    optionD: "Anonymous Pipes",
+    correctOption: "A",
+    topicTag: "Operating Systems",
+    explanation: "Shared Memory is the fastest IPC mechanism because two or more processes share a common region of RAM. Once established, data reads/writes occur directly at memory speed without kernel intervention or data copying."
+  }
+];
+

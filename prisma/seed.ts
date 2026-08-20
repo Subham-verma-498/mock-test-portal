@@ -21,6 +21,8 @@ import {
   indiaBixVerbal1Questions,
   indiaBixTechnical1Questions,
   indiaBixJavaDb1Questions,
+  indiaBixTechnical2Questions,
+  indiaBixTechnical3Questions,
 } from './indiabix_test_series_data.js';
 
 const prisma = new PrismaClient();
@@ -2713,9 +2715,9 @@ async function main() {
       title: 'IndiaBIX Placement Exam Test Series 2026',
       slug: 'indiabix-test-series',
       category: 'IndiaBIX',
-      badge: '6 New Tests',
+      badge: '8 New Tests',
       icon: 'Award',
-      description: 'Authentic IndiaBIX exam preparation series with 6 dedicated tests containing 15 questions each (score out of 30, 2 marks per question) covering Quant, Logical Reasoning, Verbal Ability, C/C++, Java, and SQL.',
+      description: 'Authentic IndiaBIX exam preparation series with 8 dedicated tests covering Quant, Logical Reasoning, Verbal Ability, Java, C++, C#, DBMS, JavaScript, Computer Networks (CN), and Operating Systems (OS).',
     },
   ];
 
@@ -3019,7 +3021,7 @@ async function main() {
       questions: indiaBixTechnical1Questions,
     },
     {
-      title: 'IndiaBIX Java & Database Systems Test 1',
+      title: 'IndiaBIX Technical & Database Systems Test 1',
       category: 'IndiaBIX',
       courseSlug: 'indiabix-test-series',
       description: 'IndiaBIX Java & SQL Test 1: 15 questions covering JVM Heap vs Stack, Java Collections, SQL Joins, 3NF Normalization, ACID Transactions, and Indexing. (Score out of 30, 2 marks per question)',
@@ -3027,6 +3029,26 @@ async function main() {
       timePerQuestion: 60,
       marksPerQuestion: 2,
       questions: indiaBixJavaDb1Questions,
+    },
+    {
+      title: 'IndiaBIX Technical & CS Engineering Test 2',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Technical CS Test 2: 21 questions covering Java ConcurrentHashMap/Streams, C++ Smart Pointers/STL, C# Async/Boxing, DBMS Isolation/BCNF, JS Microtasks/Closures, CN TCP/Subnetting, and OS Deadlocks/Belady. (Score out of 42, 2 marks per question)',
+      totalQuestions: 21,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixTechnical2Questions,
+    },
+    {
+      title: 'IndiaBIX Core Technical & Software Test 3',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Technical Software Test 3: 21 questions covering Java Exception/String Pool, C++ Rvalue/Virtual Inheritance, C# LINQ/GC Gens, DBMS WAL/Indexes, JS Arrow/Promises, CN DNS/HTTP2, and OS SRTF/Shared Memory. (Score out of 42, 2 marks per question)',
+      totalQuestions: 21,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixTechnical3Questions,
     },
   ];
 
