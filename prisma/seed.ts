@@ -25,6 +25,12 @@ import {
   indiaBixDbms1Questions,
   indiaBixCn1Questions,
   indiaBixOsSdlc1Questions,
+  indiaBixQuant3Questions,
+  indiaBixQuant4Questions,
+  indiaBixReasoning2Questions,
+  indiaBixVerbal2Questions,
+  indiaBixDataInterp1Questions,
+  indiaBixAptitudeGrandQuestions,
 } from './indiabix_test_series_data.js';
 
 const prisma = new PrismaClient();
@@ -2717,9 +2723,9 @@ async function main() {
       title: 'IndiaBIX Placement Exam Test Series 2026',
       slug: 'indiabix-test-series',
       category: 'IndiaBIX',
-      badge: '10 Complete Tests',
+      badge: '16 Complete Tests',
       icon: 'Award',
-      description: 'Comprehensive IndiaBIX placement preparation series featuring 10 dedicated subject tests (15 questions each) covering Quant, Data Interpretation, Logical Reasoning, Verbal English, C/C++, Java OOPs, C# .NET, DBMS SQL, Computer Networks, and Operating Systems (OS) & SDLC.',
+      description: 'Comprehensive IndiaBIX placement preparation series featuring 16 dedicated subject tests (15 questions each) covering Quantitative Aptitude, Speed Math, Data Interpretation, Logical Reasoning, Verbal English, C/C++, Java OOPs, C# .NET, DBMS SQL, Computer Networks, Operating Systems (OS), and SDLC.',
     },
   ];
 
@@ -3072,6 +3078,66 @@ async function main() {
       marksPerQuestion: 2,
       questions: indiaBixOsSdlc1Questions,
     },
+    {
+      title: 'IndiaBIX Quantitative Aptitude Test 11',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Quantitative Aptitude Test 11: 15 questions covering HCF & LCM, Profit & Loss, Simple & Compound Interest, Ratio & Proportion, Averages, Pipes & Cisterns, Speed & Distance, Mixtures, and Probability. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixQuant3Questions,
+    },
+    {
+      title: 'IndiaBIX Advanced Quant & Speed Math Test 12',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Advanced Quant & Speed Math Test 12: 15 questions covering Permutations & Combinations, Clocks, Calendars, Indices & Surds, Boats & Streams, Logarithms, Races, Heights & Distances, Chain Rule, Number Theory, and Calculus. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixQuant4Questions,
+    },
+    {
+      title: 'IndiaBIX Logical & Analytical Reasoning Test 13',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Logical Reasoning Test 13: 15 questions covering Ranking & Ordering, Coding-Decoding, Direction Sense, Syllogisms, Prime Series, Blood Relations, Arguments, Seating Arrangement, Cube Puzzles, and Letter Series. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixReasoning2Questions,
+    },
+    {
+      title: 'IndiaBIX Verbal Ability & Reading Comprehension Test 14',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Verbal Ability & English Test 14: 15 questions covering Synonyms, Antonyms, Error Spotting, Idioms & Phrases, Prepositions, One Word Substitution, Active/Passive Voice, Sentence Correction, and Analogies. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixVerbal2Questions,
+    },
+    {
+      title: 'IndiaBIX Data Interpretation & Charts Test 15',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Data Interpretation Test 15: 15 questions covering Pie Charts, Line Graphs, Bar Charts, Table DI, Venn Diagrams, Growth Rates, Cumulative Frequency, and Data Sufficiency. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixDataInterp1Questions,
+    },
+    {
+      title: 'IndiaBIX Grand Speed Aptitude Test 16',
+      category: 'IndiaBIX',
+      courseSlug: 'indiabix-test-series',
+      description: 'IndiaBIX Grand Speed Aptitude Test 16: 15 questions covering Unit Digits, Relative Speed, Algebraic Identities, Syllogisms, Simple Interest Ratios, Permutations, Markups, Probability, Coding, and Work-Time. (Score out of 30, 2 marks per question)',
+      totalQuestions: 15,
+      timePerQuestion: 60,
+      marksPerQuestion: 2,
+      questions: indiaBixAptitudeGrandQuestions,
+    },
   ];
 
   // Ensure tests exist and questions are safely upserted without purging attempts
@@ -3106,6 +3172,15 @@ async function main() {
           courseId: courseId,
         }
       });
+    }
+
+    const existingCount = await prisma.question.count({
+      where: { testId: test.id }
+    });
+
+    if (existingCount === tDef.questions.length) {
+      console.log(`✅ ${tDef.questions.length} questions already seeded for "${test.title}" [${test.category}]`);
+      continue;
     }
 
     // Upsert questions safely with randomized option positions in parallel

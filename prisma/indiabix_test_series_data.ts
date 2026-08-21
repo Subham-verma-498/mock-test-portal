@@ -1574,6 +1574,943 @@ export const indiaBixOsSdlc1Questions: QuestionDef[] = [
   }
 ];
 
+
+// -------------------------------------------------------------
+// Test 11: IndiaBIX Quantitative Aptitude Test 11 (15 Questions)
+// -------------------------------------------------------------
+export const indiaBixQuant3Questions: QuestionDef[] = [
+  {
+    questionText: "The HCF of two numbers is 11 and their LCM is 693. If one of the numbers is 77, find the other number.",
+    optionA: "99",
+    optionB: "88",
+    optionC: "110",
+    optionD: "121",
+    correctOption: "A",
+    topicTag: "HCF & LCM",
+    explanation: "Formula: Product of two numbers = HCF * LCM. Therefore, 77 * N = 11 * 693 => N = (11 * 693) / 77 = 693 / 7 = 99."
+  },
+  {
+    questionText: "By selling a watch for $1,440, a shopkeeper loses 10%. At what price should he sell it to gain 15%?",
+    optionA: "$1,840",
+    optionB: "$1,680",
+    optionC: "$1,750",
+    optionD: "$1,920",
+    correctOption: "A",
+    topicTag: "Profit & Loss",
+    explanation: "Let Cost Price = CP. SP = 90% of CP = $1,440 => CP = 1,440 / 0.90 = $1,600. To gain 15%, Target SP = 115% of $1,600 = 1.15 * 1600 = $1,840."
+  },
+  {
+    questionText: "A sum of $12,500 amounts to $15,500 in 4 years at simple interest. What is the rate of interest per annum?",
+    optionA: "6%",
+    optionB: "5%",
+    optionC: "7.5%",
+    optionD: "8%",
+    correctOption: "A",
+    topicTag: "Simple Interest",
+    explanation: "Total Simple Interest SI = $15,500 - $12,500 = $3,000. SI = (P * R * T) / 100 => 3000 = (12500 * R * 4) / 100 => 3000 = 500 * R => R = 6%."
+  },
+  {
+    questionText: "If the ratio of the areas of two squares is 16 : 25, what is the ratio of their perimeters?",
+    optionA: "4 : 5",
+    optionB: "16 : 25",
+    optionC: "2 : 5",
+    optionD: "8 : 15",
+    correctOption: "A",
+    topicTag: "Ratio & Proportion",
+    explanation: "Ratio of side lengths = sqrt(16/25) = 4/5. Since Perimeter = 4 * side, the ratio of perimeters is also 4 : 5."
+  },
+  {
+    questionText: "The average weight of 8 men is increased by 1.5 kg when a new man comes in place of one of them who weighs 65 kg. What is the weight of the new man?",
+    optionA: "77 kg",
+    optionB: "75 kg",
+    optionC: "80 kg",
+    optionD: "72 kg",
+    correctOption: "A",
+    topicTag: "Averages",
+    explanation: "Total weight increase = 8 * 1.5 kg = 12 kg. Weight of new man = Weight of replaced man + Total increase = 65 + 12 = 77 kg."
+  },
+  {
+    questionText: "A tap can fill a tank in 4 hours while another drain tap can empty it in 9 hours. If both taps are opened together, how long will it take to fill the tank?",
+    optionA: "7.2 hours",
+    optionB: "6.5 hours",
+    optionC: "8 hours",
+    optionD: "5.4 hours",
+    correctOption: "A",
+    topicTag: "Pipes & Cisterns",
+    explanation: "Net filling rate per hour = 1/4 - 1/9 = (9 - 4) / 36 = 5/36. Time required = 36 / 5 = 7.2 hours (7 hours 12 mins)."
+  },
+  {
+    questionText: "In how many years will a sum of $800 produce $168 as compound interest at 10% per annum compounded annually?",
+    optionA: "2 years",
+    optionB: "3 years",
+    optionC: "1.5 years",
+    optionD: "2.5 years",
+    correctOption: "A",
+    topicTag: "Compound Interest",
+    explanation: "Amount A = 800 + 168 = $968. A = P(1 + R/100)^t => 968 = 800(1.10)^t => 1.21 = (1.10)^t => (1.10)^2 = (1.10)^t => t = 2 years."
+  },
+  {
+    questionText: "Two pipes A and B can fill a cistern in 20 and 30 minutes respectively. If both pipes are opened together, after how many minutes should B be turned off so that the cistern is full in 16 minutes?",
+    optionA: "6 minutes",
+    optionB: "8 minutes",
+    optionC: "10 minutes",
+    optionD: "5 minutes",
+    correctOption: "A",
+    topicTag: "Pipes & Cisterns",
+    explanation: "Pipe A runs for all 16 minutes. Work done by A = 16 / 20 = 4/5. Remaining work for B = 1 - 4/5 = 1/5. B fills 1/30 per minute. Time for B = (1/5) / (1/30) = 6 minutes."
+  },
+  {
+    questionText: "A person travels from A to B at 40 km/h and returns from B to A at 60 km/h. What is his average speed for the entire journey?",
+    optionA: "48 km/h",
+    optionB: "50 km/h",
+    optionC: "45 km/h",
+    optionD: "52 km/h",
+    correctOption: "A",
+    topicTag: "Speed & Distance",
+    explanation: "Average speed for equal distance = (2 * v1 * v2) / (v1 + v2) = (2 * 40 * 60) / (40 + 60) = 4800 / 100 = 48 km/h."
+  },
+  {
+    questionText: "Find the compound interest on $16,000 for 9 months at 20% per annum compounded quarterly.",
+    optionA: "$2,522",
+    optionB: "$2,400",
+    optionC: "$2,600",
+    optionD: "$2,480",
+    correctOption: "A",
+    topicTag: "Compound Interest",
+    explanation: "Quarterly rate r = 20% / 4 = 5%. Number of quarters t = 9 / 3 = 3 quarters. Amount = 16000 * (1.05)^3 = 16000 * 1.157625 = $18,522. CI = 18522 - 16000 = $2,522."
+  },
+  {
+    questionText: "A dishonest dealer professes to sell his goods at cost price but uses a weight of 900 grams for a 1 kg weight. Find his gain percentage.",
+    optionA: "11.11%",
+    optionB: "10%",
+    optionC: "12.5%",
+    optionD: "9.09%",
+    correctOption: "A",
+    topicTag: "Profit & Loss",
+    explanation: "Error = 1000g - 900g = 100g. Gain % = [Error / (True Weight - Error)] * 100% = (100 / 900) * 100% = 11.11%."
+  },
+  {
+    questionText: "A train running at 54 km/h crosses a 200m long platform in 30 seconds. What is the length of the train?",
+    optionA: "250 meters",
+    optionB: "220 meters",
+    optionC: "300 meters",
+    optionD: "180 meters",
+    correctOption: "A",
+    topicTag: "Speed & Distance",
+    explanation: "Speed in m/s = 54 * (5/18) = 15 m/s. Total distance in 30s = 15 * 30 = 450m. Length of train = 450 - 200 = 250 meters."
+  },
+  {
+    questionText: "The perimeter of a rectangular field is 480 meters and the ratio between its length and breadth is 5 : 3. Find its area.",
+    optionA: "13,500 sq m",
+    optionB: "14,400 sq m",
+    optionC: "12,000 sq m",
+    optionD: "15,000 sq m",
+    correctOption: "A",
+    topicTag: "Mensuration",
+    explanation: "Perimeter = 2(l + b) = 480 => l + b = 240. 5x + 3x = 240 => 8x = 240 => x = 30. Length l = 150m, Breadth b = 90m. Area = 150 * 90 = 13,500 sq m."
+  },
+  {
+    questionText: "A jar contains a mixture of milk and water in the ratio 4 : 1. When 10 liters of mixture is replaced with 10 liters of water, the ratio becomes 2 : 3. Find initial volume of milk.",
+    optionA: "16 liters",
+    optionB: "20 liters",
+    optionC: "24 liters",
+    optionD: "12 liters",
+    correctOption: "A",
+    topicTag: "Alligation & Mixture",
+    explanation: "Let initial total volume = V. Initial milk = (4/5)V. 10L removed contains 8L milk. Remaining milk = (4/5)V - 8. New ratio milk = 2/5 of V => (4/5)V - 8 = (2/5)V => (2/5)V = 8 => V = 20L. Initial milk = 4/5 * 20 = 16 liters."
+  },
+  {
+    questionText: "What is the probability of choosing a prime number from integers between 1 and 20 (inclusive)?",
+    optionA: "2 / 5",
+    optionB: "3 / 10",
+    optionC: "1 / 2",
+    optionD: "7 / 20",
+    correctOption: "A",
+    topicTag: "Probability",
+    explanation: "Prime numbers between 1 and 20: 2, 3, 5, 7, 11, 13, 17, 19 (8 prime numbers). Probability = 8 / 20 = 2 / 5."
+  }
+];
+
+// -------------------------------------------------------------
+// Test 12: IndiaBIX Advanced Quant & Speed Math Test 12 (15 Questions)
+// -------------------------------------------------------------
+export const indiaBixQuant4Questions: QuestionDef[] = [
+  {
+    questionText: "In how many ways can 5 boys and 4 girls be seated in a row so that all the girls sit together?",
+    optionA: "17,280",
+    optionB: "14,400",
+    optionC: "2,880",
+    optionD: "40,320",
+    correctOption: "A",
+    topicTag: "Permutations",
+    explanation: "Treat 4 girls as 1 single block. Total items to arrange = 5 boys + 1 block = 6 items. Arranged in 6! = 720 ways. Girls inside block arrange in 4! = 24 ways. Total = 720 * 24 = 17,280."
+  },
+  {
+    questionText: "What is the angle between the hour hand and minute hand at 4:20 PM?",
+    optionA: "10 degrees",
+    optionB: "0 degrees",
+    optionC: "15 degrees",
+    optionD: "20 degrees",
+    correctOption: "A",
+    topicTag: "Clocks",
+    explanation: "Angle = |30H - 5.5M| = |30(4) - 5.5(20)| = |120 - 110| = 10 degrees."
+  },
+  {
+    questionText: "If 1st January 2024 was a Monday, what day of the week was 1st January 2025?",
+    optionA: "Wednesday",
+    optionB: "Tuesday",
+    optionC: "Thursday",
+    optionD: "Sunday",
+    correctOption: "A",
+    topicTag: "Calendars",
+    explanation: "2024 is a leap year (366 days), which has 2 odd days. Monday + 2 odd days = Wednesday."
+  },
+  {
+    questionText: "Simplify the expression: (0.04)^(-1.5).",
+    optionA: "125",
+    optionB: "25",
+    optionC: "625",
+    optionD: "5",
+    correctOption: "A",
+    topicTag: "Indices & Surds",
+    explanation: "0.04 = 4/100 = 1/25 = 5^(-2). Therefore (5^-2)^(-1.5) = 5^(3) = 125."
+  },
+  {
+    questionText: "A boat travels 24 km upstream and 36 km downstream in 6 hours. It can also travel 36 km upstream and 24 km downstream in 6.5 hours. Find the speed of current.",
+    optionA: "2 km/h",
+    optionB: "3 km/h",
+    optionC: "4 km/h",
+    optionD: "1.5 km/h",
+    correctOption: "A",
+    topicTag: "Boats & Streams",
+    explanation: "Let upstream speed = u, downstream speed = d. 24/u + 36/d = 6 and 36/u + 24/d = 6.5. Solving gives u = 8 km/h and d = 12 km/h. Speed of current = (d - u)/2 = (12 - 8)/2 = 2 km/h."
+  },
+  {
+    questionText: "If log10 2 = 0.3010, what is the number of digits in 2^50?",
+    optionA: "16",
+    optionB: "15",
+    optionC: "17",
+    optionD: "14",
+    correctOption: "A",
+    topicTag: "Logarithms",
+    explanation: "log10(2^50) = 50 * log10(2) = 50 * 0.3010 = 15.05. Number of digits = floor(15.05) + 1 = 15 + 1 = 16."
+  },
+  {
+    questionText: "In a 500m race, A beats B by 45m or 9 seconds. What is A's time to complete the race?",
+    optionA: "91 seconds",
+    optionB: "100 seconds",
+    optionC: "85 seconds",
+    optionD: "95 seconds",
+    correctOption: "A",
+    topicTag: "Races & Games",
+    explanation: "B covers 45m in 9 seconds => B's speed = 45 / 9 = 5 m/s. B's total time for 500m = 500 / 5 = 100s. Since A beats B by 9s, A's time = 100 - 9 = 91 seconds."
+  },
+  {
+    questionText: "A pole broken by the wind touches the ground at an angle of 30 degrees at a distance of 10 sqrt(3) meters from its foot. What was the original height of the pole?",
+    optionA: "30 meters",
+    optionB: "20 meters",
+    optionC: "25 meters",
+    optionD: "35 meters",
+    correctOption: "A",
+    topicTag: "Heights & Distances",
+    explanation: "tan(30) = h / (10 sqrt(3)) => h = 10m. cos(30) = (10 sqrt(3)) / hypotenuse => hypotenuse = 20m. Original height = 10 + 20 = 30 meters."
+  },
+  {
+    questionText: "What single discount is equivalent to successive discounts of 30%, 20%, and 10%?",
+    optionA: "49.6%",
+    optionB: "60%",
+    optionC: "50%",
+    optionD: "45.2%",
+    correctOption: "A",
+    topicTag: "Discount",
+    explanation: "Final multiplier = (0.70) * (0.80) * (0.90) = 0.504. Equivalent discount = (1 - 0.504) * 100% = 49.6%."
+  },
+  {
+    questionText: "If 12 workers can build a wall of 60 meters in 8 days, how many meters of wall can 16 workers build in 6 days?",
+    optionA: "60 meters",
+    optionB: "72 meters",
+    optionC: "50 meters",
+    optionD: "80 meters",
+    correctOption: "A",
+    topicTag: "Chain Rule",
+    explanation: "(M1 * D1) / W1 = (M2 * D2) / W2 => (12 * 8) / 60 = (16 * 6) / W2 => 96 / 60 = 96 / W2 => W2 = 60 meters."
+  },
+  {
+    questionText: "Find the remainder when 2^31 is divided by 5.",
+    optionA: "3",
+    optionB: "2",
+    optionC: "1",
+    optionD: "4",
+    correctOption: "A",
+    topicTag: "Number Theory",
+    explanation: "2^1=2, 2^2=4, 2^3=8≡3, 2^4=16≡1 (mod 5). 31 = 4*7 + 3. 2^31 ≡ (2^4)^7 * 2^3 ≡ 1^7 * 8 ≡ 3 (mod 5)."
+  },
+  {
+    questionText: "Three coins are tossed simultaneously. What is the probability of getting at least two heads?",
+    optionA: "1 / 2",
+    optionB: "3 / 8",
+    optionC: "5 / 8",
+    optionD: "3 / 4",
+    correctOption: "A",
+    topicTag: "Probability",
+    explanation: "Total outcomes = 8. Favorable outcomes (HHH, HHT, HTH, THH) = 4 outcomes. Probability = 4 / 8 = 1 / 2."
+  },
+  {
+    questionText: "A solid metallic sphere of radius 6 cm is melted and recast into small spheres of radius 2 cm each. How many small spheres are formed?",
+    optionA: "27",
+    optionB: "18",
+    optionC: "9",
+    optionD: "36",
+    correctOption: "A",
+    topicTag: "Mensuration",
+    explanation: "Number of spheres = Volume of big sphere / Volume of small sphere = (4/3 pi 6^3) / (4/3 pi 2^3) = (6/2)^3 = 3^3 = 27."
+  },
+  {
+    questionText: "The average score of a bowler is 12.4 runs per wicket. In his next match he takes 5 wickets for 26 runs, thereby decreasing his average by 0.4. Number of wickets taken prior to this match:",
+    optionA: "85",
+    optionB: "80",
+    optionC: "90",
+    optionD: "75",
+    correctOption: "A",
+    topicTag: "Alligation & Mixture",
+    explanation: "Let previous wickets = n. Total runs = 12.4n + 26. New average = 12.0 for (n + 5) wickets. 12.4n + 26 = 12(n + 5) => 0.4n = 34 => n = 85 wickets."
+  },
+  {
+    questionText: "Find the derivative of f(x) = x^3 - 3x^2 + 5x - 7 evaluated at x = 2.",
+    optionA: "5",
+    optionB: "3",
+    optionC: "7",
+    optionD: "1",
+    correctOption: "A",
+    topicTag: "Calculus",
+    explanation: "f'(x) = 3x^2 - 6x + 5. Evaluating at x = 2: f'(2) = 3(4) - 6(2) + 5 = 12 - 12 + 5 = 5."
+  }
+];
+
+// -------------------------------------------------------------
+// Test 13: IndiaBIX Logical & Analytical Reasoning Test 13 (15 Questions)
+// -------------------------------------------------------------
+export const indiaBixReasoning2Questions: QuestionDef[] = [
+  {
+    questionText: "In a row of 40 boys, R is 14th from the left end and S is 18th from the right end. How many boys are there between R and S?",
+    optionA: "8",
+    optionB: "7",
+    optionC: "9",
+    optionD: "10",
+    correctOption: "A",
+    topicTag: "Ranking & Ordering",
+    explanation: "Sum of positions from ends = 14 + 18 = 32. Since 32 < 40, boys between them = 40 - 32 = 8 boys."
+  },
+  {
+    questionText: "If 'FLOWER' is coded as 'UOLDVI', how will 'GARDEN' be coded in that same system?",
+    optionA: "TZIVVM",
+    optionB: "TZIWVM",
+    optionC: "TZIUVM",
+    optionD: "TZIVUN",
+    correctOption: "A",
+    topicTag: "Coding Decoding",
+    explanation: "Opposite alphabet pair coding (A<->Z, B<->Y, etc.): G->T, A->Z, R->I, D->V, E->V, N->M => TZIVVM."
+  },
+  {
+    questionText: "A person travels 7 km South, turns left and walks 5 km, then turns left and walks 7 km. How far and in which direction is he from the starting point?",
+    optionA: "5 km East",
+    optionB: "5 km West",
+    optionC: "7 km East",
+    optionD: "14 km South",
+    correctOption: "A",
+    topicTag: "Direction Sense",
+    explanation: "South -7, East +5, North +7. Net position = 5 km East."
+  },
+  {
+    questionText: "Statements: All laptops are screens. Some screens are LED. Conclusions: I. Some laptops are LED. II. No laptop is LED.",
+    optionA: "Either I or II follows",
+    optionB: "Only I follows",
+    optionC: "Only II follows",
+    optionD: "Neither I nor II follows",
+    correctOption: "A",
+    topicTag: "Syllogisms",
+    explanation: "Complementary pair (Some + No) between same subjects (laptops and LED) forms an Either/Or relation."
+  },
+  {
+    questionText: "Find the missing term in the series: 4, 9, 25, 49, 121, 169, ?",
+    optionA: "289",
+    optionB: "225",
+    optionC: "196",
+    optionD: "256",
+    correctOption: "A",
+    topicTag: "Series Completion",
+    explanation: "Sequence of squares of prime numbers: 2^2, 3^2, 5^2, 7^2, 11^2, 13^2. Next prime is 17 => 17^2 = 289."
+  },
+  {
+    questionText: "Pointing to a man, a woman said: 'His mother is the only daughter of my father.' How is the woman related to the man?",
+    optionA: "Mother",
+    optionB: "Sister",
+    optionC: "Grandmother",
+    optionD: "Aunt",
+    correctOption: "A",
+    topicTag: "Blood Relations",
+    explanation: "'Only daughter of my father' = the woman herself. So 'His mother' = the woman. The woman is his mother."
+  },
+  {
+    questionText: "Choose the odd pair of words: (Dog : Bark), (Goat : Bleat), (Snake : Hiss), (Horse : Roar).",
+    optionA: "Horse : Roar",
+    optionB: "Dog : Bark",
+    optionC: "Goat : Bleat",
+    optionD: "Snake : Hiss",
+    correctOption: "A",
+    topicTag: "Classification",
+    explanation: "Roar is the sound of a Lion, whereas Horses Neigh."
+  },
+  {
+    questionText: "Statements: High oil prices have led to inflation. Argument I: Government should reduce import taxes on crude oil. Argument II: Citizens should stop buying vehicles.",
+    optionA: "Only Argument I is strong",
+    optionB: "Only Argument II is strong",
+    optionC: "Both I and II are strong",
+    optionD: "Neither argument is strong",
+    correctOption: "A",
+    topicTag: "Statement & Arguments",
+    explanation: "Reducing import taxes directly mitigates fuel inflation (strong). Stopping buying vehicles completely is impractical and extreme (weak)."
+  },
+  {
+    questionText: "What day was on 26th January 1950 (Republic Day of India)?",
+    optionA: "Thursday",
+    optionB: "Friday",
+    optionC: "Wednesday",
+    optionD: "Tuesday",
+    correctOption: "A",
+    topicTag: "Calendars",
+    explanation: "Odd days calculation till 26 Jan 1950 yields 4 odd days, corresponding to Thursday."
+  },
+  {
+    questionText: "If A + B means A is the father of B; A - B means A is the sister of B; A * B means A is the brother of B. Which option indicates P is the uncle of Q?",
+    optionA: "P * R + Q",
+    optionB: "P + R * Q",
+    optionC: "P - R + Q",
+    optionD: "P * R - Q",
+    correctOption: "A",
+    topicTag: "Coded Blood Relations",
+    explanation: "P * R means P is brother of R. R + Q means R is father of Q. Therefore, P is father's brother (uncle) of Q."
+  },
+  {
+    questionText: "Six people P, Q, R, S, T, U are sitting in a row. T is sitting between P and S. Q is sitting next to U who is at extreme right. Who is sitting at the extreme left if P is 2nd to the left of Q?",
+    optionA: "R",
+    optionB: "S",
+    optionC: "T",
+    optionD: "P",
+    correctOption: "A",
+    topicTag: "Seating Arrangement",
+    explanation: "Positions from left to right (1 to 6): Pos 6=U, Pos 5=Q, Pos 4=P, Pos 3=T, Pos 2=S, Pos 1=R. Extreme left is R."
+  },
+  {
+    questionText: "A cube of side 4 cm is painted red on all faces and cut into 1 cm small cubes. How many small cubes have EXACTLY 2 faces painted?",
+    optionA: "24",
+    optionB: "16",
+    optionC: "8",
+    optionD: "32",
+    correctOption: "A",
+    topicTag: "Cube Puzzles",
+    explanation: "Formula for 2-face painted cubes = 12 * (n - 2), where n = 4. 12 * (4 - 2) = 12 * 2 = 24."
+  },
+  {
+    questionText: "In a certain code, 253 means 'books are old', 546 means 'man is old', 378 means 'buy good books'. Which digit stands for 'are'?",
+    optionA: "2",
+    optionB: "5",
+    optionC: "3",
+    optionD: "4",
+    correctOption: "A",
+    topicTag: "Coding Decoding",
+    explanation: "Common in 253 and 546 is 'old'=5. Common in 253 and 378 is 'books'=3. Thus in 253, 'are' must be 2."
+  },
+  {
+    questionText: "Statements: Some managers are leaders. All leaders are visionaries. Conclusions: I. Some managers are visionaries. II. All visionaries are leaders.",
+    optionA: "Only Conclusion I follows",
+    optionB: "Only Conclusion II follows",
+    optionC: "Both follow",
+    optionD: "Neither follows",
+    correctOption: "A",
+    topicTag: "Syllogisms",
+    explanation: "Managers intersect Leaders, and Leaders are inside Visionaries. So Managers intersect Visionaries (I follows). All visionaries being leaders does not necessarily follow."
+  },
+  {
+    questionText: "Which letter replaces question mark in sequence: Z, W, S, N, H, ?",
+    optionA: "A",
+    optionB: "B",
+    optionC: "C",
+    optionD: "Z",
+    correctOption: "A",
+    topicTag: "Letter Series",
+    explanation: "Reverse alphabet positions: Z(26), W(23)[-3], S(19)[-4], N(14)[-5], H(8)[-6]. Next step is -7: 8 - 7 = 1 (A)."
+  }
+];
+
+// -------------------------------------------------------------
+// Test 14: IndiaBIX Verbal Ability & Reading Comprehension Test 14 (15 Questions)
+// -------------------------------------------------------------
+export const indiaBixVerbal2Questions: QuestionDef[] = [
+  {
+    questionText: "Choose the word most nearly SYNONYMOUS to 'PRAGMATIC':",
+    optionA: "Practical",
+    optionB: "Idealistic",
+    optionC: "Theoretical",
+    optionD: "Romantic",
+    correctOption: "A",
+    topicTag: "Synonyms",
+    explanation: "'Pragmatic' means dealing with things sensibly and realistically. 'Practical' is its closest synonym."
+  },
+  {
+    questionText: "Choose the word most nearly ANTONYMOUS to 'METICULOUS':",
+    optionA: "Careless",
+    optionB: "Thorough",
+    optionC: "Precise",
+    optionD: "Diligent",
+    correctOption: "A",
+    topicTag: "Antonyms",
+    explanation: "'Meticulous' means showing great attention to detail. Its opposite is 'Careless'."
+  },
+  {
+    questionText: "Spot the error: 'He is one of those men (A) / who does not (B) / listen to any advice. (C) / No Error (D)'",
+    optionA: "Part B",
+    optionB: "Part A",
+    optionC: "Part C",
+    optionD: "Part D",
+    correctOption: "A",
+    topicTag: "Error Spotting",
+    explanation: "The relative pronoun 'who' refers to plural antecedent 'men'. Therefore, plural verb 'do not' should be used instead of 'does not'."
+  },
+  {
+    questionText: "Select the correct meaning of idiom: 'To spill the beans':",
+    optionA: "To reveal a secret prematurely",
+    optionB: "To drop food by accident",
+    optionC: "To spend money extravagantly",
+    optionD: "To create a messy situation",
+    correctOption: "A",
+    topicTag: "Idioms & Phrases",
+    explanation: "'To spill the beans' means to disclose confidential information or a secret."
+  },
+  {
+    questionText: "Fill in the blank: 'The committee members could not agree _____ the proposed policy changes.'",
+    optionA: "on",
+    optionB: "with",
+    optionC: "to",
+    optionD: "at",
+    correctOption: "A",
+    topicTag: "Prepositions",
+    explanation: "We agree 'on' a matter/topic, agree 'with' a person, and agree 'to' a proposal."
+  },
+  {
+    questionText: "One word substitution: 'A person who collects or studies stamps'",
+    optionA: "Philatelist",
+    optionB: "Numismatist",
+    optionC: "Bibliophile",
+    optionD: "Anthologist",
+    correctOption: "A",
+    topicTag: "One Word Substitution",
+    explanation: "A 'Philatelist' studies stamps. A 'Numismatist' collects coins."
+  },
+  {
+    questionText: "Choose the correctly spelled word:",
+    optionA: "Entrepreneur",
+    optionB: "Entreprenuer",
+    optionC: "Enterpreneur",
+    optionD: "Entrapreneur",
+    correctOption: "A",
+    topicTag: "Spelling Check",
+    explanation: "The correct spelling is 'Entrepreneur'."
+  },
+  {
+    questionText: "Change to Passive Voice: 'The storm destroyed several historic buildings.'",
+    optionA: "Several historic buildings were destroyed by the storm.",
+    optionB: "Several historic buildings are destroyed by storm.",
+    optionC: "The storm was destroyed by several historic buildings.",
+    optionD: "Historic buildings had been destroyed by storm.",
+    correctOption: "A",
+    topicTag: "Active Passive Voice",
+    explanation: "Simple past passive form: Subject (plural) + 'were' + past participle ('destroyed') + by object."
+  },
+  {
+    questionText: "Sentence Improvement: 'If I was you, I would accept the job offer immediately.'",
+    optionA: "If I were you",
+    optionB: "If I am you",
+    optionC: "If I had been you",
+    optionD: "No improvement required",
+    correctOption: "A",
+    topicTag: "Sentence Correction",
+    explanation: "Subjunctive mood for hypothetical conditionals requires 'were' regardless of pronoun."
+  },
+  {
+    questionText: "Complete the analogy: Doctor is to Patient as Lawyer is to _____",
+    optionA: "Client",
+    optionB: "Court",
+    optionC: "Judge",
+    optionD: "Case",
+    correctOption: "A",
+    topicTag: "Analogies",
+    explanation: "A Doctor advises a Patient; a Lawyer represents a Client."
+  },
+  {
+    questionText: "Fill in the blank: 'Despite his financial hardship, he remained _____ to his moral values.'",
+    optionA: "steadfast",
+    optionB: "wavering",
+    optionC: "dubious",
+    optionD: "fragile",
+    correctOption: "A",
+    topicTag: "Sentence Completion",
+    explanation: "'Steadfast' means firm, resolute, and unwavering in loyalty or principles."
+  },
+  {
+    questionText: "Choose the word ANTONYMOUS to 'OBSTINATE':",
+    optionA: "Flexible",
+    optionB: "Stubborn",
+    optionC: "Rigid",
+    optionD: "Dogmatic",
+    correctOption: "A",
+    topicTag: "Antonyms",
+    explanation: "'Obstinate' means stubbornly refusing to change one's opinion. 'Flexible' is its antonym."
+  },
+  {
+    questionText: "Identify the figure of speech: 'The moonlight danced across the calm ocean surface.'",
+    optionA: "Personification",
+    optionB: "Metaphor",
+    optionC: "Simile",
+    optionD: "Hyperbole",
+    correctOption: "A",
+    topicTag: "Figures of Speech",
+    explanation: "Attributing human actions ('danced') to inanimate objects ('moonlight') is Personification."
+  },
+  {
+    questionText: "Choose the word SYNONYMOUS to 'BENEVOLENT':",
+    optionA: "Generous",
+    optionB: "Malevolent",
+    optionC: "Hostile",
+    optionD: "Greedy",
+    correctOption: "A",
+    topicTag: "Synonyms",
+    explanation: "'Benevolent' means well-meaning and kindly. 'Generous' is synonymous."
+  },
+  {
+    questionText: "Rearrange into logical sentence: P: for the exam / Q: had studied / R: She / S: diligently",
+    optionA: "R Q S P",
+    optionB: "P Q R S",
+    optionC: "S R Q P",
+    optionD: "Q S R P",
+    correctOption: "A",
+    topicTag: "Ordering of Words",
+    explanation: "Logical sequence: R (She) Q (had studied) S (diligently) P (for the exam) => 'She had studied diligently for the exam.'"
+  }
+];
+
+// -------------------------------------------------------------
+// Test 15: IndiaBIX Data Interpretation & Charts Test 15 (15 Questions)
+// -------------------------------------------------------------
+export const indiaBixDataInterp1Questions: QuestionDef[] = [
+  {
+    questionText: "A company's profits over 4 years are $20M, $25M, $30M, and $40M. What is the average annual percentage increase in profit?",
+    optionA: "26.0%",
+    optionB: "25.0%",
+    optionC: "30.0%",
+    optionD: "20.0%",
+    correctOption: "A",
+    topicTag: "Data Interpretation",
+    explanation: "Increases: Y1-Y2 = 25% (5/20), Y2-Y3 = 20% (5/25), Y3-Y4 = 33.33% (10/30). Average = (25 + 20 + 33.33) / 3 = 78.33 / 3 = 26.1% ≈ 26.0%."
+  },
+  {
+    questionText: "In a pie chart representing student enrollments: Engineering = 40%, Medical = 25%, Arts = 20%, Science = 15%. What is the central angle for Engineering?",
+    optionA: "144 degrees",
+    optionB: "120 degrees",
+    optionC: "90 degrees",
+    optionD: "108 degrees",
+    correctOption: "A",
+    topicTag: "Pie Charts",
+    explanation: "Angle = Percentage * 3.6 degrees = 40 * 3.6 = 144 degrees."
+  },
+  {
+    questionText: "Refer to Pie Chart: Total students = 1,200. Medical = 25%, Arts = 20%. How many more students are in Medical than Arts?",
+    optionA: "60 students",
+    optionB: "50 students",
+    optionC: "100 students",
+    optionD: "80 students",
+    correctOption: "A",
+    topicTag: "Pie Charts",
+    explanation: "Percentage difference = 25% - 20% = 5%. Number of students = 5% of 1,200 = 0.05 * 1200 = 60 students."
+  },
+  {
+    questionText: "Line Graph: Production of cars (in thousands): 2020=50, 2021=65, 2022=80, 2023=100. What is percentage increase from 2020 to 2023?",
+    optionA: "100%",
+    optionB: "50%",
+    optionC: "80%",
+    optionD: "120%",
+    correctOption: "A",
+    topicTag: "Line Graphs",
+    explanation: "Increase = 100 - 50 = 50 thousand. Percentage increase = (50 / 50) * 100% = 100%."
+  },
+  {
+    questionText: "Bar Chart: Revenue of Company A vs Company B (in $ Millions): Company A = 120, Company B = 150. Ratio of Company A revenue to Company B revenue is:",
+    optionA: "4 : 5",
+    optionB: "5 : 4",
+    optionC: "3 : 4",
+    optionD: "2 : 3",
+    correctOption: "A",
+    topicTag: "Bar Charts",
+    explanation: "Ratio = 120 : 150 = 12 : 15 = 4 : 5."
+  },
+  {
+    questionText: "Table DI: Marks scored by 5 students in Math (max 100) and Science (max 100). Student A scored 85 in Math and 95 in Science. What is A's average percentage score?",
+    optionA: "90%",
+    optionB: "88%",
+    optionC: "92%",
+    optionD: "85%",
+    correctOption: "A",
+    topicTag: "Table DI",
+    explanation: "Total marks = 85 + 95 = 180 out of 200. Average percentage = (180 / 200) * 100% = 90%."
+  },
+  {
+    questionText: "Caselet DI: In an organization of 500 employees, 60% play Cricket, 40% play Football, and 15% play both. How many employees play NEITHER game?",
+    optionA: "75 employees",
+    optionB: "100 employees",
+    optionC: "50 employees",
+    optionD: "125 employees",
+    correctOption: "A",
+    topicTag: "Venn Diagrams",
+    explanation: "Percentage playing at least one = 60% + 40% - 15% = 85%. Neither = 100% - 85% = 15%. 15% of 500 = 75 employees."
+  },
+  {
+    questionText: "Bar Chart: Export of wheat (in tons): 2021=400, 2022=500, 2023=600. What is the ratio of exports in 2021 to total exports over all 3 years?",
+    optionA: "4 : 15",
+    optionB: "1 : 3",
+    optionC: "2 : 5",
+    optionD: "5 : 12",
+    correctOption: "A",
+    topicTag: "Bar Charts",
+    explanation: "Total exports = 400 + 500 + 600 = 1,500 tons. Ratio = 400 : 1500 = 4 : 15."
+  },
+  {
+    questionText: "Line Graph: Sales (in $k) over 4 quarters: Q1=20, Q2=30, Q3=25, Q4=45. In which quarter was the percentage growth rate highest compared to preceding quarter?",
+    optionA: "Q4",
+    optionB: "Q2",
+    optionC: "Q3",
+    optionD: "Q1",
+    correctOption: "A",
+    topicTag: "Line Graphs",
+    explanation: "Growth Q2 over Q1 = (10/20)*100 = 50%. Growth Q3 over Q2 = negative (-16.7%). Growth Q4 over Q3 = (20/25)*100 = 80%. Highest growth rate was in Q4."
+  },
+  {
+    questionText: "Table DI: Population of 3 cities in 2020 and 2023. City X: 2.0M -> 2.5M. What is the compound growth percentage of City X?",
+    optionA: "25%",
+    optionB: "20%",
+    optionC: "30%",
+    optionD: "15%",
+    correctOption: "A",
+    topicTag: "Table DI",
+    explanation: "Growth = 2.5M - 2.0M = 0.5M. Growth percentage = (0.5 / 2.0) * 100% = 25%."
+  },
+  {
+    questionText: "Pie Chart: Budget allocation: R&D = 30%, Marketing = 25%, Salaries = 35%, Operations = 10%. If total budget is $10 Million, how much is allocated to R&D and Marketing combined?",
+    optionA: "$5.5 Million",
+    optionB: "$5.0 Million",
+    optionC: "$6.0 Million",
+    optionD: "$4.5 Million",
+    correctOption: "A",
+    topicTag: "Pie Charts",
+    explanation: "Combined % = 30% + 25% = 55%. 55% of $10M = $5.5 Million."
+  },
+  {
+    questionText: "Data Sufficiency: What is the value of positive integer x? Statement I: x^2 = 36. Statement II: x is a prime number.",
+    optionA: "Statement I alone is sufficient",
+    optionB: "Statement II alone is sufficient",
+    optionC: "Both statements together are needed",
+    optionD: "Neither statement is sufficient",
+    correctOption: "A",
+    topicTag: "Data Sufficiency",
+    explanation: "Statement I: Since x is positive integer, x^2 = 36 uniquely gives x = 6. Statement I alone is sufficient."
+  },
+  {
+    questionText: "Cumulative Frequency: In an exam, 20% scored <40, 50% scored <60, 85% scored <80, 100% scored <100. What percentage scored between 60 and 80?",
+    optionA: "35%",
+    optionB: "30%",
+    optionC: "25%",
+    optionD: "40%",
+    correctOption: "A",
+    topicTag: "Data Interpretation",
+    explanation: "Percentage scoring between 60 and 80 = (% < 80) - (% < 60) = 85% - 50% = 35%."
+  },
+  {
+    questionText: "Venn Diagram: In a survey of 100 people, 70 like Tea, 60 like Coffee, and 40 like both. How many like ONLY Tea?",
+    optionA: "30 people",
+    optionB: "20 people",
+    optionC: "40 people",
+    optionD: "10 people",
+    correctOption: "A",
+    topicTag: "Venn Diagrams",
+    explanation: "Only Tea = Total Tea - Both = 70 - 40 = 30 people."
+  },
+  {
+    questionText: "Bar Chart: Number of defective units produced: Monday=12, Tuesday=18, Wednesday=15, Thursday=9, Friday=21. What is average daily defective units?",
+    optionA: "15 units",
+    optionB: "16 units",
+    optionC: "14 units",
+    optionD: "18 units",
+    correctOption: "A",
+    topicTag: "Bar Charts",
+    explanation: "Total defectives = 12 + 18 + 15 + 9 + 21 = 75 units. Average = 75 / 5 = 15 units."
+  }
+];
+
+// -------------------------------------------------------------
+// Test 16: IndiaBIX Grand Speed Aptitude Test 16 (15 Questions)
+// -------------------------------------------------------------
+export const indiaBixAptitudeGrandQuestions: QuestionDef[] = [
+  {
+    questionText: "What is the unit digit of 7^95 - 3^58?",
+    optionA: "4",
+    optionB: "0",
+    optionC: "6",
+    optionD: "2",
+    correctOption: "A",
+    topicTag: "Number Theory",
+    explanation: "Cyclicity of 7 is 4: 95 mod 4 = 3 => 7^3 ends in 3. Cyclicity of 3 is 4: 58 mod 4 = 2 => 3^2 ends in 9. Unit digit = (13 - 9) = 4."
+  },
+  {
+    questionText: "A person covers a distance in 40 minutes at 45 km/h. At what speed must he drive to cover the same distance in 30 minutes?",
+    optionA: "60 km/h",
+    optionB: "55 km/h",
+    optionC: "50 km/h",
+    optionD: "65 km/h",
+    correctOption: "A",
+    topicTag: "Speed & Distance",
+    explanation: "Distance = 45 * (40/60) = 30 km. Required speed = 30 / (30/60) = 60 km/h."
+  },
+  {
+    questionText: "If x + 1/x = 4, what is the value of x^3 + 1/x^3?",
+    optionA: "52",
+    optionB: "64",
+    optionC: "48",
+    optionD: "56",
+    correctOption: "A",
+    topicTag: "Algebra",
+    explanation: "Formula: x^3 + 1/x^3 = k^3 - 3k. With k = 4: 4^3 - 3(4) = 64 - 12 = 52."
+  },
+  {
+    questionText: "Statements: All cars are vehicles. All vehicles have wheels. Conclusions: I. All cars have wheels. II. Some vehicles are cars.",
+    optionA: "Both I and II follow",
+    optionB: "Only I follows",
+    optionC: "Only II follows",
+    optionD: "Neither follows",
+    correctOption: "A",
+    topicTag: "Syllogisms",
+    explanation: "Cars ⊂ Vehicles ⊂ Wheels. Thus, All cars have wheels (I follows) and Some vehicles are cars (II follows)."
+  },
+  {
+    questionText: "A train 300m long passes a man walking at 6 km/h in the same direction in 18 seconds. Find the speed of the train.",
+    optionA: "66 km/h",
+    optionB: "60 km/h",
+    optionC: "72 km/h",
+    optionD: "54 km/h",
+    correctOption: "A",
+    topicTag: "Speed & Distance",
+    explanation: "Relative speed = 300 / 18 = 50/3 m/s = (50/3) * (18/5) = 60 km/h. Since walking in same direction: Vt - 6 = 60 => Vt = 66 km/h."
+  },
+  {
+    questionText: "If the ratio of principal to simple interest for 5 years is 5 : 2, what is the rate of interest per annum?",
+    optionA: "8%",
+    optionB: "10%",
+    optionC: "6%",
+    optionD: "12%",
+    correctOption: "A",
+    topicTag: "Simple Interest",
+    explanation: "P = 5x, SI = 2x over T = 5 years. SI = (P * R * T) / 100 => 2x = (5x * R * 5) / 100 => 2x = (25x * R) / 100 => R = 200 / 25 = 8%."
+  },
+  {
+    questionText: "In how many different ways can the letters of the word 'OPTICAL' be arranged so that the vowels never come together?",
+    optionA: "4,320",
+    optionB: "5,040",
+    optionC: "1,440",
+    optionD: "3,600",
+    correctOption: "A",
+    topicTag: "Permutations",
+    explanation: "Total arrangements = 7! = 5,040. Vowels (O, I, A) together = 5! * 3! = 120 * 6 = 720. Vowels NEVER together = 5,040 - 720 = 4,320."
+  },
+  {
+    questionText: "Find the odd number out in the series: 1, 8, 27, 64, 124, 216, 343.",
+    optionA: "124",
+    optionB: "64",
+    optionC: "216",
+    optionD: "27",
+    correctOption: "A",
+    topicTag: "Odd One Out",
+    explanation: "The terms are perfect cubes: 1^3, 2^3, 3^3, 4^3, 5^3=125 (given 124), 6^3, 7^3. 124 is odd."
+  },
+  {
+    questionText: "A seller marks his goods 30% above cost price and allows a discount of 15% for cash payment. Find his net profit percentage.",
+    optionA: "10.5%",
+    optionB: "15%",
+    optionC: "12%",
+    optionD: "8.5%",
+    correctOption: "A",
+    topicTag: "Profit & Loss",
+    explanation: "Net profit % = x + y + (xy/100) = +30 - 15 + (30 * -15 / 100) = 15 - 4.5 = 10.5%."
+  },
+  {
+    questionText: "A clock shows 8:00 AM. Through how many degrees will the hour hand rotate when the clock shows 2:00 PM?",
+    optionA: "180 degrees",
+    optionB: "150 degrees",
+    optionC: "210 degrees",
+    optionD: "120 degrees",
+    correctOption: "A",
+    topicTag: "Clocks",
+    explanation: "Time duration from 8:00 AM to 2:00 PM = 6 hours. Hour hand rotates 30 degrees per hour. Total rotation = 6 * 30 = 180 degrees."
+  },
+  {
+    questionText: "A card is drawn from a well-shuffled deck of 52 cards. What is the probability that it is either a King or a Heart?",
+    optionA: "4 / 13",
+    optionB: "1 / 4",
+    optionC: "17 / 52",
+    optionD: "9 / 26",
+    correctOption: "A",
+    topicTag: "Probability",
+    explanation: "P(King) = 4/52, P(Heart) = 13/52, P(King and Heart) = 1/52. P(King or Heart) = (4 + 13 - 1)/52 = 16/52 = 4/13."
+  },
+  {
+    questionText: "If 'POND' is coded as 'RSTI', how is 'HEAR' coded in that same system?",
+    optionA: "JIGW",
+    optionB: "JGHW",
+    optionC: "JKGW",
+    optionD: "JIGV",
+    correctOption: "A",
+    topicTag: "Coding Decoding",
+    explanation: "P(+2)->R, O(+4)->S, N(+6)->T, D(+5)->I... H(+2)->J, E(+4)->I, A(+6)->G, R(+5)->W => JIGW."
+  },
+  {
+    questionText: "What is the area of a circle inscribed in a square of side 14 cm?",
+    optionA: "154 sq cm",
+    optionB: "196 sq cm",
+    optionC: "144 sq cm",
+    optionD: "176 sq cm",
+    correctOption: "A",
+    topicTag: "Mensuration",
+    explanation: "Diameter of inscribed circle = side of square = 14 cm => radius r = 7 cm. Area = pi * r^2 = (22/7) * 49 = 154 sq cm."
+  },
+  {
+    questionText: "A and B working together can finish a job in 12 days. A alone can finish it in 20 days. How many days will B alone take to finish the job?",
+    optionA: "30 days",
+    optionB: "25 days",
+    optionC: "35 days",
+    optionD: "40 days",
+    correctOption: "A",
+    topicTag: "Time & Work",
+    explanation: "B's rate = 1/12 - 1/20 = (5 - 3) / 60 = 2 / 60 = 1/30. B takes 30 days."
+  },
+  {
+    questionText: "Two numbers are in the ratio 4 : 5 and their LCM is 180. Find the smaller number.",
+    optionA: "36",
+    optionB: "45",
+    optionC: "27",
+    optionD: "54",
+    correctOption: "A",
+    topicTag: "HCF & LCM",
+    explanation: "Let numbers be 4x and 5x. LCM = 20x = 180 => x = 9. Smaller number = 4 * 9 = 36."
+  }
+];
+
 // Aliases for backward compatibility in imports
 export const indiaBixAptitude1Questions = indiaBixQuant1Questions;
 export const indiaBixAptitude2Questions = indiaBixQuant2Questions;
